@@ -10,4 +10,5 @@ path('parkdetails', views.parkdetails, name='parkdetails'),
 path('similarusers', views.similarusers, name='similarusers'),
 path('social', views.social, name='social'),
 path('sportrec', views.sportrec, name='sportrec'),
+path('weather', views.weather, name='weather'),
 ]

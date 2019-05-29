@@ -69,10 +69,13 @@ def freeweight(request):
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_FREEWEIGHT_EXERCISES",
     }
+    return HttpResponse(template.render(context, request))
 
-def freeweight(request):
+
+def groupfitness(request):
     template = loader.get_template('park_displays_app/index.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_OUTDOOR_FITNESS",
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_groupfitness",
     }
     return HttpResponse(template.render(context, request))
+

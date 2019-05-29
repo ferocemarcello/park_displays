@@ -11,4 +11,8 @@ path('similarusers', views.similarusers, name='similarusers'),
 path('social', views.social, name='social'),
 path('sportrec', views.sportrec, name='sportrec'),
 path('weather', views.weather, name='weather'),
+path('outdoorgym', views.outdoorgym, name='outdoorgym'),
+path('runwalk', views.runwalk, name='runwalk'),
+path('freeweight', views.freeweight, name='freeweight'),
+path('groupfitness', views.groupfitness, name='groupfitness'),
 ]

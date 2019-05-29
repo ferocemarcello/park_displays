@@ -56,10 +56,13 @@ def similarusers(request):
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
-    #gymselectionmulticheck = CheckMultiCheckBox(gymchoices=['a','b','c','d'])
+    choices=[('a','a'), ('b','b'),('c','c'),('d','d')]
+    gymselectionmulticheck = CheckMultiCheckBox("Select Gym tools to show")
+    gymselectionmulticheck.fields['gymselection'].choices = choices
+    gymselectionmulticheck.fields['gymselection'].initial = choices
     template = loader.get_template('park_displays_app/outdoorgym.html')
     context = {
-        #'checkboxes': gymselectionmulticheck,
+        'checkboxes': gymselectionmulticheck,
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_OUTDOOR_GYM",
     }
     return HttpResponse(template.render(context, request))

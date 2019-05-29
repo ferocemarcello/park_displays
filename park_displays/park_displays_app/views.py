@@ -4,6 +4,9 @@ from django.template import loader
 
 
 # Create your views here.
+from .forms import CheckMultiCheckBox
+
+
 def index(request):
     template = loader.get_template('park_displays_app/index.html')
     context = {
@@ -53,8 +56,10 @@ def similarusers(request):
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
-    template = loader.get_template('park_displays_app/index.html')
+    #gymselectionmulticheck = CheckMultiCheckBox(gymchoices=['a','b','c','d'])
+    template = loader.get_template('park_displays_app/outdoorgym.html')
     context = {
+        #'checkboxes': gymselectionmulticheck,
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_OUTDOOR_GYM",
     }
     return HttpResponse(template.render(context, request))

@@ -15,4 +15,6 @@ path('outdoorgym', views.outdoorgym, name='outdoorgym'),
 path('runwalk', views.runwalk, name='runwalk'),
 path('freeweight', views.freeweight, name='freeweight'),
 path('groupfitness', views.groupfitness, name='groupfitness'),
+path('findgroups', views.findgroups, name='findgroups'),
+path('grouprecommendations', views.grouprecommendations, name='grouprecommendations')
 ]

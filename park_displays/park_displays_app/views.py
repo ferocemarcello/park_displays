@@ -76,11 +76,23 @@ def freeweight(request):
     }
     return HttpResponse(template.render(context, request))
 
-
 def groupfitness(request):
-    template = loader.get_template('park_displays_app/index.html')
+    template = loader.get_template('park_displays_app/groupfitness.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_groupfitness",
     }
     return HttpResponse(template.render(context, request))
 
+def findgroups(request):
+    template = loader.get_template('park_displays_app/findgroups.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_findgroups",
+    }
+    return HttpResponse(template.render(context, request))
+
+def grouprecommendations(request):
+    template = loader.get_template('park_displays_app/grouprecommendations.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_grouprecommendations",
+    }
+    return HttpResponse(template.render(context, request))

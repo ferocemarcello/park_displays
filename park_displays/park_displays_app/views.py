@@ -85,16 +85,41 @@ def freeweight(request):
     typeselection.fields['selection'].choices = typechoices
     typeselection.fields['selection'].initial = typechoices
 
-    agechoices = [('Select Age', 'Select Age'),('18 or younger', '18 or younger'), ('19-23', '19-23'), ('24-28', '24-28'), ('29-33', '29-33'), ('34-38', '34-38'), ('39-43', '39-43'), ('44-48', '44-48'), ('49+', '49+')]
+    agechoices = [('Select Age', 'Select Age'), ('18 or younger', '18 or younger'), ('19-23', '19-23'),
+                  ('24-28', '24-28'), ('29-33', '29-33'), ('34-38', '34-38'), ('39-43', '39-43'), ('44-48', '44-48'),
+                  ('49+', '49+')]
     ageselection = Dropdown("Select Age")
     ageselection.fields['selection'].choices = agechoices
     ageselection.fields['selection'].initial = agechoices
+
+    heightchoices = [('Select Height', 'Select Height'), ('<150', '<150'), ('150-160', '150-160'),
+                  ('161-170', '161-170'), ('171-180', '171-180'), ('181-190', '181-190'), ('191-200', '191-200'), ('>200', '>200')]
+    heightselection = Dropdown("Select Height")
+    heightselection.fields['selection'].choices = heightchoices
+    heightselection.fields['selection'].initial = heightchoices
+
+    weightchoices = [('Select Weight', 'Select Weight'), ('<50', '<50'), ('50-59', '50-59'),
+                  ('60-69', '60-69'), ('70-79', '70-79'), ('80-89', '80-89'), ('90-99', '90-99'), ('100-109', '100-109'),
+                  ('>110', '>110')]
+    weightselection = Dropdown("Select Age")
+    weightselection.fields['selection'].choices = weightchoices
+    weightselection.fields['selection'].initial = weightchoices
+
+    kcalchoices = [('Select Kcal', 'Select Kcal'), ('<100', '<100'), ('100-200', '100-200'),
+                     ('200-300', '200-300'), ('300-400', '300-400'), ('400-500', '400-500'), ('500-600', '500-600'),
+                     ('600-700', '600-700'), ('>700', '>700')]
+    kcalselection = Dropdown("Select Kcal")
+    kcalselection.fields['selection'].choices = kcalchoices
+    kcalselection.fields['selection'].initial = kcalchoices
 
     template = loader.get_template('park_displays_app/freeweight.html')
     context = {
         'checkbox1': genderselection,
         'dropdown1' : ageselection,
         'checkbox2' : typeselection,
+        'dropdown2' : weightselection,
+        'dropdown3': heightselection,
+        'dropdown4': kcalselection,
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_FREEWEIGHT_EXERCISES",
     }
     return HttpResponse(template.render(context, request))

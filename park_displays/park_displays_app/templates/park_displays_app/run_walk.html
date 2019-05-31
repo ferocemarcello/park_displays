@@ -64,5 +64,9 @@ var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
     request.GET.get('value')
     return HttpResponse("success")
 }-->
+<form action='sportrec' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Get Recommendations</button>
+</form>
 </body>
 </html>

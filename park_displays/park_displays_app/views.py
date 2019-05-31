@@ -10,6 +10,7 @@ from .forms import CheckMultiCheckBox
 def index(request):
     template = loader.get_template('park_displays_app/index.html')
     context = {
+
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_INDEX",
     }
     return HttpResponse(template.render(context, request))
@@ -26,7 +27,7 @@ def weather(request):
     }
     return HttpResponse(template.render(context, request))
 def sportrec(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/recommendation.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_SPORT_REC",
     }

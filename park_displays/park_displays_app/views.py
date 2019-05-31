@@ -5,6 +5,8 @@ from django.template import loader
 
 # Create your views here.
 from .forms import CheckMultiCheckBox
+from .forms import CheckBox
+from .forms import Dropdown
 
 
 def index(request):
@@ -73,14 +75,32 @@ def runwalk(request):
     }
     return HttpResponse(template.render(context, request))
 def freeweight(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    genderchoices = [('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')]
+    genderselection = CheckBox("Select Gender")
+    genderselection.fields['selection'].choices = genderchoices
+    genderselection.fields['selection'].initial = genderchoices
+
+    typechoices = [('Strength', 'Strength'), ('Flexibility', 'Flexibility'), ('Both', 'Both')]
+    typeselection = CheckBox("Select Type")
+    typeselection.fields['selection'].choices = typechoices
+    typeselection.fields['selection'].initial = typechoices
+
+    agechoices = [('Select Age', 'Select Age'),('18 or younger', '18 or younger'), ('19-23', '19-23'), ('24-28', '24-28'), ('29-33', '29-33'), ('34-38', '34-38'), ('39-43', '39-43'), ('44-48', '44-48'), ('49+', '49+')]
+    ageselection = Dropdown("Select Age")
+    ageselection.fields['selection'].choices = agechoices
+    ageselection.fields['selection'].initial = agechoices
+
+    template = loader.get_template('park_displays_app/freeweight.html')
     context = {
+        'checkbox1': genderselection,
+        'dropdown1' : ageselection,
+        'checkbox2' : typeselection,
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_FREEWEIGHT_EXERCISES",
     }
     return HttpResponse(template.render(context, request))
 
 def groupfitness(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/groupfitness.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_groupfitness",
     }

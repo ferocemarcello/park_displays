@@ -102,6 +102,6 @@ def grouprecommendations(request):
 def startpage(request):
     template = loader.get_template('park_displays_app/startpage.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_startpage",
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_startpage_",
     }
     return HttpResponse(template.render(context, request))

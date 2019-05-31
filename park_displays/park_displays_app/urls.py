@@ -18,5 +18,7 @@ path('groupfitness', views.groupfitness, name='groupfitness'),
 path('findgroups', views.findgroups, name='findgroups'),
 path('grouprecommendations', views.grouprecommendations, name='grouprecommendations'),
 path('login', views.login, name='login'),
-path('startpage', views.startpage, name='startpage')
+path('startpage', views.startpage, name='startpage'),
+path('freeweight', views.freeweight, name='freeweight')
+
 ]

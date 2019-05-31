@@ -6,22 +6,15 @@
 </head>
 <body>
 This is the first string of the application<br>
-<form action='runwalk' method='POST'>
+<form action='login' method='POST'>
     {% csrf_token %}
-<button type='submit'> running walking</button>
+<button type='submit'>Login</button>
+    {% csrf_token %}
 </form>
-<br>
-<form action='freeweight' method='POST'>
+<form action='startpage' method='POST'>
     {% csrf_token %}
-<button type='submit'> freeweight exercises</button>
-</form>
-<form action='outdoorgym' method='POST'>
+<button type='submit'>Skip</button>
     {% csrf_token %}
-<button type='submit'> outdoor gym</button>
-</form>
-<form action='groupfitness' method='POST'>
-    {% csrf_token %}
-<button type='submit'>group fitness</button>
 </form>
 {{ context }}
 </body>

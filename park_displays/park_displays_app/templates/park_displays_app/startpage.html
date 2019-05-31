@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+<body>
+<form action='runwalk' method='POST'>
+    {% csrf_token %}
+<button type='submit'> running walking</button>
+</form>
+<br>
+<form action='freeweight' method='POST'>
+    {% csrf_token %}
+<button type='submit'> freeweight exercises</button>
+</form>
+<form action='outdoorgym' method='POST'>
+    {% csrf_token %}
+<button type='submit'> outdoor gym</button>
+</form>
+<form action='groupfitness' method='POST'>
+    {% csrf_token %}
+<button type='submit'>group fitness</button>
+</form>
+{{ context }}
+</body>
+</html>

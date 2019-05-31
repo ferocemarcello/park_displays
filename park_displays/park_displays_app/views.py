@@ -67,7 +67,7 @@ def outdoorgym(request):
     }
     return HttpResponse(template.render(context, request))
 def runwalk(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/run_walk.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_RUN_WALK",
     }

@@ -1,5 +1,5 @@
 from django import forms
-
+from django.forms.widgets import NumberInput
 
 class CheckMultiCheckBox(forms.Form):
     '''(attrs={'class' : 'form-control'})'''

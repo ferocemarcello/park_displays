@@ -19,6 +19,8 @@
                 padding: 0;
                 background-color: white;
             }
+    input[type="range"] {
+        width:400px;}
         </style>
 </head>
 <body>
@@ -54,5 +56,13 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
 </script>
+<input id="slider1" type="range" value="3" min="1" max="100" step="1" /><!--onchange="callFun(this.value)"function callFun(value) {
+    fetch('call_your_url/?value='+ value).then(function(response) {
+        console.log(response.status);
+    }
+    def call_view(request):
+    request.GET.get('value')
+    return HttpResponse("success")
+}-->
 </body>
 </html>

@@ -9,12 +9,10 @@ This is the first string of the application<br>
 <form action='login' method='POST'>
     {% csrf_token %}
 <button type='submit'>Login</button>
-    {% csrf_token %}
 </form>
 <form action='startpage' method='POST'>
     {% csrf_token %}
 <button type='submit'>Skip</button>
-    {% csrf_token %}
 </form>
 {{ context }}
 </body>

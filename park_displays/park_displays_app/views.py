@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-
+import json
 
 # Create your views here.
 from .forms import CheckMultiCheckBox
@@ -36,8 +36,10 @@ def sportrec(request):
     return HttpResponse(template.render(context, request))
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
+    fountains = [("48.147208", "11.587079"),("48.146099","11.588079"),("48.147117", "11.585399"),("48.148509", "11.590318")]
+    fountains = json.dumps(fountains)
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_PARK_DETAILS",
+        'fountains': fountains,
     }
     return HttpResponse(template.render(context, request))
 def social(request):
@@ -61,8 +63,8 @@ def similarusers(request):
 def outdoorgym(request):
     choices=[('a','a'), ('b','b'),('c','c'),('d','d')]
     gymselectionmulticheck = CheckMultiCheckBox("Select Gym tools to show")
-    gymselectionmulticheck.fields['gymselection'].choices = choices
-    gymselectionmulticheck.fields['gymselection'].initial = choices
+    gymselectionmulticheck.fields['selection'].choices = choices
+    gymselectionmulticheck.fields['selection'].initial = choices
     template = loader.get_template('park_displays_app/outdoorgym.html')
     context = {
         'checkboxes': gymselectionmulticheck,
@@ -126,28 +128,105 @@ def freeweight(request):
     return HttpResponse(template.render(context, request))
 
 def groupfitness(request):
+
+
     template = loader.get_template('park_displays_app/groupfitness.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_groupfitness",
     }
     return HttpResponse(template.render(context, request))
 
 def findgroups(request):
+    trainingtypes = [('Strenght', 'Strenght'), ('Flexibility', 'Flexibility'), ('Both', 'Both')]
+    training = CheckBox("Choose type of training")
+    training.fields['selection'].choices = trainingtypes
+    training.fields['selection'].initial = trainingtypes
+
     template = loader.get_template('park_displays_app/findgroups.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_findgroups",
+        'radiobuttons': training,
     }
     return HttpResponse(template.render(context, request))
 
 def grouprecommendations(request):
     template = loader.get_template('park_displays_app/grouprecommendations.html')
+    number_of_components_list = [(str(x),str(x)) for x in range(0,50)]
+    number_of_components = Dropdown("Select Number of Components")
+    number_of_components.fields['selection'].choices = number_of_components_list
+    number_of_components.fields['selection'].initial = number_of_components_list
+
+    number_of_males_list = [(str(x),str(x)) for x in range(0,50)]
+    number_of_males = Dropdown("Select Number of Males")
+    number_of_males.fields['selection'].choices = number_of_males_list
+    number_of_males.fields['selection'].initial = number_of_males_list
+
+    number_not_adult_list = [(str(x),str(x)) for x in range(0,50)]
+    number_not_adult = Dropdown("Select Number of under 18")
+    number_not_adult.fields['selection'].choices = number_not_adult_list
+    number_not_adult.fields['selection'].initial = number_not_adult_list
+
+    number_of_olds_list = [(str(x),str(x)) for x in range(0,50)]
+    number_of_olds = Dropdown("Select number of over 70")
+    number_of_olds.fields['selection'].choices = number_of_olds_list
+    number_of_olds.fields['selection'].initial = number_of_olds_list
+
+    average_age_list = [(str(x),str(x)) for x in range(0,100)]
+    average_age = Dropdown("Select average age")
+    average_age.fields['selection'].choices = average_age_list
+    average_age.fields['selection'].initial = average_age_list
+
+    minimum_age_list = [(str(x),str(x)) for x in range(0,100)]
+    minimum_age = Dropdown("Select minimum age")
+    minimum_age.fields['selection'].choices = minimum_age_list
+    minimum_age.fields['selection'].initial = minimum_age_list
+
+    max_age_list =[(str(x),str(x)) for x in range(0,100)]
+    max_age = Dropdown("Select maximum age")
+    max_age.fields['selection'].choices = max_age_list
+    max_age.fields['selection'].initial = max_age_list
+
+    typechoices = [('Strength', 'Strength'), ('Flexibility', 'Flexibility'), ('Both', 'Both')]
+    typeselection = CheckBox("Select Type")
+    typeselection.fields['selection'].choices = typechoices
+    typeselection.fields['selection'].initial = typechoices
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_grouprecommendations",
+        'number_of_components':number_of_components,
+        'number_of_males':number_of_males,
+        'number_not_adult':number_not_adult,
+        'number_of_olds':number_of_olds,
+        'average_age':average_age,
+        'minimum_age':minimum_age,
+        'max_age':max_age,
+        'typeselection':typeselection
     }
     return HttpResponse(template.render(context, request))
 def startpage(request):
     template = loader.get_template('park_displays_app/startpage.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_startpage_",
+    }
+    return HttpResponse(template.render(context, request))
+def run_walk_recommendation(request):
+    template = loader.get_template('park_displays_app/run_walk_recommendation.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_run_walk_recommendation",
+    }
+    return HttpResponse(template.render(context, request))
+def gym_recommendation(request):
+    template = loader.get_template('park_displays_app/gym_recommendation.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_gym_recommendation",
+    }
+    return HttpResponse(template.render(context, request))
+def freeweight_recommendation(request):
+    template = loader.get_template('park_displays_app/freeweight_recommendation.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_freeweight_recommendation",
+    }
+    return HttpResponse(template.render(context, request))
+def get_grouprecommendations(request):
+
+
+    template = loader.get_template('park_displays_app/get_grouprecommendations.html')
+    context = {
     }
     return HttpResponse(template.render(context, request))

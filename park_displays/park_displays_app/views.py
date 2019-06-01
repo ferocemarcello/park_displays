@@ -8,7 +8,6 @@ from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
 
-
 def index(request):
     template = loader.get_template('park_displays_app/index.html')
     context = {
@@ -28,6 +27,7 @@ def weather(request):
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_WEATHER",
     }
     return HttpResponse(template.render(context, request))
+
 def sportrec(request):
     template = loader.get_template('park_displays_app/recommendation.html')
     context = {

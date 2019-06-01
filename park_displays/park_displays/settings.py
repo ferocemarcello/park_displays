@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-'park_displays_app.apps.ParkDisplaysAppConfig',
+    'park_displays_app.apps.ParkDisplaysAppConfig',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [

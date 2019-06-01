@@ -25,4 +25,5 @@ path('emergency', views.emergency, name='emergency'),
 path('parkdetails', views.parkdetails, name='parkdetails')
 
 
+
 ]

@@ -61,8 +61,8 @@ def similarusers(request):
 def outdoorgym(request):
     choices=[('a','a'), ('b','b'),('c','c'),('d','d')]
     gymselectionmulticheck = CheckMultiCheckBox("Select Gym tools to show")
-    gymselectionmulticheck.fields['gymselection'].choices = choices
-    gymselectionmulticheck.fields['gymselection'].initial = choices
+    gymselectionmulticheck.fields['selection'].choices = choices
+    gymselectionmulticheck.fields['selection'].initial = choices
     template = loader.get_template('park_displays_app/outdoorgym.html')
     context = {
         'checkboxes': gymselectionmulticheck,

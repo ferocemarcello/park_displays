@@ -25,5 +25,6 @@ path('emergency', views.emergency, name='emergency'),
 path('parkdetails', views.parkdetails, name='parkdetails'),
 path('run_walk_recommendation', views.run_walk_recommendation, name='run_walk_recommendation'),
 path('gym_recommendation', views.gym_recommendation, name='gym_recommendation'),
-path('freeweight_recommendation', views.freeweight_recommendation, name='freeweight_recommendation')
+path('freeweight_recommendation', views.freeweight_recommendation, name='freeweight_recommendation'),
+path('get_grouprecommendations', views.get_grouprecommendations, name='get_grouprecommendations')
 ]

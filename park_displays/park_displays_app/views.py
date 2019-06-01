@@ -151,3 +151,21 @@ def startpage(request):
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_startpage_",
     }
     return HttpResponse(template.render(context, request))
+def run_walk_recommendation(request):
+    template = loader.get_template('park_displays_app/run_walk_recommendation.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_run_walk_recommendation",
+    }
+    return HttpResponse(template.render(context, request))
+def gym_recommendation(request):
+    template = loader.get_template('park_displays_app/gym_recommendation.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_gym_recommendation",
+    }
+    return HttpResponse(template.render(context, request))
+def freeweight_recommendation(request):
+    template = loader.get_template('park_displays_app/freeweight_recommendation.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_freeweight_recommendation",
+    }
+    return HttpResponse(template.render(context, request))

@@ -1,0 +1,25 @@
+.ToolBarItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 1 1 0;
+
+  &, &:visited {
+    text-decoration: none;
+    color: rgb(200, 200, 200);
+  }
+
+  &:hover {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.ToolBarItemIcon {
+  font-size: 30px;
+}
+
+.ToolBarItemText{
+  text-transform: uppercase;
+}

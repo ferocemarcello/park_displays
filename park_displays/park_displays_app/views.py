@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-
+import json
 
 # Create your views here.
 from .forms import CheckMultiCheckBox
@@ -36,8 +36,10 @@ def sportrec(request):
     return HttpResponse(template.render(context, request))
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
+    fountains = [("48.147208", "11.587079"),("48.146099","11.588079"),("48.147117", "11.585399"),("48.148509", "11.590318")]
+    fountains = json.dumps(fountains)
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_PARK_DETAILS",
+        'fountains': fountains,
     }
     return HttpResponse(template.render(context, request))
 def social(request):

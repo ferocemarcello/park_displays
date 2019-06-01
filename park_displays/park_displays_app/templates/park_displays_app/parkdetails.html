@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +23,23 @@
     input[type="range"] {
         width:400px;}
         </style>
+    <script>
+        // Hold a reference to any infobubble opened
+var bubble
+        function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
+    </script>
 </head>
 <body>
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
@@ -55,6 +73,22 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
+
+var fountains={{ fountains|safe}};
+
+for(var i=0; i<fountains.length;i++){//excluding depot
+    var waterfountainicon=new H.map.Icon("{% static 'park_displays_app/water.png' %}", {size: {w: 32, h: 32}});
+    var waterfountain=new H.map.Marker({lat:fountains[i][0], lng:fountains[i][1]},{icon:waterfountainicon});
+    var watermarkertext="";
+    watermarkertext=watermarkertext+fountains[i][0]+", "+fountains[i][1];
+    waterfountain.setData(watermarkertext);
+    waterfountain.addEventListener("tap", markerlistener, false);
+    function markerlistener(evt){
+  map.setCenter(evt.target.getPosition());
+  openBubble(evt.target.getPosition(), evt.target.getData());
+}
+  map.addObject(waterfountain);
+}
 </script>
 </body>
 </html>

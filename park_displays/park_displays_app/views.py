@@ -17,13 +17,13 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 def emergency(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/emergency.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_EMERGENCY",
     }
     return HttpResponse(template.render(context, request))
 def weather(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/weather.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_WEATHER",
     }
@@ -35,7 +35,7 @@ def sportrec(request):
     }
     return HttpResponse(template.render(context, request))
 def parkdetails(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/parkdetails.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_PARK_DETAILS",
     }

@@ -19,6 +19,10 @@ path('findgroups', views.findgroups, name='findgroups'),
 path('grouprecommendations', views.grouprecommendations, name='grouprecommendations'),
 path('login', views.login, name='login'),
 path('startpage', views.startpage, name='startpage'),
-path('freeweight', views.freeweight, name='freeweight')
+path('freeweight', views.freeweight, name='freeweight'),
+path('weather', views.weather, name='weather'),
+path('emergency', views.emergency, name='emergency'),
+path('parkdetails', views.parkdetails, name='parkdetails')
+
 
 ]

@@ -22,6 +22,18 @@
     {% csrf_token %}
 <button type='submit'>group fitness</button>
 </form>
+<form action='weather' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Weather forecast</button>
+</form>
+<form action='emergency' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Emergency</button>
+</form>
+<form action='parkdetails' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Park details</button>
+</form>
 {{ context }}
 </body>
 </html>

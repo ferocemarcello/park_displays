@@ -124,8 +124,31 @@ var bubble
     </script>
 </head>
 <body>
-<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
+
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
+{{ pathcheckboxes }}
+{{ watercheckbox }}
+</div>
 <script>
+//https://codepen.io/euconectei/pen/XbmRXo
+      function showhidepaths(listofpaths) {
+          }
+    var terrtypsel0=document.getElementById('terraintypeselection_0')
+    if(terrtypsel0.value=="Pavement"){
+          //check if checked or not
+          //list of paths made of pavement
+        //pass it to the function
+        //true if to show
+        terrtypsel0.onclick = showhidepaths(0,true)
+    }
+    var terrtypsel1=document.getElementById('terraintypeselection_1')
+    if(terrtypsel1.value=="Gravel"){
+        terrtypsel1.onclick =showhidepaths(0,true)
+    }
+    var terrtypsel2=document.getElementById('terraintypeselection_2')
+    if(terrtypsel2.value=="Dirt"){
+        terrtypsel1.onclick = showhidepaths(0,true)
+    }
 
     // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');

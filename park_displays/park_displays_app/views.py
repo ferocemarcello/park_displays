@@ -40,6 +40,10 @@ def sportrec(request):
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
     xml=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
+    waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
+    terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
+    pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
+    pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
     fountainlist=xml.getFountains()
     paths=xml.getPaths()
     pathsformtatted=[]
@@ -48,6 +52,8 @@ def parkdetails(request):
     context = {
         'fountains': json.dumps(fountainlist),
         'paths':json.dumps(pathsformtatted),
+        'watercheckbox':waterselection,
+        'pathcheckboxes':pathselection,
     }
     return HttpResponse(template.render(context, request))
 def social(request):

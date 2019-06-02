@@ -47,11 +47,23 @@ def parkdetails(request):
     fountainlist=xml.getFountains()
     paths=xml.getPaths()
     pathsformtatted=[]
+    pathtypes = [[],[],[]]
     for path in paths:
         pathsformtatted.append([path[1]]+path[3]+[path[2]])
+        if path[0]=="pavement":
+            pathtypes[0].append(paths.index(path))
+        if path[0]=="gravel":
+            pathtypes[1].append(paths.index(path))
+        if path[0]=="dirt":
+            pathtypes[2].append(paths.index(path))
+    pathtypesdict=dict()
+    pathtypesdict[0]=pathtypes[0]
+    pathtypesdict[1] = pathtypes[1]
+    pathtypesdict[2] = pathtypes[2]
     context = {
         'fountains': json.dumps(fountainlist),
         'paths':json.dumps(pathsformtatted),
+        'pathtypes':json.dumps(pathtypesdict),
         'watercheckbox':waterselection,
         'pathcheckboxes':pathselection,
     }

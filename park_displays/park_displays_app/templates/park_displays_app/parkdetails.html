@@ -24,6 +24,21 @@
         width:400px;}
         </style>
     <script>
+
+    </script>
+</head>
+<body>
+
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
+{{ pathcheckboxes }}
+{{ watercheckbox }}
+</div>
+<script>
+    var fountains={{ fountains|safe}};
+var paths={{paths|safe}};
+var pathtypes={{pathtypes|safe}}
+var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
+var startfinishmarkers=Array(Object.keys(paths).length).fill(null);
         function calculateRouteFromAtoB (platform,waypoints,col,pathindex) {
   var router = platform.getRoutingService(),
     routeRequestParams = {
@@ -105,6 +120,7 @@ function addRouteShapeToMap(route,col,pathindex){
     var finishlineicon=new H.map.Icon("{% static 'park_displays_app/finishline.png' %}", {size: {w: 32, h: 32}});
     var finishline=new H.map.Marker({lat:paths[pathindex][paths[pathindex].length-1][0], lng:paths[pathindex][paths[pathindex].length-1][1]},{icon:finishlineicon});
     map.addObject(finishline);
+    startfinishmarkers[pathindex]=[startmarker,finishline]
 }
         // Hold a reference to any infobubble opened
 var bubble
@@ -121,36 +137,38 @@ var bubble
     bubble.open();
   }
 }
-    </script>
-</head>
-<body>
-
-<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
-{{ pathcheckboxes }}
-{{ watercheckbox }}
-</div>
-<script>
 //https://codepen.io/euconectei/pen/XbmRXo
-      function showhidepaths(listofpaths) {
+    function showhidepaths(listofpaths,show)
+    {
+        if(show){
+            try {
+                for (i = 0; i < listofpaths.length; i++) {
+                    map.addObject(polylines[i]);
+                    map.addObject(startfinishmarkers[i][0]);
+                    map.addObject(startfinishmarkers[i][1]);
+                }
+            }
+              catch(err){
+                      null;
+                  }
           }
-    var terrtypsel0=document.getElementById('terraintypeselection_0')
-    if(terrtypsel0.value=="Pavement"){
-          //check if checked or not
-          //list of paths made of pavement
-        //pass it to the function
-        //true if to show
-        terrtypsel0.onclick = showhidepaths(0,true)
-    }
-    var terrtypsel1=document.getElementById('terraintypeselection_1')
-    if(terrtypsel1.value=="Gravel"){
-        terrtypsel1.onclick =showhidepaths(0,true)
-    }
-    var terrtypsel2=document.getElementById('terraintypeselection_2')
-    if(terrtypsel2.value=="Dirt"){
-        terrtypsel1.onclick = showhidepaths(0,true)
-    }
 
-    // set up containers for the map  + panel
+          else{
+
+            try {
+                for (i = 0; i < listofpaths.length; i++) {
+                    map.removeObject(polylines[i]);
+                    map.removeObject(startfinishmarkers[i][0]);
+                    map.removeObject(startfinishmarkers[i][1]);
+                }
+            }
+              catch(err){
+                      null;
+                  }
+          }
+
+    }
+          // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');
 
 //Step 1: initialize communication with the platform
@@ -179,10 +197,6 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
-
-var fountains={{ fountains|safe}};
-var paths={{paths|safe}};
-
 for(var i=0; i<fountains.length;i++){//excluding depot
     var waterfountainicon=new H.map.Icon("{% static 'park_displays_app/water.png' %}", {size: {w: 32, h: 32}});
     var waterfountain=new H.map.Marker({lat:fountains[i][0], lng:fountains[i][1]},{icon:waterfountainicon});
@@ -196,7 +210,6 @@ for(var i=0; i<fountains.length;i++){//excluding depot
 }
   map.addObject(waterfountain);
 }
-var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
 var colors=['Blue','Red','Orange','Green','SaddleBrown','DarkOrchid','Black','Grey','Violet','Navy'];
 for(var i=0;i<Object.keys(paths).length;i++){
     var color=colors[i];
@@ -207,6 +220,27 @@ for(var i=0;i<Object.keys(paths).length;i++){
     }
     calculateRouteFromAtoB(platform,waypoints,color,pathindex);
 }
+     var terrtypsel0=document.getElementById('terraintypeselection_0');
+    if(terrtypsel0.value=="Pavement"){
+          pathswecare=pathtypes[0];
+        //true if to show
+        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths(pathswecare,true);
+        else terrtypsel0.onclick = showhidepaths(pathswecare,false);
+    }
+    var terrtypsel1=document.getElementById('terraintypeselection_1');
+    if(terrtypsel1.value=="Gravel"){
+          pathswecare=pathtypes[1];
+          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths(pathswecare,true);
+        else terrtypsel1.onclick = showhidepaths(pathswecare,false);
+    }
+    var terrtypsel2=document.getElementById('terraintypeselection_2');
+    if(terrtypsel2.value=="Dirt"){
+          pathswecare=pathtypes[2];
+          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths(pathswecare,true);
+        else terrtypsel2.onclick = showhidepaths(pathswecare,false);
+    }
+
+
 </script>
 </body>
 </html>

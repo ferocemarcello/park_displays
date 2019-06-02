@@ -41,10 +41,13 @@ def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
     xml=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
     fountainlist=xml.getFountains()
-    fountainlist = json.dumps(fountainlist)
     paths=xml.getPaths()
+    pathsformtatted=[]
+    for path in paths:
+        pathsformtatted.append([path[1]]+path[3]+[path[2]])
     context = {
-        'fountains': fountainlist,
+        'fountains': json.dumps(fountainlist),
+        'paths':json.dumps(pathsformtatted),
     }
     return HttpResponse(template.render(context, request))
 def social(request):

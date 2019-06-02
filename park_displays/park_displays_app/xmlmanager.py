@@ -16,28 +16,29 @@ class XmlManager():
                     fountainlist.append((node.attrib["lat"], node.attrib["lng"]))
                 except:
                     pass
+        return fountainlist
     def getPaths(self):
         pathlist = []
         for child in self.root.iter('englischer_garten'):
             print(child.tag, child.attrib)
-            for childt in child:
-                if childt.tag == 'paths':
-                    for childu in childt:
-                        if childu.tag == 'path':
+            for parkchild in child:
+                if parkchild.tag == 'paths':
+                    for pathschild in parkchild:
+                        if pathschild.tag == 'path':
                             path = [None, None, None, []]
-                            terrain = childu.attrib["terrain"]
+                            terrain = pathschild.attrib["terrain"]
                             path[0] = terrain
-                            for childr in childu:
-                                if childr.tag == "start":
-                                    start = (childr.attrib["lat"], childr.attrib["lng"])
+                            for pathelement in pathschild:
+                                if pathelement.tag == "start":
+                                    start = (pathelement.attrib["lat"], pathelement.attrib["lng"])
                                     path[1] = start
-                                if childr.tag == "waypoints":
-                                    for childf in childr:
+                                if pathelement.tag == "waypoints":
+                                    for childf in pathelement:
                                         waypoint = (childf.attrib["lat"], childf.attrib["lng"])
                                         path[3].append(waypoint)
 
-                                if childr.tag == "end":
-                                    end = (childr.attrib["lat"], childr.attrib["lng"])
-                                    path[2] = start
+                                if pathelement.tag == "end":
+                                    end = (pathelement.attrib["lat"], pathelement.attrib["lng"])
+                                    path[2] = end
                             pathlist.append(path)
         return pathlist

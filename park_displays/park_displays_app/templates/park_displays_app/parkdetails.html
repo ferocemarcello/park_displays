@@ -24,6 +24,88 @@
         width:400px;}
         </style>
     <script>
+        function calculateRouteFromAtoB (platform,waypoints,col,pathindex) {
+  var router = platform.getRoutingService(),
+    routeRequestParams = {
+      mode: 'shortest;pedestrian',
+      representation: 'display',
+      routeattributes : 'waypoints,summary,shape,legs',
+      maneuverattributes: 'direction,action',
+			language: 'en-US',//en-gb,en-us,de-de,it-IT
+    };
+  for(var i=0; i<waypoints.length;i++){
+    s='waypoint'+(i);
+    routeRequestParams[s]=waypoints[i];
+}
+
+  router.calculateRoute(
+    routeRequestParams,
+    onSuccResult=function(result) {
+    onSuccess(result, col,pathindex);//from 0 to 1, from 0 to 4
+},
+    onError
+  );
+}
+/**
+ * This function will be called if a communication error occurs during the JSON-P request
+ * @param  {Object} error  The error message received.
+ */
+function onError(error) {
+  alert('Error in showing the route!');
+}
+
+/**
+ * This function will be called once the Routing REST API provides a response
+ * @param  {Object} result          A JSONP object representing the calculated route
+ *
+ * see: https://developer.here.com/rest-apis/documentation/routing/topics/resource-type-calculate-route.html
+ */
+function onSuccess(result,col,pathindex) {
+    //['rgba(0, 128, 255, 0.7)','red','orange','green','SaddleBrown','DarkOrchid','black','grey','Violet','Navy'];
+  var route = result.response.route[0];
+ /*
+  * The styling of the route response on the map is entirely under the developer's control.
+  * A representitive styling can be found the full JS + HTML code of this example
+  * in the functions below:
+  */
+  addRouteShapeToMap(route,col,pathindex);
+
+  // ... etc.
+}
+/**
+ * Creates a H.map.Polyline from the shape of the route and adds it to the map.
+ * @param {Object} route A route as received from the H.service.RoutingService
+ */
+function addRouteShapeToMap(route,col,pathindex){
+  var strip = new H.geo.Strip(),
+    routeShape = route.shape,
+    polyline;
+
+  routeShape.forEach(function(point) {
+    var parts = point.split(',');
+    strip.pushLatLngAlt(parts[0], parts[1]);
+  });
+
+  polyline = new H.map.Polyline(strip, {
+    style: {
+      lineWidth: 6,
+      strokeColor: col
+    },
+    arrows: { fillColor: 'white', frequency: 2, width: 1.2, length: 0.9 },
+    visibility:true
+  });
+  // Add the polyline to the map
+  map.addObject(polyline);
+  // And zoom to its bounding rectangle
+  map.setViewBounds(polyline.getBounds(), true);
+  polylines[pathindex]=polyline;
+  var startmarkericon=new H.map.Icon("{% static 'park_displays_app/startmarker.png' %}", {size: {w: 32, h: 32}});
+    var startmarker=new H.map.Marker({lat:paths[pathindex][0][0], lng:paths[pathindex][0][1]},{icon:startmarkericon});
+    map.addObject(startmarker);
+    var finishlineicon=new H.map.Icon("{% static 'park_displays_app/finishline.png' %}", {size: {w: 32, h: 32}});
+    var finishline=new H.map.Marker({lat:paths[pathindex][paths[pathindex].length-1][0], lng:paths[pathindex][paths[pathindex].length-1][1]},{icon:finishlineicon});
+    map.addObject(finishline);
+}
         // Hold a reference to any infobubble opened
 var bubble
         function openBubble(position, text){
@@ -44,6 +126,7 @@ var bubble
 <body>
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
 <script>
+
     // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');
 
@@ -75,6 +158,7 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
 
 var fountains={{ fountains|safe}};
+var paths={{paths|safe}};
 
 for(var i=0; i<fountains.length;i++){//excluding depot
     var waterfountainicon=new H.map.Icon("{% static 'park_displays_app/water.png' %}", {size: {w: 32, h: 32}});
@@ -88,6 +172,17 @@ for(var i=0; i<fountains.length;i++){//excluding depot
   openBubble(evt.target.getPosition(), evt.target.getData());
 }
   map.addObject(waterfountain);
+}
+var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
+var colors=['Blue','Red','Orange','Green','SaddleBrown','DarkOrchid','Black','Grey','Violet','Navy'];
+for(var i=0;i<Object.keys(paths).length;i++){
+    var color=colors[i];
+    var pathindex=i
+    var waypoints=[];
+    for(var j=0;j<Object.keys(paths[i]).length;j++){
+        waypoints.push("stopOver!"+paths[i][j][0]+','+paths[i][j][1]);
+    }
+    calculateRouteFromAtoB(platform,waypoints,color,pathindex);
 }
 </script>
 </body>

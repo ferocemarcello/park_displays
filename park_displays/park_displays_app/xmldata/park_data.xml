@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<parks>
+    <englischer_garten>
+<fountains>
+    <fountain lat="48.148329" lng="11.590489"></fountain>
+    <fountain lat="48.147355" lng="11.587056"></fountain>
+    <fountain lat="48.146382" lng="11.591733"></fountain>
+    <fountain lat="48.149560" lng="11.586069"></fountain>
+</fountains>
+</englischer_garten>
+<maximiliansanlagen>
+<fountains>
+    <fountain lat="48.144486" lng="11.597591"></fountain>
+    <fountain lat="48.141610" lng="11.597591"></fountain>
+    <fountain lat="48.138870" lng="11.596368"></fountain>
+    <fountain lat="48.139784" lng="11.594882"></fountain>
+</fountains>
+</maximiliansanlagen>
+<olympiapark>
+<fountains>
+    <fountain lat="48.172392" lng="11.554712"></fountain>
+    <fountain lat="48.169673" lng="11.554309"></fountain>
+    <fountain lat="48.170310" lng="11.551960"></fountain>
+    <fountain lat="48.169102" lng="11.555652"></fountain>
+</fountains>
+</olympiapark>
+<schlosspark_nymphenburg>
+<fountains>
+    <fountain lat="48.155506" lng="11.501791"></fountain>
+    <fountain lat="48.157127" lng="11.500220"></fountain>
+    <fountain lat="48.156079" lng="11.495652"></fountain>
+    <fountain lat="48.157672" lng="11.496051"></fountain>
+</fountains>
+</schlosspark_nymphenburg>
+</parks>

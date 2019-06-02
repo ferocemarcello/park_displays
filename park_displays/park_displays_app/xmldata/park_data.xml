@@ -7,6 +7,30 @@
     <fountain lat="48.146382" lng="11.591733"></fountain>
     <fountain lat="48.149560" lng="11.586069"></fountain>
 </fountains>
+        <paths>
+            <path terrain="gravel">
+                <start lat="48.143573" lng="11.588202"></start>
+                <waypoints>
+                    <waypoint lat="48.145279" lng="11.591532"></waypoint>
+                    <waypoint lat="48.149131" lng="11.589335"></waypoint>
+                </waypoints>
+                <end lat="48.149967" lng="11.585131"></end>
+            </path>
+            <path terrain="pavement">
+                <start lat="48.144518" lng="11.583674"></start>
+                <waypoints>
+                    <waypoint lat="48.156540" lng="11.590261"></waypoint>
+                </waypoints>
+                <end lat="48.155186" lng="11.599886"></end>
+            </path>
+            <path terrain="dirt">
+                <start lat="48.147195" lng="11.591148"></start>
+                <waypoints>
+                    <waypoint lat="48.150625" lng="11.591871"></waypoint>
+                </waypoints>
+                <end lat="48.156250" lng="11.595904"></end>
+            </path>
+        </paths>
 </englischer_garten>
 <maximiliansanlagen>
 <fountains>

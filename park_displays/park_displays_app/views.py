@@ -4,9 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 import json
-import xml.etree.ElementTree as ET
 
 # Create your views here.
+from park_displays_app.xmlmanager import XmlManager
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
@@ -39,20 +39,10 @@ def sportrec(request):
     return HttpResponse(template.render(context, request))
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
-    filepath=os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml"
-    tree = ET.parse(filepath)
-    root = tree.getroot()
-    enggart = root.find('englischer_garten')
-    fountains = enggart.findall('fountains')
-    fountainlist=[]
-    for fountain in fountains:
-        for node in fountain.getiterator():
-            try:
-                fountainlist.append((node.attrib["lat"], node.attrib["lng"]))
-            except:
-                pass
-    #fountains = [("48.147208", "11.587079"),("48.146099","11.588079"),("48.147117", "11.585399"),("48.148509", "11.590318")]
+    xml=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
+    fountainlist=xml.getFountains()
     fountainlist = json.dumps(fountainlist)
+    paths=xml.getPaths()
     context = {
         'fountains': fountainlist,
     }

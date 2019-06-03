@@ -1,2 +1,2 @@
-django
-sqlparse
+Django==2.2.1
+sqlparse==0.3.0

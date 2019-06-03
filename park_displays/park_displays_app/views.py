@@ -44,8 +44,8 @@ def parkdetails(request):
     terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
     pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
     pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
-    fountainlist=xml.getFountains()
-    paths=xml.getPaths()
+    fountainlist=xml.getFountains("englischer_garten")
+    paths=xml.getPaths("englischer_garten")
     pathsformtatted=[]
     pathtypes = [[],[],[]]
     for path in paths:

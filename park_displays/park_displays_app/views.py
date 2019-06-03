@@ -1,9 +1,12 @@
+import os
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 import json
 
 # Create your views here.
+from park_displays_app.xmlmanager import XmlManager
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
@@ -36,10 +39,33 @@ def sportrec(request):
     return HttpResponse(template.render(context, request))
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
-    fountains = [("48.147208", "11.587079"),("48.146099","11.588079"),("48.147117", "11.585399"),("48.148509", "11.590318")]
-    fountains = json.dumps(fountains)
+    xml=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
+    waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
+    terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
+    pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
+    pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
+    fountainlist=xml.getFountains()
+    paths=xml.getPaths()
+    pathsformtatted=[]
+    pathtypes = [[],[],[]]
+    for path in paths:
+        pathsformtatted.append([path[1]]+path[3]+[path[2]])
+        if path[0]=="pavement":
+            pathtypes[0].append(paths.index(path))
+        if path[0]=="gravel":
+            pathtypes[1].append(paths.index(path))
+        if path[0]=="dirt":
+            pathtypes[2].append(paths.index(path))
+    pathtypesdict=dict()
+    pathtypesdict[0]=pathtypes[0]
+    pathtypesdict[1] = pathtypes[1]
+    pathtypesdict[2] = pathtypes[2]
     context = {
-        'fountains': fountains,
+        'fountains': json.dumps(fountainlist),
+        'paths':json.dumps(pathsformtatted),
+        'pathtypes':json.dumps(pathtypesdict),
+        'watercheckbox':waterselection,
+        'pathcheckboxes':pathselection,
     }
     return HttpResponse(template.render(context, request))
 def social(request):

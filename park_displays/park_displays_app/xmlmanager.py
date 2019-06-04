@@ -17,6 +17,43 @@ class XmlManager():
                             if f.tag=="fountain":
                                 fountainlist.append((f.attrib["lat"],f.attrib["lng"]))
                 return fountainlist
+
+    def getGenders(self):
+        genders=[]
+        for child in self.root.iter('genders'):
+            for gender in child:
+                genders.append(gender.text)
+        return genders
+    def getAgeIntervals(self):
+        ageintervals=[]
+        for child in self.root.iter('ageintervals'):
+            for ageinterval in child:
+                ageintervals.append(ageinterval.text)
+        return ageintervals
+    def getKcalIntervals(self):
+        kcalintervals=[]
+        for child in self.root.iter('kcalintervals'):
+            for kcalinterval in child:
+                kcalintervals.append(kcalinterval.text)
+        return kcalintervals
+    def getWeightIntervals(self):
+        weightintervals=[]
+        for child in self.root.iter('weightintervals'):
+            for weightinterval in child:
+                weightintervals.append(weightinterval.text)
+        return weightintervals
+    def getHeightIntervals(self):
+        heightintervals=[]
+        for child in self.root.iter('heightintervals'):
+            for heightinterval in child:
+                heightintervals.append(heightinterval.text)
+        return heightintervals
+    def getTrainingTypes(self):
+        types = []
+        for child in self.root.iter('trainingtypes'):
+            for type in child:
+                types.append(type.text)
+        return types
     def getPaths(self,parkname):
         pathlist = []
         for child in self.root.iter('park'):

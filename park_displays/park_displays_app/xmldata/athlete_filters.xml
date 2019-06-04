@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <filters>
-
+<genders>
+    <gender>Male</gender>
+    <gender>Female</gender>
+    <gender>Other</gender>
+</genders>
+    <ageintervals>
+        <ageinterval>&lt;18</ageinterval>
+        <ageinterval>18-24</ageinterval>
+        <ageinterval>25-34</ageinterval>
+        <ageinterval>35-44</ageinterval>
+        <ageinterval>45-54</ageinterval>
+        <ageinterval>55-64</ageinterval>
+        <ageinterval>65-74</ageinterval>
+        <ageinterval>&gt;=75</ageinterval>
+    </ageintervals>
+    <heightintervals>
+        <heightinterval>&lt;150 cm</heightinterval>
+        <heightinterval>150-159 cm</heightinterval>
+        <heightinterval>160-169 cm</heightinterval>
+        <heightinterval>170-179 cm</heightinterval>
+        <heightinterval>180-189 cm</heightinterval>
+        <heightinterval>190-199 cm</heightinterval>
+        <heightinterval>200-209 cm</heightinterval>
+        <ageinterval>&gt;=210 cm</ageinterval>
+    </heightintervals>
+    <weightintervals>
+        <weightinterval>&lt;40 kg</weightinterval>
+        <weightinterval>40-49 kg</weightinterval>
+        <weightinterval>50-59 kg</weightinterval>
+        <weightinterval>60-69 kg</weightinterval>
+        <weightinterval>70-79 kg</weightinterval>
+        <weightinterval>80-89 kg</weightinterval>
+        <weightinterval>90-99 kg</weightinterval>
+        <weightinterval>100-109 kg</weightinterval>
+        <weightinterval>110-119 kg</weightinterval>
+        <weightinterval>&gt;=120 kg</weightinterval>
+    </weightintervals>
+    <kcalintervals>
+        <kcalinterval>&lt;100 kcal</kcalinterval>
+        <kcalinterval>100-499 kcal</kcalinterval>
+        <kcalinterval>500-899 kcal</kcalinterval>
+        <kcalinterval>900-1299 kcal</kcalinterval>
+        <kcalinterval>1300-1699 kcal</kcalinterval>
+        <kcalinterval>1700-2099 kcal</kcalinterval>
+        <kcalinterval>2100-2499 kcal</kcalinterval>
+        <kcalinterval>2500-2899 kcal</kcalinterval>
+        <kcalinterval>&gt;=2900 kcal</kcalinterval>
+    </kcalintervals>
+    <trainingtypes>
+            <trainingtype>Strenght</trainingtype>
+            <trainingtype>Flexibility</trainingtype>
+    </trainingtypes>
 </filters>

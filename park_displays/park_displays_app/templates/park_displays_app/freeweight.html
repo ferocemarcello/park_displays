@@ -9,8 +9,6 @@
       {% csrf_token %}
           {{ checkbox1 }}
           {{ dropdown1 }}
-
-    <button type='submit'>get recommendations</button>
 </form>
 
 <form action='' enctype="multipart/form-data" method="post">
@@ -19,8 +17,9 @@
           {{ dropdown2 }}
           {{ dropdown3 }}
           {{ dropdown4 }}
+    <input id="intensity" type="range" value="50" min="1" max="100" step="1"> Intensity </input>
+    <button type='submit'>get recommendations</button>
 </form>
-<input id="intensity" type="range" value="50" min="1" max="100" step="1"> Intensity </input>
 
 
 </body>

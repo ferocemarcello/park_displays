@@ -104,52 +104,34 @@ def runwalk(request):
     }
     return HttpResponse(template.render(context, request))
 def freeweight(request):
-    genderchoices = [('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')]
+    xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+    genderchoices = [(x,x) for x in xml.getGenders()]
     genderselection = CheckBox("Select Gender")
     genderselection.fields['selection'].choices = genderchoices
-    genderselection.fields['selection'].initial = genderchoices
 
-    typechoices = [('Strength', 'Strength'), ('Flexibility', 'Flexibility'), ('Both', 'Both')]
-    typeselection = CheckBox("Select Type")
-    typeselection.fields['selection'].choices = typechoices
-    typeselection.fields['selection'].initial = typechoices
+    typechoices = [(x,x) for x in xml.getTrainingTypes()]
+    trainingtypeselection = CheckMultiCheckBox(choices=typechoices, label="Select type of training")
 
-    agechoices = [('Select Age', 'Select Age'), ('18 or younger', '18 or younger'), ('19-23', '19-23'),
-                  ('24-28', '24-28'), ('29-33', '29-33'), ('34-38', '34-38'), ('39-43', '39-43'), ('44-48', '44-48'),
-                  ('49+', '49+')]
-    ageselection = Dropdown("Select Age")
-    ageselection.fields['selection'].choices = agechoices
-    ageselection.fields['selection'].initial = agechoices
+    agechoices=[(x,x) for x in xml.getAgeIntervals()]
+    ageintervalselection = Dropdown(label="Select age",choices=agechoices)
 
-    heightchoices = [('Select Height', 'Select Height'), ('<150', '<150'), ('150-160', '150-160'),
-                  ('161-170', '161-170'), ('171-180', '171-180'), ('181-190', '181-190'), ('191-200', '191-200'), ('>200', '>200')]
-    heightselection = Dropdown("Select Height")
-    heightselection.fields['selection'].choices = heightchoices
-    heightselection.fields['selection'].initial = heightchoices
+    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightselection = Dropdown(label="Select Height",choices=heightchoices)
 
-    weightchoices = [('Select Weight', 'Select Weight'), ('<50', '<50'), ('50-59', '50-59'),
-                  ('60-69', '60-69'), ('70-79', '70-79'), ('80-89', '80-89'), ('90-99', '90-99'), ('100-109', '100-109'),
-                  ('>110', '>110')]
-    weightselection = Dropdown("Select Age")
-    weightselection.fields['selection'].choices = weightchoices
-    weightselection.fields['selection'].initial = weightchoices
+    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
 
-    kcalchoices = [('Select Kcal', 'Select Kcal'), ('<100', '<100'), ('100-200', '100-200'),
-                     ('200-300', '200-300'), ('300-400', '300-400'), ('400-500', '400-500'), ('500-600', '500-600'),
-                     ('600-700', '600-700'), ('>700', '>700')]
-    kcalselection = Dropdown("Select Kcal")
-    kcalselection.fields['selection'].choices = kcalchoices
-    kcalselection.fields['selection'].initial = kcalchoices
+    kcalchoices = [(x,x) for x in xml.getKcalIntervals()]
+    kcalselection = Dropdown(label="Select Kcal",choices=kcalchoices)
 
     template = loader.get_template('park_displays_app/freeweight.html')
     context = {
         'checkbox1': genderselection,
-        'dropdown1' : ageselection,
-        'checkbox2' : typeselection,
+        'dropdown1' : ageintervalselection,
+        'checkbox2' : trainingtypeselection,
         'dropdown2' : weightselection,
         'dropdown3': heightselection,
         'dropdown4': kcalselection,
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_FREEWEIGHT_EXERCISES",
     }
     return HttpResponse(template.render(context, request))
 

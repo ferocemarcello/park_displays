@@ -3,26 +3,26 @@
     <park name="englischer_garten">
         <paths>
             <path terrain="gravel">
-                <start lat="48.143573" lng="11.588202"></start>
                 <waypoints>
+                    <waypoint lat="48.143573" lng="11.588202"></waypoint>
                     <waypoint lat="48.145279" lng="11.591532"></waypoint>
                     <waypoint lat="48.149131" lng="11.589335"></waypoint>
+                    <waypoint lat="48.149967" lng="11.585131"></waypoint>
                 </waypoints>
-                <end lat="48.149967" lng="11.585131"></end>
             </path>
             <path terrain="pavement">
-                <start lat="48.144518" lng="11.583674"></start>
                 <waypoints>
+                    <waypoint lat="48.144518" lng="11.583674"></waypoint>
                     <waypoint lat="48.156540" lng="11.590261"></waypoint>
+                    <waypoint lat="48.155186" lng="11.599886"></waypoint>
                 </waypoints>
-                <end lat="48.155186" lng="11.599886"></end>
             </path>
             <path terrain="dirt">
-                <start lat="48.147195" lng="11.591148"></start>
                 <waypoints>
+                    <waypoint lat="48.147195" lng="11.591148"></waypoint>
                     <waypoint lat="48.150625" lng="11.591871"></waypoint>
+                    <waypoint lat="48.156250" lng="11.595904"></waypoint>
                 </waypoints>
-                <end lat="48.156250" lng="11.595904"></end>
             </path>
         </paths>
         <fountains>
@@ -33,6 +33,7 @@
 </fountains>
     </park>
     <park name="maximiliansanlagen">
+        <paths></paths>
         <fountains>
     <fountain lat="48.144486" lng="11.597591"></fountain>
     <fountain lat="48.141610" lng="11.597591"></fountain>
@@ -41,6 +42,7 @@
 </fountains>
     </park>
     <park name="olympiapark">
+        <paths></paths>
         <fountains>
     <fountain lat="48.172392" lng="11.554712"></fountain>
     <fountain lat="48.169673" lng="11.554309"></fountain>
@@ -49,6 +51,7 @@
 </fountains>
     </park>
     <park name="schlosspark_nymphenburg">
+        <paths></paths>
         <fountains>
     <fountain lat="48.155506" lng="11.501791"></fountain>
     <fountain lat="48.157127" lng="11.500220"></fountain>

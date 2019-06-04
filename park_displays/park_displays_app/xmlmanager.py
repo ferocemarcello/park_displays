@@ -25,20 +25,13 @@ class XmlManager():
                     if parkchild.tag == 'paths':
                         for pathschild in parkchild:
                             if pathschild.tag == 'path':
-                                path = [None, None, None, []]
+                                path = [None,[]]
                                 terrain = pathschild.attrib["terrain"]
                                 path[0] = terrain
                                 for pathelement in pathschild:
-                                    if pathelement.tag == "start":
-                                        start = (pathelement.attrib["lat"], pathelement.attrib["lng"])
-                                        path[1] = start
                                     if pathelement.tag == "waypoints":
                                         for childf in pathelement:
                                             waypoint = (childf.attrib["lat"], childf.attrib["lng"])
-                                            path[3].append(waypoint)
-
-                                    if pathelement.tag == "end":
-                                        end = (pathelement.attrib["lat"], pathelement.attrib["lng"])
-                                        path[2] = end
+                                            path[1].append(waypoint)
                                 pathlist.append(path)
         return pathlist

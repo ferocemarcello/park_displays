@@ -49,7 +49,7 @@ def parkdetails(request):
     pathsformtatted=[]
     pathtypes = [[],[],[]]
     for path in paths:
-        pathsformtatted.append([path[1]]+path[3]+[path[2]])
+        pathsformtatted.append(path[1])
         if path[0]=="pavement":
             pathtypes[0].append(paths.index(path))
         if path[0]=="gravel":

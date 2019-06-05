@@ -25,7 +25,7 @@ SECRET_KEY = 'tg=(=4@=$)-tz%p0&)mh%!&1khmo-av3$mb&!d+72e95y*u*v_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['parkdisplays.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition

@@ -149,7 +149,7 @@ var bubble
                 }
             }
               catch(err){
-                      null;
+                console.error(err.message || err);
                   }
           }
 
@@ -224,20 +224,20 @@ for(var i=0;i<Object.keys(paths).length;i++){
     if(terrtypsel0.value=="Pavement"){
           pathswecare=pathtypes[0];
         //true if to show
-        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths(pathswecare,true);
-        else terrtypsel0.onclick = showhidepaths(pathswecare,false);
+        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths.bind(null,pathswecare,true);
+        else terrtypsel0.onclick = showhidepaths.bind(null, pathswecare,false);
     }
     var terrtypsel1=document.getElementById('terraintypeselection_1');
     if(terrtypsel1.value=="Gravel"){
           pathswecare=pathtypes[1];
-          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths(pathswecare,true);
-        else terrtypsel1.onclick = showhidepaths(pathswecare,false);
+          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,true);
+        else terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,false);
     }
     var terrtypsel2=document.getElementById('terraintypeselection_2');
     if(terrtypsel2.value=="Dirt"){
           pathswecare=pathtypes[2];
-          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths(pathswecare,true);
-        else terrtypsel2.onclick = showhidepaths(pathswecare,false);
+          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths.bind(null,pathswecare,true);
+        else terrtypsel2.onclick = showhidepaths.bind(null, pathswecare,false);
     }
 
 

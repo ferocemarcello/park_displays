@@ -109,6 +109,7 @@ function addRouteShapeToMap(route,col,pathindex){
     arrows: { fillColor: 'white', frequency: 2, width: 1.2, length: 0.9 },
     visibility:true
   });
+  debugger;
   // Add the polyline to the map
   map.addObject(polyline);
   // And zoom to its bounding rectangle
@@ -143,6 +144,7 @@ var bubble
         if(show){
             try {
                 for (i = 0; i < listofpaths.length; i++) {
+                    debugger;
                     map.addObject(polylines[i]);
                     map.addObject(startfinishmarkers[i][0]);
                     map.addObject(startfinishmarkers[i][1]);
@@ -224,20 +226,20 @@ for(var i=0;i<Object.keys(paths).length;i++){
     if(terrtypsel0.value=="Pavement"){
           pathswecare=pathtypes[0];
         //true if to show
-        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths.bind(null,pathswecare,true);
-        else terrtypsel0.onclick = showhidepaths.bind(null, pathswecare,false);
+        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths.bind(null,pathswecare,false);
+        else terrtypsel0.onclick = showhidepaths.bind(null, pathswecare,true);
     }
     var terrtypsel1=document.getElementById('terraintypeselection_1');
     if(terrtypsel1.value=="Gravel"){
           pathswecare=pathtypes[1];
-          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,true);
-        else terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,false);
+          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,false);
+        else terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,true);
     }
     var terrtypsel2=document.getElementById('terraintypeselection_2');
     if(terrtypsel2.value=="Dirt"){
           pathswecare=pathtypes[2];
-          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths.bind(null,pathswecare,true);
-        else terrtypsel2.onclick = showhidepaths.bind(null, pathswecare,false);
+          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths.bind(null,pathswecare,false);
+        else terrtypsel2.onclick = showhidepaths.bind(null, pathswecare,true);
     }
 
 

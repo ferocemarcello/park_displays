@@ -7,6 +7,7 @@ import HomePage from '../components/home/HomePage';
 import EmergencyPage from '../components/emergency/EmergencyPage';
 import ParkMapPage from '../components/ParkMapPage/ParkMapPage';
 import WeatherForecastPage from '../components/weatherforecast/WeatherForecastPage';
+import ConnectModal from '../components/connectModal/ConnectModal';
 
 const history = createHashHistory();
 
@@ -15,11 +16,26 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showConnectModal: false
+      connectModalOpen: false
     };
   }
 
+  showConnectModal = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      connectModalOpen: true
+    }));
+  };
+
+  hideConnectModal = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      connectModalOpen: false
+    }));
+  };
+
   render() {
+    const { connectModalOpen } = this.state;
     return (
       <div className="App">
         <Router history={history}>
@@ -29,7 +45,8 @@ class App extends Component {
             <Route path="/map" exact component={ParkMapPage} />
             <Route path="/weather" exact component={WeatherForecastPage} />
           </main>
-          <ToolBar history={history} />
+          <ToolBar history={history} showConnectModal={this.showConnectModal} />
+          { connectModalOpen ? <ConnectModal hideModal={this.hideConnectModal} /> : null }
         </Router>
       </div>
     );

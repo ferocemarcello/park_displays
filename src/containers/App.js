@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createHashHistory } from 'history';
 import './App.scss';
@@ -10,20 +10,23 @@ import WeatherForecastPage from '../components/weatherforecast/WeatherForecastPa
 
 const history = createHashHistory();
 
-function App() {
-  return (
-    <div className="App">
-      <Router history={history}>
-        <main className="appContentWrapper">
+class App extends Component {
+
+  render() {
+    return (
+      <div className="App">
+        <Router history={history}>
+          <main className="appContentWrapper">
             <Route path="/" exact component={HomePage} />
             <Route path="/emergency" exact component={EmergencyPage} />
             <Route path="/map" exact component={ParkMapPage} />
             <Route path="/weather" exact component={WeatherForecastPage} />
-        </main>
-        <ToolBar history={history} />
-      </Router>
-    </div>
-  );
+          </main>
+          <ToolBar history={history} />
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;

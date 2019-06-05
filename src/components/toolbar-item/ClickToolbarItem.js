@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './ToolBarItem.module.scss';
 
-class ToolBarItem extends Component {
+class ClickToolbarItem extends Component {
   render() {
     const { icon, text, onClick } = this.props;
 
@@ -18,4 +18,4 @@ class ToolBarItem extends Component {
   }
 }
 
-export default ToolBarItem;
+export default ClickToolbarItem;

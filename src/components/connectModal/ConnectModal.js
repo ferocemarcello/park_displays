@@ -10,7 +10,7 @@ class ConnectModal extends Component {
       <div className={styles['modalWrapper']}>
         <div className={styles['modalInner']}>
           <div style={{display: 'flex', marginBottom: 16}}>
-            <h3 style={{margin: 0}}>Connect</h3>
+            <h2 style={{margin: 0}}>Connect</h2>
             <div style={{flexGrow: 1}}></div>
             <div onClick={closeConnectModal} className={styles['closeButton']}>
               <FontAwesomeIcon icon="times" />

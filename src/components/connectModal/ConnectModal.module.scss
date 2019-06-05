@@ -16,3 +16,12 @@
   color: #000;
   width: 350px;
 }
+
+.closeButton {
+  color: grey;
+  cursor: pointer;
+
+  &:hover {
+    color: #000;
+  }
+}

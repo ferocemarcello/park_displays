@@ -12,7 +12,7 @@ class ConnectModal extends Component {
           <div style={{display: 'flex', marginBottom: 16}}>
             <h3 style={{margin: 0}}>Connect</h3>
             <div style={{flexGrow: 1}}></div>
-            <div onClick={closeConnectModal} style={{cursor: 'pointer'}}>
+            <div onClick={closeConnectModal} className={styles['closeButton']}>
               <FontAwesomeIcon icon="times" />
             </div>
           </div>

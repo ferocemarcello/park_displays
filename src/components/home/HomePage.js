@@ -11,14 +11,15 @@ class HomePage extends Component {
         </section>
         <section className={styles['BodyweightSection']}>
           <div className={styles['SectionTitle']}>Bodyweight</div>
-          <div className={styles['SectionDescription']}>Einzigartige Workouts</div>
+          <div className={styles['SectionDescription']}>Powerful Workouts</div>
         </section>
         <section className={styles['GymSection']}>
           <div className={styles['SectionTitle']}>Gym</div>
           <div className={styles['SectionDescription']}>Workouts with equipment</div>
         </section>
-        <section>
-          Nutrition
+        <section className={styles['NutritionSection']}>
+          <div className={styles['SectionTitle']}>Nutrition</div>
+          <div className={styles['SectionDescription']}>Find places to fuel up after workout</div>
         </section>
       </div>
     )

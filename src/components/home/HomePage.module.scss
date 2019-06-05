@@ -6,17 +6,11 @@
     height: 250px;
     font-family: 'Russo One', sans-serif;
     padding: 20px;
-    //background-size: cover;
-    //background-position: 100% 0;
 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 
-    & section .SectionTitle {
-
-    }
-
-    & section .SectionDescription {
-
-    }
 
     &:not(:first-child) {
       margin-top: 20px;
@@ -24,8 +18,17 @@
   }
 }
 
+.SectionTitle {
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+.SectionDescription {
+
+}
+
 .RunningSection {
-  background: url("https://media.istockphoto.com/photos/small-group-of-people-running-in-the-autumn-park-picture-id1080232360");
+  background: url("https://media.istockphoto.com/photos/couple-exercising-in-park-picture-id1047661360");
 }
 
 .BodyweightSection {
@@ -34,4 +37,8 @@
 
 .GymSection {
   background: url("https://media.istockphoto.com/photos/young-attrective-gym-man-and-woman-working-out-on-the-sportsground-picture-id1094184900");
+}
+
+.NutritionSection {
+  background: url("https://media.istockphoto.com/photos/healthy-buddha-bowl-lunch-with-grilled-chicken-quinoa-spinach-avocado-picture-id920931456");
 }

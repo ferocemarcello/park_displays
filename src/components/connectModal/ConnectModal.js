@@ -4,13 +4,17 @@ import styles from './ConnectModal.module.scss';
 
 class ConnectModal extends Component {
   render() {
+    const { closeConnectModal } = this.props;
+
     return (
       <div className={styles['modalWrapper']}>
         <div className={styles['modalInner']}>
           <div style={{display: 'flex', marginBottom: 16}}>
             <h3 style={{margin: 0}}>Connect</h3>
             <div style={{flexGrow: 1}}></div>
-            <FontAwesomeIcon icon="times" />
+            <div onClick={closeConnectModal} style={{cursor: 'pointer'}}>
+              <FontAwesomeIcon icon="times" />
+            </div>
           </div>
           <form>
             <div>

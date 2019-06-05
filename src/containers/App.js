@@ -28,6 +28,7 @@ class App extends Component {
   };
 
   hideConnectModal = () => {
+    console.log('hide modal')
     this.setState((prevState) => ({
       ...prevState,
       connectModalOpen: false
@@ -46,7 +47,7 @@ class App extends Component {
             <Route path="/weather" exact component={WeatherForecastPage} />
           </main>
           <ToolBar history={history} showConnectModal={this.showConnectModal} />
-          { connectModalOpen ? <ConnectModal hideModal={this.hideConnectModal} /> : null }
+          { connectModalOpen ? <ConnectModal closeConnectModal={this.hideConnectModal} /> : null }
         </Router>
       </div>
     );

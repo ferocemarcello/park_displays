@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from './HomePage.module.scss';
-import ConnectModal from '../connectModal/ConnectModal';
 
 class HomePage extends Component {
   render() {
@@ -21,7 +20,6 @@ class HomePage extends Component {
         <section>
           Nutrition
         </section>
-        <ConnectModal />
       </div>
     )
   }

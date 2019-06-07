@@ -64,7 +64,10 @@ class XmlManager():
                             if pathschild.tag == 'path':
                                 path = [None,[]]
                                 terrain = pathschild.attrib["terrain"]
-                                path[0] = terrain
+                                height_d = pathschild.attrib["height_difference"]
+                                steepness= pathschild.attrib["steepness"]
+                                length = pathschild.attrib["length"]
+                                path[0] = (terrain,height_d,steepness,length)
                                 for pathelement in pathschild:
                                     if pathelement.tag == "waypoints":
                                         for childf in pathelement:

@@ -2,7 +2,7 @@
 <parks>
     <park name="englischer_garten">
         <paths>
-            <path terrain="gravel">
+            <path terrain="gravel" steepness="2" height_difference="40" length="2000">
                 <waypoints>
                     <waypoint lat="48.143573" lng="11.588202"></waypoint>
                     <waypoint lat="48.145279" lng="11.591532"></waypoint>
@@ -10,14 +10,14 @@
                     <waypoint lat="48.149967" lng="11.585131"></waypoint>
                 </waypoints>
             </path>
-            <path terrain="pavement">
+            <path terrain="pavement" steepness="6" height_difference="60" length="1000">
                 <waypoints>
                     <waypoint lat="48.144518" lng="11.583674"></waypoint>
                     <waypoint lat="48.156540" lng="11.590261"></waypoint>
                     <waypoint lat="48.155186" lng="11.599886"></waypoint>
                 </waypoints>
             </path>
-            <path terrain="dirt">
+            <path terrain="dirt" steepness="1" height_difference="50" length="5000">
                 <waypoints>
                     <waypoint lat="48.147195" lng="11.591148"></waypoint>
                     <waypoint lat="48.150625" lng="11.591871"></waypoint>

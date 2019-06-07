@@ -48,24 +48,40 @@ def parkdetails(request):
     paths=xml.getPaths("englischer_garten")
     pathsformtatted=[]
     pathtypes = [[],[],[]]
+    pathlenghts=[]
+    pathslopes=[]
+    pathheightdiff=[]
     for path in paths:
         pathsformtatted.append(path[1])
-        if path[0]=="pavement":
+        terraintype=path[0][0]
+        pathheightdiff.append(path[0][1])
+        pathslopes.append(path[0][2])
+        pathlenghts.append(path[0][3])
+        if terraintype=="pavement":
             pathtypes[0].append(paths.index(path))
-        if path[0]=="gravel":
+        if terraintype=="gravel":
             pathtypes[1].append(paths.index(path))
-        if path[0]=="dirt":
+        if terraintype=="dirt":
             pathtypes[2].append(paths.index(path))
     pathtypesdict=dict()
-    pathtypesdict[0]=pathtypes[0]
-    pathtypesdict[1] = pathtypes[1]
-    pathtypesdict[2] = pathtypes[2]
+    pathheightdiffdict=dict()
+    pathslopesdict=dict()
+    pathlenghtsdict=dict()
+    for i in range(len(paths)):
+        pathheightdiffdict[i]=pathheightdiff[i]
+        pathslopesdict[i]=pathslopes
+        pathlenghtsdict[i]=pathlenghts
+    for i in range(len(pathtypes)):
+        pathtypesdict[i]=pathtypes[i]
     context = {
         'fountains': json.dumps(fountainlist),
         'paths':json.dumps(pathsformtatted),
         'pathtypes':json.dumps(pathtypesdict),
         'watercheckbox':waterselection,
         'pathcheckboxes':pathselection,
+        'pathheightdiffs':pathheightdiffdict,
+        'pathslopes':pathslopesdict,
+        'pathlenghts':pathlenghtsdict,
     }
     return HttpResponse(template.render(context, request))
 def social(request):

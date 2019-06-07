@@ -6,7 +6,9 @@ from django.template import loader
 import json
 
 # Create your views here.
-from park_displays_app.xmlmanager import XmlManager
+from .xmlmanager import XmlManager
+from .data_manager import ParkManager,DataProcesser
+
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
@@ -39,40 +41,25 @@ def sportrec(request):
     return HttpResponse(template.render(context, request))
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
-    xml=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
+    xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
+    datamng = ParkManager("englischer_garten", xmlmng)
     waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
     terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
     pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
     pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
-    fountainlist=xml.getFountains("englischer_garten")
-    paths=xml.getPaths("englischer_garten")
-    pathsformtatted=[]
-    pathtypes = [[],[],[]]
-    pathlenghts=[]
-    pathslopes=[]
-    pathheightdiff=[]
-    for path in paths:
-        pathsformtatted.append(path[1])
-        terraintype=path[0][0]
-        pathheightdiff.append(path[0][1])
-        pathslopes.append(path[0][2])
-        pathlenghts.append(path[0][3])
-        if terraintype=="pavement":
-            pathtypes[0].append(paths.index(path))
-        if terraintype=="gravel":
-            pathtypes[1].append(paths.index(path))
-        if terraintype=="dirt":
-            pathtypes[2].append(paths.index(path))
-    pathtypesdict=dict()
-    pathheightdiffdict=dict()
-    pathslopesdict=dict()
-    pathlenghtsdict=dict()
-    for i in range(len(paths)):
-        pathheightdiffdict[i]=pathheightdiff[i]
-        pathslopesdict[i]=pathslopes
-        pathlenghtsdict[i]=pathlenghts
-    for i in range(len(pathtypes)):
-        pathtypesdict[i]=pathtypes[i]
+    fountainlist=xmlmng.getFountains("englischer_garten")
+
+    pathsformtatted=datamng.getPathsWaypoints()
+    pathtypes =datamng.getPathTypes()
+    pathlenghts=datamng.getPathsLengths()
+    pathslopes=datamng.getPathsSlopes()
+    pathheightdiff=datamng.getPathsHeightdiffs()
+
+    pathtypesdict=DataProcesser.listIntoDict(pathtypes)
+    pathheightdiffdict=DataProcesser.listIntoDict(pathheightdiff)
+    pathslopesdict=DataProcesser.listIntoDict(pathslopes)
+    pathlenghtsdict=DataProcesser.listIntoDict(pathlenghts)
+
     context = {
         'fountains': json.dumps(fountainlist),
         'paths':json.dumps(pathsformtatted),

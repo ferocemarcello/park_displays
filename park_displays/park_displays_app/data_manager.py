@@ -43,6 +43,10 @@ class ParkManager:
         for path in paths:
             pathslengths.append(path[0][3])
         return pathslengths
+    def getFountains(self):
+        return self.xmlmanager.getFountains(parkname=self.parkname)
+    def getGymTools(self):
+        return self.xmlmanager.getGymTools(parkname=self.parkname)
 class DataProcesser:
     def __init__(self):
         pass

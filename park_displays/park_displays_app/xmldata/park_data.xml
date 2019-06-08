@@ -25,6 +25,12 @@
                 </waypoints>
             </path>
         </paths>
+        <gymtools>
+            <gymtool lat="48.156088" lng="11.595853">Smith Machine</gymtool>
+            <gymtool lat="48.154714" lng="11.594308">Air Walker</gymtool>
+            <gymtool lat="48.152767" lng="11.594695">Rower</gymtool>
+            <gymtool lat="48.152395" lng="11.591004">Weight Bench</gymtool>
+        </gymtools>
         <fountains>
     <fountain lat="48.148329" lng="11.590489"></fountain>
     <fountain lat="48.147355" lng="11.587056"></fountain>

@@ -17,6 +17,16 @@ class XmlManager():
                             if f.tag=="fountain":
                                 fountainlist.append((f.attrib["lat"],f.attrib["lng"]))
                 return fountainlist
+    def getGymTools(self,parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+                toollist = []
+                for c in child:
+                    if c.tag == 'gymtools':
+                        for f in c:
+                            if f.tag=="gymtool":
+                                toollist.append((f.text,(f.attrib["lat"],f.attrib["lng"])))
+                return toollist
 
     def getGenders(self):
         genders=[]

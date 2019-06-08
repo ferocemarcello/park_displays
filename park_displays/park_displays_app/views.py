@@ -47,7 +47,7 @@ def parkdetails(request):
     terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
     pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
     pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
-    fountainlist=xmlmng.getFountains("englischer_garten")
+    fountainlist=datamng.getFountains()
 
     pathsformtatted=datamng.getPathsWaypoints()
     pathtypes =datamng.getPathTypes()
@@ -90,20 +90,46 @@ def similarusers(request):
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
-    choices=[('a','a'), ('b','b'),('c','c'),('d','d')]
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    datamng = ParkManager("englischer_garten", xmlmng)
+    choices=[(x[0],x[0]) for x in datamng.getGymTools()]
     gymselectionmulticheck = CheckMultiCheckBox("Select Gym tools to show")
     gymselectionmulticheck.fields['selection'].choices = choices
     gymselectionmulticheck.fields['selection'].initial = choices
     template = loader.get_template('park_displays_app/outdoorgym.html')
     context = {
         'checkboxes': gymselectionmulticheck,
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_OUTDOOR_GYM",
     }
     return HttpResponse(template.render(context, request))
 def runwalk(request):
     template = loader.get_template('park_displays_app/run_walk.html')
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    datamng = ParkManager("englischer_garten", xmlmng)
+    waterselection = CheckMultiCheckBox(choices=[('Water Fountains', 'Water Fountains')], label="Show water fountains")
+    terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
+    pathselection = CheckMultiCheckBox(choices=terrainchoices, label="Filter path by terrain")
+    pathselection.fields['selection'].widget.attrs['id'] = "terraintypeselection"
+    fountainlist =datamng.getFountains()
+
+    pathsformtatted = datamng.getPathsWaypoints()
+    pathtypes = datamng.getPathTypes()
+    pathlenghts = datamng.getPathsLengths()
+    pathslopes = datamng.getPathsSlopes()
+    pathheightdiff = datamng.getPathsHeightdiffs()
+
+    pathtypesdict = DataProcesser.listIntoDict(pathtypes)
+    pathheightdiffdict = DataProcesser.listIntoDict(pathheightdiff)
+    pathslopesdict = DataProcesser.listIntoDict(pathslopes)
+    pathlenghtsdict = DataProcesser.listIntoDict(pathlenghts)
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_RUN_WALK",
+        'fountains': json.dumps(fountainlist),
+        'paths': json.dumps(pathsformtatted),
+        'pathtypes': json.dumps(pathtypesdict),
+        'watercheckbox': waterselection,
+        'pathcheckboxes': pathselection,
+        'pathheightdiffs': pathheightdiffdict,
+        'pathslopes': pathslopesdict,
+        'pathlenghts': pathlenghtsdict,
     }
     return HttpResponse(template.render(context, request))
 def freeweight(request):

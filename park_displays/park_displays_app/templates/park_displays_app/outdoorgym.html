@@ -58,6 +58,12 @@ map.setZoom(15);
 // MapEvents enables the event system
 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+// Create the default UI components
+        var gymtoolscoordinates={{ gymtoolscoordinates|safe }};
+    var gymtoolsbytype={{ gymtoolsbytype |safe}}
+var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
+for(var i=0; i<gymtoolscoordinates.length;i++){
+}
 </script>
 </body>
 </html>

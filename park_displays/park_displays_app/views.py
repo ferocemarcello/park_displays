@@ -100,10 +100,13 @@ def outdoorgym(request):
     gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")
     template = loader.get_template('park_displays_app/outdoorgym.html')
     gymtools=datamng.getGymTools()
+    gymtoolscoordinates=[]
+    for gymtool in gymtools:
+        gymtoolscoordinates.append(gymtool[1])
     gymtoolsbytype = datamng.getGymToolsByType()
     gymtoolsbytypedict = DataProcesser.listIntoDict(gymtoolsbytype)
     context = {
-        'gymtools':json.dumps(gymtools),
+        'gymtoolscoordinates':json.dumps(gymtoolscoordinates),
         'gymtoolsbytype':json.dumps(gymtoolsbytypedict),
         'checkboxes': gymselectionmulticheck,
     }

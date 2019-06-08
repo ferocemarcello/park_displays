@@ -8,6 +8,8 @@ import json
 # Create your views here.
 from .xmlmanager import XmlManager
 from .data_manager import ParkManager,DataProcesser
+from .athlete import Athlete
+from .user import User
 
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox

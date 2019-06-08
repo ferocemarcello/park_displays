@@ -51,6 +51,12 @@ class XmlManager():
             for pathtype in child:
                 pathtypes.append(pathtype.text)
         return pathtypes
+    def getToolTypes(self):
+        gymtooltypes = []
+        for child in self.root.iter('gymtooltypes'):
+            for gymtooltype in child:
+                gymtooltypes.append(gymtooltype.text)
+        return gymtooltypes
     def getAgeIntervals(self):
         ageintervals=[]
         for child in self.root.iter('ageintervals'):

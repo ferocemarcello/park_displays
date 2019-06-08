@@ -5,4 +5,10 @@
             <pathtype>Gravel</pathtype>
             <pathtype>Dirt</pathtype>
     </pathtypes>
+    <gymtooltypes>
+            <gymtooltype>Smith Machine</gymtooltype>
+            <gymtooltype>Air Walker</gymtooltype>
+            <gymtooltype>Rower</gymtooltype>
+        <gymtooltype>Weight Bench</gymtooltype>
+    </gymtooltypes>
 </filters>

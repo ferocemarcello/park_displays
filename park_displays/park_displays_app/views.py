@@ -12,6 +12,10 @@ from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
 
+path_types=XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()
+gymtool_types = XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getToolTypes()
+
 def index(request):
     template = loader.get_template('park_displays_app/index.html')
     context = {
@@ -41,7 +45,7 @@ def sportrec(request):
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng)
+    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
     terrainchoices = [(x, x) for x in XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
@@ -50,12 +54,12 @@ def parkdetails(request):
     fountainlist=datamng.getFountains()
 
     pathsformtatted=datamng.getPathsWaypoints()
-    pathtypes =datamng.getPathTypes()
+    pathsbytype =datamng.getPathsByType()
     pathlenghts=datamng.getPathsLengths()
     pathslopes=datamng.getPathsSlopes()
     pathheightdiff=datamng.getPathsHeightdiffs()
 
-    pathtypesdict=DataProcesser.listIntoDict(pathtypes)
+    pathtypesdict=DataProcesser.listIntoDict(pathsbytype)
     pathheightdiffdict=DataProcesser.listIntoDict(pathheightdiff)
     pathslopesdict=DataProcesser.listIntoDict(pathslopes)
     pathlenghtsdict=DataProcesser.listIntoDict(pathlenghts)
@@ -91,20 +95,23 @@ def similarusers(request):
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng)
+    datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
     choices=[(x[0],x[0]) for x in datamng.getGymTools()]
     gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")
     template = loader.get_template('park_displays_app/outdoorgym.html')
     gymtools=datamng.getGymTools()
+    gymtoolsbytype = datamng.getGymToolsByType()
+    gymtoolsbytypedict = DataProcesser.listIntoDict(gymtoolsbytype)
     context = {
-        'gymtools':gymtools,
+        'gymtools':json.dumps(gymtools),
+        'gymtoolsbytype':json.dumps(gymtoolsbytypedict),
         'checkboxes': gymselectionmulticheck,
     }
     return HttpResponse(template.render(context, request))
 def runwalk(request):
     template = loader.get_template('park_displays_app/run_walk.html')
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng)
+    datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
     waterselection = CheckMultiCheckBox(choices=[('Water Fountains', 'Water Fountains')], label="Show water fountains")
     terrainchoices =[(x,x) for x in XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
     pathselection = CheckMultiCheckBox(choices=terrainchoices, label="Filter path by terrain")
@@ -112,12 +119,12 @@ def runwalk(request):
     fountainlist =datamng.getFountains()
 
     pathsformtatted = datamng.getPathsWaypoints()
-    pathtypes = datamng.getPathTypes()
+    pathsbytype = datamng.getPathsByType()
     pathlenghts = datamng.getPathsLengths()
     pathslopes = datamng.getPathsSlopes()
     pathheightdiff = datamng.getPathsHeightdiffs()
 
-    pathtypesdict = DataProcesser.listIntoDict(pathtypes)
+    pathtypesdict = DataProcesser.listIntoDict(pathsbytype)
     pathheightdiffdict = DataProcesser.listIntoDict(pathheightdiff)
     pathslopesdict = DataProcesser.listIntoDict(pathslopes)
     pathlenghtsdict = DataProcesser.listIntoDict(pathlenghts)

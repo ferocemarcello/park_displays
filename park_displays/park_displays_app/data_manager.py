@@ -2,9 +2,11 @@ from .xmlmanager import XmlManager
 
 
 class ParkManager:
-    def __init__(self, parkname,xmlmanager: XmlManager):
+    def __init__(self, parkname,xmlmanager: XmlManager,pathtypes=[],gymtooltypes=[]):
         self.parkname=parkname
         self.xmlmanager=xmlmanager
+        self.pathtypes=pathtypes
+        self.gymtooltypes=gymtooltypes
     def getPaths(self):
         return self.xmlmanager.getPaths(self.parkname)
     def getPathsWaypoints(self):
@@ -13,18 +15,24 @@ class ParkManager:
         for path in paths:
             pathswaypoints.append(path[1])
         return pathswaypoints
-    def getPathTypes(self):
-        pathtypes = [[], [], []]
-        paths=self.getPaths()
+    def getPathsByType(self):
+        paths = self.getPaths()
+        pathsbytype=[]
+        for i in range(len(self.pathtypes)):
+            pathsbytype.append([])
         for path in paths:
             terraintype = path[0][0]
-            if terraintype == "pavement":
-                pathtypes[0].append(paths.index(path))
-            if terraintype == "gravel":
-                pathtypes[1].append(paths.index(path))
-            if terraintype == "dirt":
-                pathtypes[2].append(paths.index(path))
-        return pathtypes
+            pathsbytype[self.pathtypes.index(terraintype)].append(paths.index(path))
+        return pathsbytype
+    def getGymToolsByType(self):
+        gymtools = self.getGymTools()
+        gymtooltypes=[]
+        for i in range(len(self.gymtooltypes)):
+            gymtooltypes.append([])
+        for gymtool in gymtools:
+            gymtooltype = gymtool[0]
+            gymtooltypes[self.gymtooltypes.index(gymtooltype)].append(gymtools.index(gymtool))
+        return gymtooltypes
     def getPathsSlopes(self):
         paths = self.getPaths()
         pathslopes=[]

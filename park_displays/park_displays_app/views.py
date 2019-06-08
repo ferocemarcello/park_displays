@@ -187,45 +187,56 @@ def findgroups(request):
 
 def grouprecommendations(request):
     template = loader.get_template('park_displays_app/grouprecommendations.html')
-    number_of_components_list = [(str(x),str(x)) for x in range(0,50)]
+    xmlmng = XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "group_filters.xml")
+    minmax=xmlmng.getMinMaxNumGroupFilter("num_components")
+    number_of_components_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     number_of_components = Dropdown("Select Number of Components")
     number_of_components.fields['selection'].choices = number_of_components_list
     number_of_components.fields['selection'].initial = number_of_components_list
 
-    number_of_males_list = [(str(x),str(x)) for x in range(0,50)]
+    minmax = xmlmng.getMinMaxNumGroupFilter("num_males")
+    number_of_males_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     number_of_males = Dropdown("Select Number of Males")
     number_of_males.fields['selection'].choices = number_of_males_list
     number_of_males.fields['selection'].initial = number_of_males_list
 
-    number_not_adult_list = [(str(x),str(x)) for x in range(0,50)]
+    minmax = xmlmng.getMinMaxNumGroupFilter("num_youngs")
+    number_not_adult_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     number_not_adult = Dropdown("Select Number of under 18")
     number_not_adult.fields['selection'].choices = number_not_adult_list
     number_not_adult.fields['selection'].initial = number_not_adult_list
 
-    number_of_olds_list = [(str(x),str(x)) for x in range(0,50)]
+    minmax = xmlmng.getMinMaxNumGroupFilter("num_olds")
+    number_of_olds_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     number_of_olds = Dropdown("Select number of over 70")
     number_of_olds.fields['selection'].choices = number_of_olds_list
     number_of_olds.fields['selection'].initial = number_of_olds_list
 
-    average_age_list = [(str(x),str(x)) for x in range(0,100)]
+    minmax = xmlmng.getMinMaxNumGroupFilter("averageage")
+    average_age_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     average_age = Dropdown("Select average age")
     average_age.fields['selection'].choices = average_age_list
     average_age.fields['selection'].initial = average_age_list
 
-    minimum_age_list = [(str(x),str(x)) for x in range(0,100)]
+    minmax = xmlmng.getMinMaxNumGroupFilter("minage")
+    minimum_age_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     minimum_age = Dropdown("Select minimum age")
     minimum_age.fields['selection'].choices = minimum_age_list
     minimum_age.fields['selection'].initial = minimum_age_list
 
-    max_age_list =[(str(x),str(x)) for x in range(0,100)]
+    minmax = xmlmng.getMinMaxNumGroupFilter("maxage")
+    max_age_list =[(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
     max_age = Dropdown("Select maximum age")
     max_age.fields['selection'].choices = max_age_list
     max_age.fields['selection'].initial = max_age_list
 
-    typechoices = [('Strength', 'Strength'), ('Flexibility', 'Flexibility'), ('Both', 'Both')]
+    xmlmng = XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+    trainingtypes = [(x, x) for x in xmlmng.getTrainingTypes()] + [('Both', 'Both')]
     typeselection = CheckBox("Select Type")
-    typeselection.fields['selection'].choices = typechoices
-    typeselection.fields['selection'].initial = typechoices
+    typeselection.fields['selection'].choices = trainingtypes
+    typeselection.fields['selection'].initial = trainingtypes
     context = {
         'number_of_components':number_of_components,
         'number_of_males':number_of_males,

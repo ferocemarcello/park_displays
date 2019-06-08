@@ -8,9 +8,6 @@ import json
 # Create your views here.
 from .xmlmanager import XmlManager
 from .data_manager import ParkManager,DataProcesser
-from .athlete import Athlete
-from .user import User
-
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
@@ -46,7 +43,8 @@ def parkdetails(request):
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
     datamng = ParkManager("englischer_garten", xmlmng)
     waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
-    terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
+    terrainchoices = [(x, x) for x in XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
     pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
     pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
     fountainlist=datamng.getFountains()
@@ -108,7 +106,7 @@ def runwalk(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     datamng = ParkManager("englischer_garten", xmlmng)
     waterselection = CheckMultiCheckBox(choices=[('Water Fountains', 'Water Fountains')], label="Show water fountains")
-    terrainchoices = [('Pavement', 'Pavement'), ('Gravel', 'Gravel'), ('Dirt', 'Dirt')]
+    terrainchoices =[(x,x) for x in XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
     pathselection = CheckMultiCheckBox(choices=terrainchoices, label="Filter path by terrain")
     pathselection.fields['selection'].widget.attrs['id'] = "terraintypeselection"
     fountainlist =datamng.getFountains()
@@ -175,7 +173,8 @@ def groupfitness(request):
     return HttpResponse(template.render(context, request))
 
 def findgroups(request):
-    trainingtypes = [('Strenght', 'Strenght'), ('Flexibility', 'Flexibility'), ('Both', 'Both')]
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+    trainingtypes=[(x,x) for x in xmlmng.getTrainingTypes()]+[('Both','Both')]
     training = CheckBox("Choose type of training")
     training.fields['selection'].choices = trainingtypes
     training.fields['selection'].initial = trainingtypes

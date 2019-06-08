@@ -52,4 +52,11 @@
             <trainingtype>Strenght</trainingtype>
             <trainingtype>Flexibility</trainingtype>
     </trainingtypes>
+    <shoetypes>
+            <shoetype>Trail</shoetype>
+            <shoetype>Track</shoetype>
+            <shoetype>Road A1</shoetype>
+        <shoetype>Road A2</shoetype>
+        <shoetype>Road A3</shoetype>
+    </shoetypes>
 </filters>

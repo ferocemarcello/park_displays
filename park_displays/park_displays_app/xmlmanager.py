@@ -34,6 +34,18 @@ class XmlManager():
             for gender in child:
                 genders.append(gender.text)
         return genders
+    def getShoeTypes(self):
+        shoetypes=[]
+        for child in self.root.iter('shoetypes'):
+            for gender in child:
+                shoetypes.append(gender.text)
+        return shoetypes
+    def getPathTypes(self):
+        pathtypes=[]
+        for child in self.root.iter('pathtypes'):
+            for pathtype in child:
+                pathtypes.append(pathtype.text)
+        return pathtypes
     def getAgeIntervals(self):
         ageintervals=[]
         for child in self.root.iter('ageintervals'):

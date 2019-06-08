@@ -93,11 +93,11 @@ def outdoorgym(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     datamng = ParkManager("englischer_garten", xmlmng)
     choices=[(x[0],x[0]) for x in datamng.getGymTools()]
-    gymselectionmulticheck = CheckMultiCheckBox("Select Gym tools to show")
-    gymselectionmulticheck.fields['selection'].choices = choices
-    gymselectionmulticheck.fields['selection'].initial = choices
+    gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")
     template = loader.get_template('park_displays_app/outdoorgym.html')
+    gymtools=datamng.getGymTools()
     context = {
+        'gymtools':gymtools,
         'checkboxes': gymselectionmulticheck,
     }
     return HttpResponse(template.render(context, request))

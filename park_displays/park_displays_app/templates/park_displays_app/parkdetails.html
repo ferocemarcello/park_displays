@@ -196,7 +196,7 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
-for(var i=0; i<fountains.length;i++){//excluding depot
+for(var i=0; i<fountains.length;i++){
     var waterfountainicon=new H.map.Icon("{% static 'park_displays_app/water.png' %}", {size: {w: 32, h: 32}});
     var waterfountain=new H.map.Marker({lat:fountains[i][0], lng:fountains[i][1]},{icon:waterfountainicon});
     var watermarkertext="";

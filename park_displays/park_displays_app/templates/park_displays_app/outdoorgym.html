@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +53,21 @@ platform.configure(H.map.render.panorama.RenderEngine);
 //Step 2: initialize a map
 map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
   });
+        // Hold a reference to any infobubble opened
+var bubble
+        function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
 map.setCenter({lat:48.148673, lng:11.589373});
 map.setZoom(15);
 //Step 3: make the map interactive
@@ -60,9 +76,29 @@ map.setZoom(15);
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 // Create the default UI components
         var gymtoolscoordinates={{ gymtoolscoordinates|safe }};
-    var gymtoolsbytype={{ gymtoolsbytype |safe}}
+    var gymtoolsbytype={{ gymtoolsbytype |safe}};
+    var gymtooltypes={{ gymtooltypes |safe}};
+    function findgymtooltypeindex(gymtoolsbytype,gymtoolindex) {
+        for(var key in gymtoolsbytype){
+            arr=gymtoolsbytype[key];
+            if(arr.includes(gymtoolindex)) return key
+        }
+    }
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
 for(var i=0; i<gymtoolscoordinates.length;i++){
+    var gymtoolinicon=new H.map.Icon("{% static 'park_displays_app/gymtool.png' %}", {size: {w: 32, h: 32}});
+    var gymtool=new H.map.Marker({lat:gymtoolscoordinates[i][0], lng:gymtoolscoordinates[i][1]},{icon:gymtoolinicon});
+    var gymtoolmarkertext="";
+    gymtooltypeindex=0;
+    gymtooltypeindex=findgymtooltypeindex(gymtoolsbytype,i);
+    gymtoolmarkertext=gymtoolmarkertext+gymtooltypes[gymtooltypeindex];
+    gymtool.setData(gymtoolmarkertext);
+    gymtool.addEventListener("tap", markerlistener, false);
+    function markerlistener(evt){
+  map.setCenter(evt.target.getPosition());
+  openBubble(evt.target.getPosition(), evt.target.getData());
+}
+  map.addObject(gymtool);
 }
 </script>
 </body>

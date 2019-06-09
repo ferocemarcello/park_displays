@@ -109,6 +109,7 @@ def outdoorgym(request):
         'gymtoolscoordinates':json.dumps(gymtoolscoordinates),
         'gymtoolsbytype':json.dumps(gymtoolsbytypedict),
         'checkboxes': gymselectionmulticheck,
+        'gymtooltypes': gymtool_types,
     }
     return HttpResponse(template.render(context, request))
 def runwalk(request):

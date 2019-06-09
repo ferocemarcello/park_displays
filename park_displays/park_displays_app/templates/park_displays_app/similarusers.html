@@ -71,6 +71,50 @@ map.setZoom(15);
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
+var runners={{ runners |safe}};
+    var walkers={{ walkers  |safe}};
+    var gymathletes={{ gymathletes |safe }};
+    var freeweightathletes={{ freeweightathletes |safe }};
+    var stretchers={{ stretchers  |safe}};
+    var athletes=[runners,walkers,gymathletes,freeweightathletes,stretchers];
+    var iconlist=[new H.map.Icon("{% static 'park_displays_app/runningicon.png' %}", {size: {w: 32, h: 32}}),
+    new H.map.Icon("{% static 'park_displays_app/walkingicon.png' %}", {size: {w: 32, h: 32}}),
+    new H.map.Icon("{% static 'park_displays_app/gymicon.png' %}", {size: {w: 32, h: 32}}),
+    new H.map.Icon("{% static 'park_displays_app/freeweighticon.png' %}", {size: {w: 32, h: 32}}),
+    new H.map.Icon("{% static 'park_displays_app/stretchingicon.png' %}", {size: {w: 32, h: 32}})];
+    for(var i=0; i<athletes.length;i++){
+        var sportspeclist=athletes[i];
+        var sportspecicon=iconlist[i]
+        for(var j=0;j<sportspeclist.length;j++){
+            var sportspecmarker=new H.map.Marker({lat:sportspeclist[j][0], lng:sportspeclist[j][1]},{icon:sportspecicon});
+            var sportspecmarkertext="";
+            switch(i) {
+  case 0:
+    sportspecmarkertext="started running here";
+    break;
+  case 1:
+    sportspecmarkertext="started walking here";
+    break;
+    case 2:
+    sportspecmarkertext="using gym tools here";
+    break;
+  case 3:
+    sportspecmarkertext="doing freeweight exercises here";
+    break;
+    case 4:
+    sportspecmarkertext="doing stretching exercises here";
+    break;
+
+}
+    sportspecmarker.setData(sportspecmarkertext);
+    sportspecmarker.addEventListener("tap", markerlistener, false);
+    function markerlistener(evt){
+  map.setCenter(evt.target.getPosition());
+  openBubble(evt.target.getPosition(), evt.target.getData());
+}
+  map.addObject(sportspecmarker);
+        }
+}
 </script>
 </body>
 </html>

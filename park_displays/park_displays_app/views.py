@@ -97,6 +97,11 @@ def similarusers(request):
     stretchers = datamng.getStretchers()
     template = loader.get_template('park_displays_app/similarusers.html')
     context = {
+        'runners':json.dumps(runners),
+        'walkers':json.dumps(walkers),
+        'gymathletes':json.dumps(gymathletes),
+        'freeweightathletes':json.dumps(freeweightathletes),
+        'stretchers':json.dumps(stretchers),
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):

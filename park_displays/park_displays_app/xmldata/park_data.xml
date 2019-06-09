@@ -37,6 +37,20 @@
     <fountain lat="48.146382" lng="11.591733"></fountain>
     <fountain lat="48.149560" lng="11.586069"></fountain>
 </fountains>
+        <running>
+            <athlete lat="48.143573" lng="11.588202"></athlete><!-- position should be start of a path, e.g. first waypoint -->
+            <athlete lat="48.144518" lng="11.583674"></athlete>
+        </running>
+        <walking>
+            <athlete lat="48.147195" lng="11.591148"></athlete>
+        </walking>
+        <outdoorgym>
+            <athlete lat="48.152395" lng="11.591004"></athlete><!-- position should be position of a tool -->
+        </outdoorgym>
+        <freeweight><athlete lat="48.145801" lng="11.584811"></athlete><!-- position can coincide with position of the display -->
+        </freeweight>
+        <stretching><athlete lat="48.146404" lng="11.592444"></athlete>
+        </stretching>
     </park>
     <park name="maximiliansanlagen">
         <paths></paths>

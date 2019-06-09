@@ -55,6 +55,23 @@ class ParkManager:
         return self.xmlmanager.getFountains(parkname=self.parkname)
     def getGymTools(self):
         return self.xmlmanager.getGymTools(parkname=self.parkname)
+
+    def getRunners(self):
+        return self.xmlmanager.getRunners(parkname=self.parkname)
+
+    def getWalkers(self):
+        return self.xmlmanager.getWalkers(parkname=self.parkname)
+
+    def getGymAthletes(self):
+        return self.xmlmanager.getGymAthletes(parkname=self.parkname)
+
+    def getFreeweightAthletes(self):
+        return self.xmlmanager.getFreeweightAthletes(parkname=self.parkname)
+
+    def getStretchers(self):
+        return self.xmlmanager.getStretchers(parkname=self.parkname)
+
+
 class DataProcesser:
     def __init__(self):
         pass

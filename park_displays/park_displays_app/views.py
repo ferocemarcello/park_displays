@@ -88,6 +88,13 @@ def login(request):
     }
     return HttpResponse(template.render(context, request))
 def similarusers(request):
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    runners=datamng.getRunners()
+    walkers=datamng.getWalkers()
+    gymathletes=datamng.getGymAthletes()
+    freeweightathletes=datamng.getFreeweightAthletes()
+    stretchers = datamng.getStretchers()
     template = loader.get_template('park_displays_app/similarusers.html')
     context = {
     }

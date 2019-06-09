@@ -108,3 +108,63 @@ class XmlManager():
                                             path[1].append(waypoint)
                                 pathlist.append(path)
         return pathlist
+
+    def getRunners(self, parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+
+                runnerlist = []
+                for c in child:
+                    if c.tag == 'running':
+                        for f in c:
+                            if f.tag=="athlete":
+                                runnerlist.append((f.attrib["lat"],f.attrib["lng"]))
+                return runnerlist
+
+    def getWalkers(self, parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+
+                walkerlist = []
+                for c in child:
+                    if c.tag == 'walking':
+                        for f in c:
+                            if f.tag=="athlete":
+                                walkerlist.append((f.attrib["lat"],f.attrib["lng"]))
+                return walkerlist
+
+    def getGymAthletes(self, parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+
+                gymathletelist = []
+                for c in child:
+                    if c.tag == 'outdoorgym':
+                        for f in c:
+                            if f.tag=="athlete":
+                                gymathletelist.append((f.attrib["lat"],f.attrib["lng"]))
+                return gymathletelist
+
+    def getFreeweightAthletes(self, parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+
+                freeweightlist = []
+                for c in child:
+                    if c.tag == 'freeweight':
+                        for f in c:
+                            if f.tag=="athlete":
+                                freeweightlist.append((f.attrib["lat"],f.attrib["lng"]))
+                return freeweightlist
+
+    def getStretchers(self, parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+
+                stretcherlist = []
+                for c in child:
+                    if c.tag == 'stretching':
+                        for f in c:
+                            if f.tag=="athlete":
+                                stretcherlist.append((f.attrib["lat"],f.attrib["lng"]))
+                return stretcherlist

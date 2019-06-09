@@ -14,13 +14,19 @@
     {% csrf_token %}
 <button type='submit'> freeweight exercises</button>
 </form>
+
 <form action='outdoorgym' method='POST'>
     {% csrf_token %}
-<button type='submit'> outdoor gym</button>
+<button type='submit'>Outdoor Gym</button>
 </form>
+
 <form action='groupfitness' method='POST'>
     {% csrf_token %}
-<button type='submit'>group fitness</button>
+<button type='submit'>Group Fitness</button>
+</form>
+<form action='similarusers' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Find Similar Users</button>
 </form>
 <form action='weather' method='POST'>
     {% csrf_token %}

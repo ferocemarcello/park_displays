@@ -88,9 +88,8 @@ def login(request):
     }
     return HttpResponse(template.render(context, request))
 def similarusers(request):
-    template = loader.get_template('park_displays_app/startpage.html')
+    template = loader.get_template('park_displays_app/similarusers.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_SIMILAR_USERS",
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
@@ -174,7 +173,6 @@ def freeweight(request):
         'dropdown4': kcalselection,
     }
     return HttpResponse(template.render(context, request))
-
 def groupfitness(request):
 
 
@@ -182,7 +180,6 @@ def groupfitness(request):
     context = {
     }
     return HttpResponse(template.render(context, request))
-
 def findgroups(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     trainingtypes=[(x,x) for x in xmlmng.getTrainingTypes()]+[('Both','Both')]
@@ -195,7 +192,6 @@ def findgroups(request):
         'radiobuttons': training,
     }
     return HttpResponse(template.render(context, request))
-
 def grouprecommendations(request):
     template = loader.get_template('park_displays_app/grouprecommendations.html')
     xmlmng = XmlManager(

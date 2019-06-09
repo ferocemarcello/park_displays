@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Similar Users</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  <script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-core.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-service.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-pano.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css"/><!--?dp-version=1542186754 1526040296-->
+<style>
+            html, body {
+                width: 1080px;
+                height: 1920px;
+                margin: 0;
+                padding: 0;
+                background-color: white;
+            }
+    input[type="range"] {
+        width:400px;}
+        </style>
+</head>
+<body>
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
+Put Filters here
+</div>
+<script>
+    // set up containers for the map  + panel
+var mapContainer = document.getElementById('map');
+
+//Step 1: initialize communication with the platform
+var platform = new H.service.Platform({
+  app_id: 'KfjYxKFR65JNn6KGSink',
+  app_code: '--NDudeZYCPWjK333-3TxQ',
+  useCIT: true,
+  useHTTPS: true
+});
+
+var defaultLayers = platform.createDefaultLayers();
+   defaultLayers.normal.map.setMax(50);
+
+platform.configure(H.map.render.panorama.RenderEngine);
+
+//Step 2: initialize a map
+map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
+  });
+        // Hold a reference to any infobubble opened
+var bubble
+        function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
+map.setCenter({lat:48.148673, lng:11.589373});
+map.setZoom(15);
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
+</script>
+</body>
+</html>

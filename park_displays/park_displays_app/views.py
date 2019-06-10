@@ -198,6 +198,9 @@ def groupfitness(request):
 def findgroups(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     trainingtypes=[(x,x) for x in xmlmng.getTrainingTypes()]+[('Both','Both')]
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    grouplist=datamng.getGroups()
     training = CheckBox("Choose type of training")
     training.fields['selection'].choices = trainingtypes
     training.fields['selection'].initial = trainingtypes
@@ -205,6 +208,7 @@ def findgroups(request):
     template = loader.get_template('park_displays_app/findgroups.html')
     context = {
         'radiobuttons': training,
+        'grouplist':grouplist,
     }
     return HttpResponse(template.render(context, request))
 def grouprecommendations(request):

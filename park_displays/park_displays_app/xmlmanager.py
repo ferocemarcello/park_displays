@@ -17,6 +17,17 @@ class XmlManager():
                             if f.tag=="fountain":
                                 fountainlist.append((f.attrib["lat"],f.attrib["lng"]))
                 return fountainlist
+    def getGroups(self,parkname):
+        for child in self.root.iter('park'):
+            if child.attrib["name"]==parkname:
+
+                grouplist = []
+                for c in child:
+                    if c.tag == 'groups':
+                        for f in c:
+                            if f.tag=="group":
+                                grouplist.append(((f.attrib["lat"],f.attrib["lng"]),f.attrib["stretching"]=="True",f.attrib["freeweight"]=="True"))
+                return grouplist
     def getMinMaxNumGroupFilter(self,groupFilter):
         for child in self.root.iter('filters'):
             for filter in child:

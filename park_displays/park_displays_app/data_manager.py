@@ -70,6 +70,8 @@ class ParkManager:
 
     def getStretchers(self):
         return self.xmlmanager.getStretchers(parkname=self.parkname)
+    def getGroups(self):
+        return self.xmlmanager.getGroups(parkname=self.parkname)
 
 
 class DataProcesser:

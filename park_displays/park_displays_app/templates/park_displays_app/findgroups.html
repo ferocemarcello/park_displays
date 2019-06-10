@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +34,21 @@
 </form>
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
 <script>
+            // Hold a reference to any infobubble opened
+var bubble
+        function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
     // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');
 
@@ -62,6 +78,29 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
+var groups={{ grouplist |safe}};
+    for(var i=0; i<groups.length;i++){
+        var groupicon=new H.map.Icon("{% static 'park_displays_app/groupicon.png' %}", {size: {w: 32, h: 32}});
+            var groupmarker=new H.map.Marker({lat:groups[i][0][0], lng:groups[i][0][1]},{icon:groupicon});
+            var groupmarkertext="Fitness group doing ";
+            if(groups[i][1] && groups[i][2]){
+                groupmarkertext+="stretching and freeweight exercises"
+            }
+            if(!groups[i][2]){
+                groupmarkertext+="stretching"
+            }
+            if(!groups[i][1]){
+                groupmarkertext+="freeweight exercises"
+            }
+    groupmarker.setData(groupmarkertext);
+    groupmarker.addEventListener("tap", markerlistener, false);
+    function markerlistener(evt){
+  map.setCenter(evt.target.getPosition());
+  openBubble(evt.target.getPosition(), evt.target.getData());
+}
+  map.addObject(groupmarker);
+
+}
 </script>
 </body>
 </html>

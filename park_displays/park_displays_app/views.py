@@ -208,7 +208,7 @@ def findgroups(request):
     template = loader.get_template('park_displays_app/findgroups.html')
     context = {
         'radiobuttons': training,
-        'grouplist':grouplist,
+        'grouplist':json.dumps(grouplist),
     }
     return HttpResponse(template.render(context, request))
 def grouprecommendations(request):

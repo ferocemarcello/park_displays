@@ -42,39 +42,7 @@ def sportrec(request):
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_SPORT_REC",
     }
     return HttpResponse(template.render(context, request))
-def parkdetails(request):
-    template = loader.get_template('park_displays_app/parkdetails.html')
-    xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
-    waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
-    terrainchoices = [(x, x) for x in XmlManager(
-        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
-    pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
-    pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
-    fountainlist=datamng.getFountains()
 
-    pathsformtatted=datamng.getPathsWaypoints()
-    pathsbytype =datamng.getPathsByType()
-    pathlenghts=datamng.getPathsLengths()
-    pathslopes=datamng.getPathsSlopes()
-    pathheightdiff=datamng.getPathsHeightdiffs()
-
-    pathtypesdict=DataProcesser.listIntoDict(pathsbytype)
-    pathheightdiffdict=DataProcesser.listIntoDict(pathheightdiff)
-    pathslopesdict=DataProcesser.listIntoDict(pathslopes)
-    pathlenghtsdict=DataProcesser.listIntoDict(pathlenghts)
-
-    context = {
-        'fountains': json.dumps(fountainlist),
-        'paths':json.dumps(pathsformtatted),
-        'pathtypes':json.dumps(pathtypesdict),
-        'watercheckbox':waterselection,
-        'pathcheckboxes':pathselection,
-        'pathheightdiffs':pathheightdiffdict,
-        'pathslopes':pathslopesdict,
-        'pathlenghts':pathlenghtsdict,
-    }
-    return HttpResponse(template.render(context, request))
 def social(request):
     template = loader.get_template('park_displays_app/startpage.html')
     context = {
@@ -123,15 +91,49 @@ def outdoorgym(request):
         'gymtooltypes': gymtool_types,
     }
     return HttpResponse(template.render(context, request))
+def parkdetails(request):
+    template = loader.get_template('park_displays_app/parkdetails.html')
+    xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
+    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
+    terrainchoices = [(x, x) for x in XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
+    pathselection = CheckMultiCheckBox(choices=terrainchoices,label="Filter path by terrain")
+    pathselection.fields['selection'].widget.attrs['id']="terraintypeselection"
+    fountainlist=datamng.getFountains()
+
+    pathsformtatted=datamng.getPathsWaypoints()
+    pathsbytype =datamng.getPathsByType()
+    pathlenghts=datamng.getPathsLengths()
+    pathslopes=datamng.getPathsSlopes()
+    pathheightdiff=datamng.getPathsHeightdiffs()
+
+    pathtypesdict=DataProcesser.listIntoDict(pathsbytype)
+    pathheightdiffdict=DataProcesser.listIntoDict(pathheightdiff)
+    pathslopesdict=DataProcesser.listIntoDict(pathslopes)
+    pathlenghtsdict=DataProcesser.listIntoDict(pathlenghts)
+
+    context = {
+        'fountains': json.dumps(fountainlist),#water fountains
+        'paths':json.dumps(pathsformtatted),#list of paths
+        'pathtypes':json.dumps(pathtypesdict),#types of paths
+        'watercheckbox':waterselection,#water fountain selection
+        'pathcheckboxes':pathselection,#checkboxes with paths
+        'pathheightdiffs':pathheightdiffdict,#dict of height differences of paths
+        'pathslopes':pathslopesdict,#dict of slopes of paths
+        'pathlenghts':pathlenghtsdict,#dict of lenghts of paths
+    }
+    return HttpResponse(template.render(context, request))
 def runwalk(request):
     template = loader.get_template('park_displays_app/run_walk.html')
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
+    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     waterselection = CheckMultiCheckBox(choices=[('Water Fountains', 'Water Fountains')], label="Show water fountains")
-    terrainchoices =[(x,x) for x in XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
+    terrainchoices = [(x, x) for x in XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
     pathselection = CheckMultiCheckBox(choices=terrainchoices, label="Filter path by terrain")
     pathselection.fields['selection'].widget.attrs['id'] = "terraintypeselection"
-    fountainlist =datamng.getFountains()
+    fountainlist = datamng.getFountains()
 
     pathsformtatted = datamng.getPathsWaypoints()
     pathsbytype = datamng.getPathsByType()
@@ -143,15 +145,16 @@ def runwalk(request):
     pathheightdiffdict = DataProcesser.listIntoDict(pathheightdiff)
     pathslopesdict = DataProcesser.listIntoDict(pathslopes)
     pathlenghtsdict = DataProcesser.listIntoDict(pathlenghts)
+
     context = {
-        'fountains': json.dumps(fountainlist),
-        'paths': json.dumps(pathsformtatted),
-        'pathtypes': json.dumps(pathtypesdict),
-        'watercheckbox': waterselection,
-        'pathcheckboxes': pathselection,
-        'pathheightdiffs': pathheightdiffdict,
-        'pathslopes': pathslopesdict,
-        'pathlenghts': pathlenghtsdict,
+        'fountains': json.dumps(fountainlist),  # water fountains
+        'paths': json.dumps(pathsformtatted),  # list of paths
+        'pathtypes': json.dumps(pathtypesdict),  # types of paths
+        'watercheckbox': waterselection,  # water fountain selection
+        'pathcheckboxes': pathselection,  # checkboxes with paths
+        'pathheightdiffs': pathheightdiffdict,  # dict of height differences of paths
+        'pathslopes': pathslopesdict,  # dict of slopes of paths
+        'pathlenghts': pathlenghtsdict,  # dict of lenghts of paths
     }
     return HttpResponse(template.render(context, request))
 def freeweight(request):

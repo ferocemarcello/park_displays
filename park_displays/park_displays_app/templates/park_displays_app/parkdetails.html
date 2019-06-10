@@ -33,7 +33,7 @@
 <script>
     var fountains={{ fountains|safe}};
 var paths={{paths|safe}};
-var pathtypes={{pathtypes|safe}}
+var pathtypes={{pathtypes|safe}};
 var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
 var startfinishmarkers=Array(Object.keys(paths).length).fill(null);
         function calculateRouteFromAtoB (platform,waypoints,col,pathindex) {

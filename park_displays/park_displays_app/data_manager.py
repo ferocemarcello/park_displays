@@ -72,8 +72,12 @@ class ParkManager:
         return self.xmlmanager.getStretchers(parkname=self.parkname)
     def getGroups(self):
         return self.xmlmanager.getGroups(parkname=self.parkname)
-
-
+class AthleteManager:
+    def __init__(self, athleteid,xmlmanager: XmlManager):
+        self.athleteid=athleteid
+        self.xmlmanager=xmlmanager
+    def getShoeType(self):
+        return self.xmlmanager.getAthlete(self.athleteid)[4]
 class DataProcesser:
     def __init__(self):
         pass

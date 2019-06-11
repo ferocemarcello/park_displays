@@ -7,7 +7,7 @@ import json
 
 # Create your views here.
 from .xmlmanager import XmlManager
-from .data_manager import ParkManager,DataProcesser
+from .data_manager import ParkManager,DataProcesser,AthleteManager
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
@@ -35,7 +35,26 @@ def weather(request):
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_WEATHER",
     }
     return HttpResponse(template.render(context, request))
+def runwalkrecresult(request):
 
+    '''inputf = FormClass(None,request.POST, request.FILES)
+    inputf2 = FormClass(request.POST)
+    if request.method == 'POST' and inputf.is_valid() and inputf2.is_valid():
+        if len(request.FILES.getlist('file_field')) == 2:
+            coordinatesfile = request.FILES.getlist('file_field')[0]'''
+    gender="male"
+    age=31
+    weight=75
+    height=186
+    kcal=700
+    avgweekkm=40
+    activity="running"
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
+    shoetype=AthleteManager(0,xmlmng).getShoeType()
+    template = loader.get_template('park_displays_app/run_walk_recommendation_result.html')
+    context = {
+    }
+    return HttpResponse(template.render(context, request))
 def sportrec(request):
     template = loader.get_template('park_displays_app/recommendation.html')
     context = {

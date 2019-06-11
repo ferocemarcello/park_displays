@@ -25,7 +25,12 @@
 </head>
 <body>
 Some running/walking filters
-<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey">
+    <form action='runwalkrecresult' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Get recommendation</button>
+</form>
+</div>
 <script>
     // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');

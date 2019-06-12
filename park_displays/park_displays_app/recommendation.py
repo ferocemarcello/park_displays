@@ -18,7 +18,7 @@ class RunWalkRecommender():
         self.shoetype=shoetype
     def recommendPaths(self):
         #weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Munich&APPID=676536c0f3533a7868a16beed9f14ba4')
-        prweather=(weather.json())
+        #prweather=(weather.json())
         if self.activity=='running':
             return self.recommendRunning()
         else:

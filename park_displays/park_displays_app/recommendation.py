@@ -3,7 +3,7 @@ import os
 from .data_manager import ParkManager
 from .xmlmanager import XmlManager
 from pprint import pprint
-import requests
+#import requests
 class RunWalkRecommender():
     def __init__(self,path_types,gender,age,weight,height,kcal,avgweekkm,shoetype,activity):
         self.gender=gender

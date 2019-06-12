@@ -55,11 +55,120 @@ def runwalkrecresult(request):
     pathrecommendations=RunWalkRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,avgweekkm=avgweekkm,activity=activity).recommendPaths()
     template = loader.get_template('park_displays_app/run_walk_recommendation_result.html')
     context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_RUNWALK_REC_RESULT",
         'pathrecommendations':pathrecommendations,
     }
     return HttpResponse(template.render(context, request))
+def freeweightrecresult(request):
+
+    '''inputf = FormClass(None,request.POST, request.FILES)
+    inputf2 = FormClass(request.POST)
+    if request.method == 'POST' and inputf.is_valid() and inputf2.is_valid():
+        if len(request.FILES.getlist('file_field')) == 2:
+            coordinatesfile = request.FILES.getlist('file_field')[0]'''
+
+    gender="male"
+    age=31
+    weight=75
+    height=186
+    kcal=700
+    avgweekkm=40
+    activity="freeweight"
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
+    template = loader.get_template('park_displays_app/freeweight_recommendation_result.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_FREEWEIGHT_REC_RESULT",
+    }
+    return HttpResponse(template.render(context, request))
+def gymrecresult(request):
+
+    '''inputf = FormClass(None,request.POST, request.FILES)
+    inputf2 = FormClass(request.POST)
+    if request.method == 'POST' and inputf.is_valid() and inputf2.is_valid():
+        if len(request.FILES.getlist('file_field')) == 2:
+            coordinatesfile = request.FILES.getlist('file_field')[0]'''
+
+    gender="male"
+    age=31
+    weight=75
+    height=186
+    kcal=700
+    avgweekkm=40
+    activity="gym"
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
+    template = loader.get_template('park_displays_app/gym_recommendation_result.html')
+    context = {
+        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_GYM_REC_RESULT",
+    }
+    return HttpResponse(template.render(context, request))
+
+def grouprecresult(request):
+    template = loader.get_template('park_displays_app/group_recommendation_result.html')
+
+    xmlmng = XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "group_filters.xml")
+    minmax=xmlmng.getMinMaxNumGroupFilter("num_components")
+    number_of_components_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    number_of_components = Dropdown("Select Number of Components")
+    number_of_components.fields['selection'].choices = number_of_components_list
+    number_of_components.fields['selection'].initial = number_of_components_list
+
+    minmax = xmlmng.getMinMaxNumGroupFilter("num_males")
+    number_of_males_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    number_of_males = Dropdown("Select Number of Males")
+    number_of_males.fields['selection'].choices = number_of_males_list
+    number_of_males.fields['selection'].initial = number_of_males_list
+
+    minmax = xmlmng.getMinMaxNumGroupFilter("num_youngs")
+    number_not_adult_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    number_not_adult = Dropdown("Select Number of under 18")
+    number_not_adult.fields['selection'].choices = number_not_adult_list
+    number_not_adult.fields['selection'].initial = number_not_adult_list
+
+    minmax = xmlmng.getMinMaxNumGroupFilter("num_olds")
+    number_of_olds_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    number_of_olds = Dropdown("Select number of over 70")
+    number_of_olds.fields['selection'].choices = number_of_olds_list
+    number_of_olds.fields['selection'].initial = number_of_olds_list
+
+    minmax = xmlmng.getMinMaxNumGroupFilter("averageage")
+    average_age_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    average_age = Dropdown("Select average age")
+    average_age.fields['selection'].choices = average_age_list
+    average_age.fields['selection'].initial = average_age_list
+
+    minmax = xmlmng.getMinMaxNumGroupFilter("minage")
+    minimum_age_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    minimum_age = Dropdown("Select minimum age")
+    minimum_age.fields['selection'].choices = minimum_age_list
+    minimum_age.fields['selection'].initial = minimum_age_list
+
+    minmax = xmlmng.getMinMaxNumGroupFilter("maxage")
+    max_age_list =[(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
+    max_age = Dropdown("Select maximum age")
+    max_age.fields['selection'].choices = max_age_list
+    max_age.fields['selection'].initial = max_age_list
+
+    xmlmng = XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+    trainingtypes = [(x, x) for x in xmlmng.getTrainingTypes()] + [('Both', 'Both')]
+    typeselection = CheckBox("Select Type")
+    typeselection.fields['selection'].choices = trainingtypes
+    typeselection.fields['selection'].initial = trainingtypes
+    context = {
+        'number_of_components':number_of_components,
+        'number_of_males':number_of_males,
+        'number_not_adult':number_not_adult,
+        'number_of_olds':number_of_olds,
+        'average_age':average_age,
+        'minimum_age':minimum_age,
+        'max_age':max_age,
+        'typeselection':typeselection
+    }
+    return HttpResponse(template.render(context, request))
+
 def sportrec(request):
-    template = loader.get_template('park_displays_app/recommendation.html')
+    template = loader.get_template('park_displays_app/run_walk_recommendation.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_SPORT_REC",
     }
@@ -96,6 +205,8 @@ def similarusers(request):
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+
     datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
     choices=[(x[0],x[0]) for x in datamng.getGymTools()]
     gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")
@@ -106,13 +217,33 @@ def outdoorgym(request):
         gymtoolscoordinates.append(gymtool[1])
     gymtoolsbytype = datamng.getGymToolsByType()
     gymtoolsbytypedict = DataProcesser.listIntoDict(gymtoolsbytype)
+
+    #recommendation filters
+    genderchoices = [(x, x) for x in xml.getGenders()]
+    genderselection = CheckBox("Select Gender")
+    genderselection.fields['selection'].choices = genderchoices
+
+    agechoices = [(x, x) for x in xml.getAgeIntervals()]
+    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+
+    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+
+    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+
     context = {
         'gymtoolscoordinates':json.dumps(gymtoolscoordinates),
         'gymtoolsbytype':json.dumps(gymtoolsbytypedict),
         'checkboxes': gymselectionmulticheck,
         'gymtooltypes': gymtool_types,
+        'gender_checkbox': genderselection,
+        'age_dropdown': ageintervalselection,
+        'weight_dropdown': weightselection,
+        'height_dropdown': heightselection,
     }
     return HttpResponse(template.render(context, request))
+
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
@@ -170,8 +301,6 @@ def runwalk(request):
     pathheightdiffdict = DataProcesser.listIntoDict(pathheightdiff)
     pathslopesdict = DataProcesser.listIntoDict(pathslopes)
     pathlenghtsdict = DataProcesser.listIntoDict(pathlenghts)
-
-
 
     #recommendation filters
     genderchoices = [(x, x) for x in xml.getGenders()]
@@ -235,10 +364,29 @@ def freeweight(request):
     }
     return HttpResponse(template.render(context, request))
 def groupfitness(request):
-
+    xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/groupfitness.html')
+
+    #recommendation filters
+    genderchoices = [(x, x) for x in xml.getGenders()]
+    genderselection = CheckBox("Select Gender")
+    genderselection.fields['selection'].choices = genderchoices
+
+    agechoices = [(x, x) for x in xml.getAgeIntervals()]
+    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+
+    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+
+    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+
     context = {
+        'gender_checkbox': genderselection,
+        'age_dropdown': ageintervalselection,
+        'weight_dropdown': weightselection,
+        'height_dropdown': heightselection,
     }
     return HttpResponse(template.render(context, request))
 def findgroups(request):
@@ -257,69 +405,7 @@ def findgroups(request):
         'grouplist':json.dumps(grouplist),
     }
     return HttpResponse(template.render(context, request))
-def grouprecommendations(request):
-    template = loader.get_template('park_displays_app/grouprecommendations.html')
-    xmlmng = XmlManager(
-        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "group_filters.xml")
-    minmax=xmlmng.getMinMaxNumGroupFilter("num_components")
-    number_of_components_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    number_of_components = Dropdown("Select Number of Components")
-    number_of_components.fields['selection'].choices = number_of_components_list
-    number_of_components.fields['selection'].initial = number_of_components_list
 
-    minmax = xmlmng.getMinMaxNumGroupFilter("num_males")
-    number_of_males_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    number_of_males = Dropdown("Select Number of Males")
-    number_of_males.fields['selection'].choices = number_of_males_list
-    number_of_males.fields['selection'].initial = number_of_males_list
-
-    minmax = xmlmng.getMinMaxNumGroupFilter("num_youngs")
-    number_not_adult_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    number_not_adult = Dropdown("Select Number of under 18")
-    number_not_adult.fields['selection'].choices = number_not_adult_list
-    number_not_adult.fields['selection'].initial = number_not_adult_list
-
-    minmax = xmlmng.getMinMaxNumGroupFilter("num_olds")
-    number_of_olds_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    number_of_olds = Dropdown("Select number of over 70")
-    number_of_olds.fields['selection'].choices = number_of_olds_list
-    number_of_olds.fields['selection'].initial = number_of_olds_list
-
-    minmax = xmlmng.getMinMaxNumGroupFilter("averageage")
-    average_age_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    average_age = Dropdown("Select average age")
-    average_age.fields['selection'].choices = average_age_list
-    average_age.fields['selection'].initial = average_age_list
-
-    minmax = xmlmng.getMinMaxNumGroupFilter("minage")
-    minimum_age_list = [(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    minimum_age = Dropdown("Select minimum age")
-    minimum_age.fields['selection'].choices = minimum_age_list
-    minimum_age.fields['selection'].initial = minimum_age_list
-
-    minmax = xmlmng.getMinMaxNumGroupFilter("maxage")
-    max_age_list =[(str(x),str(x)) for x in range(int(minmax[0]),int(minmax[1])+1)]
-    max_age = Dropdown("Select maximum age")
-    max_age.fields['selection'].choices = max_age_list
-    max_age.fields['selection'].initial = max_age_list
-
-    xmlmng = XmlManager(
-        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
-    trainingtypes = [(x, x) for x in xmlmng.getTrainingTypes()] + [('Both', 'Both')]
-    typeselection = CheckBox("Select Type")
-    typeselection.fields['selection'].choices = trainingtypes
-    typeselection.fields['selection'].initial = trainingtypes
-    context = {
-        'number_of_components':number_of_components,
-        'number_of_males':number_of_males,
-        'number_not_adult':number_not_adult,
-        'number_of_olds':number_of_olds,
-        'average_age':average_age,
-        'minimum_age':minimum_age,
-        'max_age':max_age,
-        'typeselection':typeselection
-    }
-    return HttpResponse(template.render(context, request))
 def startpage(request):
     template = loader.get_template('park_displays_app/startpage.html')
     context = {
@@ -333,13 +419,13 @@ def run_walk_recommendation(request):
     }
     return HttpResponse(template.render(context, request))
 def gym_recommendation(request):
-    template = loader.get_template('park_displays_app/gym_recommendation.html')
+    template = loader.get_template('park_displays_app/gym_recommendation_result.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_gym_recommendation",
     }
     return HttpResponse(template.render(context, request))
 def freeweight_recommendation(request):
-    template = loader.get_template('park_displays_app/freeweight_recommendation.html')
+    template = loader.get_template('park_displays_app/freeweight_recommendation_result.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_freeweight_recommendation",
     }

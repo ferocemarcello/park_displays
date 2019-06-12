@@ -26,12 +26,17 @@
 </head>
 <body>
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
-<form action='sportrec' enctype="multipart/form-data" method="post">
+<form action='gymrecresult' enctype="multipart/form-data" method="post">
       {% csrf_token %}
           {{ checkboxes }}
+          {{ gender_checkbox }}
+          {{ age_dropdown }}
+          {{ weight_dropdown }}
+          {{ height_dropdown }}
 
     <button type='submit'>Get Recommendations</button>
         </form>
+
 </div>
 <script>
     // set up containers for the map  + panel

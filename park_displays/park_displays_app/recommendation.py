@@ -8,7 +8,7 @@ class RunWalkRecommender():
         self.avgweekkm=avgweekkm
         self.activity=activity
     def recommendPaths(self):
-        return []
+        return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed
 class GymRecommender():
     def __init__(self,gender,age,weight,height,kcal,bodyparts:[]):
         self.gender=gender

@@ -27,6 +27,6 @@ path('run_walk_recommendation', views.run_walk_recommendation, name='run_walk_re
 path('gym_recommendation', views.gym_recommendation, name='gym_recommendation'),
 path('freeweight_recommendation', views.freeweight_recommendation, name='freeweight_recommendation'),
 path('get_grouprecommendations', views.get_grouprecommendations, name='get_grouprecommendations'),
-path('runwalkrecresult', views.runwalkrecresult, name='runwalkrecresult')
-
+path('runwalkrecresult', views.runwalkrecresult, name='runwalkrecresult'),
+path('path_detail',views.path_detail,name='path_detail')
 ]

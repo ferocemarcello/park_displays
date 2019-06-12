@@ -327,3 +327,10 @@ def get_grouprecommendations(request):
     context = {
     }
     return HttpResponse(template.render(context, request))
+def path_detail(request):
+
+
+    template = loader.get_template('park_displays_app/path_detail.html')
+    context = {
+    }
+    return HttpResponse(template.render(context, request))

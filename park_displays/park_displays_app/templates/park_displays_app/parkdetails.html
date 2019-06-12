@@ -29,6 +29,10 @@
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
 {{ pathcheckboxes }}
 {{ watercheckbox }}
+    <form action='path_detail' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Click on the path and get path details</button>
+</form>
 </div>
 <script>
     var fountains={{ fountains|safe}};

@@ -17,5 +17,15 @@ class GymRecommender():
         self.height=height
         self.kcal=kcal
         self.bodyparts=bodyparts
-    def recommendPaths(self):
+    def recommendActivities(self):
         return [(None,None,None)]#list of (machine, time, intensity)   intensity can be speed, weight, Force...
+class FreeweightStretchingRecommender():
+    def __init__(self,gender,age,weight,height,kcal,intensity):
+        self.gender=gender
+        self.age=age
+        self.weight=weight
+        self.height=height
+        self.kcal=kcal
+        self.intensity=intensity
+    def recommendExercises(self):
+        return [(None,None)]#list of (exercise, time)

@@ -52,7 +52,7 @@ def runwalkrecresult(request):
     activity="running"
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
     shoetype=AthleteManager(0,xmlmng).getShoeType()
-    pathrecommendations=RunWalkRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,avgweekkm=avgweekkm,activity=activity).recommendPaths()
+    pathrecommendations=RunWalkRecommender(path_types=path_types,gender=gender,age=age,weight=weight,height=height,kcal=kcal,avgweekkm=avgweekkm,shoetype=shoetype,activity=activity).recommendPaths()
     template = loader.get_template('park_displays_app/run_walk_recommendation_result.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_RUNWALK_REC_RESULT",

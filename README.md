@@ -42,3 +42,22 @@ It's always better to push on the repo, and only then update the server, otherwi
      -If new static files are added:
       python3.7 manage.py collectstatic  
       reload the server in the web tab
+
+# Dockerized Version
+The application also comes with a Dockerfile.
+To use the docker functionality you need to have Docker Community Edition (Docker CE) installed on your system.
+Docker CE can be downloaded for free: [Docker CE Install Instructions (Multi OS)](https://docs.docker.com/install)
+
+## Build a Docker image:
+To build a docker image run in project root:
+```
+$ docker build -t tum_masterpraktikum/park_display .
+```
+
+This will download the required image and install the dependencies inside the docker image.
+
+## Run Docker image:
+After the docker image is built, it can be executed as a container by running the following command:
+```
+$  docker run --rm -d -p 8000:8000 tum_masterpraktikum/park_display
+```

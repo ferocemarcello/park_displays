@@ -96,6 +96,8 @@ def similarusers(request):
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+
     datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
     choices=[(x[0],x[0]) for x in datamng.getGymTools()]
     gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")
@@ -106,13 +108,33 @@ def outdoorgym(request):
         gymtoolscoordinates.append(gymtool[1])
     gymtoolsbytype = datamng.getGymToolsByType()
     gymtoolsbytypedict = DataProcesser.listIntoDict(gymtoolsbytype)
+
+    #recommendation filters
+    genderchoices = [(x, x) for x in xml.getGenders()]
+    genderselection = CheckBox("Select Gender")
+    genderselection.fields['selection'].choices = genderchoices
+
+    agechoices = [(x, x) for x in xml.getAgeIntervals()]
+    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+
+    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+
+    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+
     context = {
         'gymtoolscoordinates':json.dumps(gymtoolscoordinates),
         'gymtoolsbytype':json.dumps(gymtoolsbytypedict),
         'checkboxes': gymselectionmulticheck,
         'gymtooltypes': gymtool_types,
+        'gender_checkbox': genderselection,
+        'age_dropdown': ageintervalselection,
+        'weight_dropdown': weightselection,
+        'height_dropdown': heightselection,
     }
     return HttpResponse(template.render(context, request))
+
 def parkdetails(request):
     template = loader.get_template('park_displays_app/parkdetails.html')
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
@@ -171,20 +193,18 @@ def runwalk(request):
     pathslopesdict = DataProcesser.listIntoDict(pathslopes)
     pathlenghtsdict = DataProcesser.listIntoDict(pathlenghts)
 
-
-
     #recommendation filters
-    genderchoices = [(x, x) for x in xml.getGenders()]
+    genderchoices = [(x, x) for x in xmlmng.getGenders()]
     genderselection = CheckBox("Select Gender")
     genderselection.fields['selection'].choices = genderchoices
 
-    agechoices = [(x, x) for x in xml.getAgeIntervals()]
+    agechoices = [(x, x) for x in xmlmng.getAgeIntervals()]
     ageintervalselection = Dropdown(label="Select age", choices=agechoices)
 
-    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightchoices = [(x,x) for x in xmlmng.getHeightIntervals()]
     heightselection = Dropdown(label="Select Height",choices=heightchoices)
 
-    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightchoices = [(x,x) for x in xmlmng.getWeightIntervals()]
     weightselection = Dropdown(label="Select Weight",choices=weightchoices)
 
     context = {
@@ -235,10 +255,29 @@ def freeweight(request):
     }
     return HttpResponse(template.render(context, request))
 def groupfitness(request):
-
+    xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/groupfitness.html')
+
+    #recommendation filters
+    genderchoices = [(x, x) for x in xml.getGenders()]
+    genderselection = CheckBox("Select Gender")
+    genderselection.fields['selection'].choices = genderchoices
+
+    agechoices = [(x, x) for x in xml.getAgeIntervals()]
+    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+
+    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+
+    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+
     context = {
+        'gender_checkbox': genderselection,
+        'age_dropdown': ageintervalselection,
+        'weight_dropdown': weightselection,
+        'height_dropdown': heightselection,
     }
     return HttpResponse(template.render(context, request))
 def findgroups(request):

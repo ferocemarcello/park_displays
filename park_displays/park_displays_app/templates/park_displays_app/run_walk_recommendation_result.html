@@ -7,5 +7,38 @@
 <body>
 {{context}}
 {{pathrecommendations}}
+
+<script>
+    // set up containers for the map  + panel
+var mapContainer = document.getElementById('map');
+
+//Step 1: initialize communication with the platform
+var platform = new H.service.Platform({
+  app_id: 'KfjYxKFR65JNn6KGSink',
+  app_code: '--NDudeZYCPWjK333-3TxQ',
+  useCIT: true,
+  useHTTPS: true
+});
+
+var defaultLayers = platform.createDefaultLayers();
+   defaultLayers.normal.map.setMax(50);
+
+platform.configure(H.map.render.panorama.RenderEngine);
+
+//Step 2: initialize a map
+map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
+  });
+map.setCenter({lat:48.148673, lng:11.589373});
+map.setZoom(15);
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
+</script>
+
 </body>
 </html>

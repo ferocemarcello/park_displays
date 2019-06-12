@@ -17,7 +17,7 @@ class RunWalkRecommender():
         self.paths=ParkManager(parkname="englischer_garten",xmlmanager=xmg,pathtypes=path_types).getPaths()
         self.shoetype=shoetype
     def recommendPaths(self):
-        weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Munich&APPID=676536c0f3533a7868a16beed9f14ba4')
+        #weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Munich&APPID=676536c0f3533a7868a16beed9f14ba4')
         prweather=(weather.json())
         if self.activity=='running':
             return self.recommendRunning()

@@ -146,7 +146,10 @@ def parkdetails(request):
         'pathlenghts':pathlenghtsdict,#dict of lenghts of paths
     }
     return HttpResponse(template.render(context, request))
+
 def runwalk(request):
+    xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
+
     template = loader.get_template('park_displays_app/run_walk.html')
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
@@ -168,6 +171,22 @@ def runwalk(request):
     pathslopesdict = DataProcesser.listIntoDict(pathslopes)
     pathlenghtsdict = DataProcesser.listIntoDict(pathlenghts)
 
+
+
+    #recommendation filters
+    genderchoices = [(x, x) for x in xml.getGenders()]
+    genderselection = CheckBox("Select Gender")
+    genderselection.fields['selection'].choices = genderchoices
+
+    agechoices = [(x, x) for x in xml.getAgeIntervals()]
+    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+
+    heightchoices = [(x,x) for x in xml.getHeightIntervals()]
+    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+
+    weightchoices = [(x,x) for x in xml.getWeightIntervals()]
+    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+
     context = {
         'fountains': json.dumps(fountainlist),  # water fountains
         'paths': json.dumps(pathsformtatted),  # list of paths
@@ -177,8 +196,13 @@ def runwalk(request):
         'pathheightdiffs': pathheightdiffdict,  # dict of height differences of paths
         'pathslopes': pathslopesdict,  # dict of slopes of paths
         'pathlenghts': pathlenghtsdict,  # dict of lenghts of paths
+        'gender_checkbox': genderselection,
+        'age_dropdown': ageintervalselection,
+        'weight_dropdown': weightselection,
+        'height_dropdown': heightselection,
     }
     return HttpResponse(template.render(context, request))
+
 def freeweight(request):
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     genderchoices = [(x,x) for x in xml.getGenders()]
@@ -203,9 +227,9 @@ def freeweight(request):
     template = loader.get_template('park_displays_app/freeweight.html')
     context = {
         'checkbox1': genderselection,
-        'dropdown1' : ageintervalselection,
-        'checkbox2' : trainingtypeselection,
-        'dropdown2' : weightselection,
+        'dropdown1': ageintervalselection,
+        'checkbox2': trainingtypeselection,
+        'dropdown2': weightselection,
         'dropdown3': heightselection,
         'dropdown4': kcalselection,
     }

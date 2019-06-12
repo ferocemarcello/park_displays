@@ -1,5 +1,6 @@
-{% load static %}
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,9 +26,11 @@
         </style>
 </head>
 <body>
+
 <form action='sportrec' method='POST'>
     {% csrf_token %}
 <button type='submit'>Get Recommendations</button>
+</form>
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
 <input id="slider1" type="range" value="3" min="1" max="100" step="1" /><!--onchange="callFun(this.value)"function callFun(value) {
     fetch('call_your_url/?value='+ value).then(function(response) {
@@ -37,14 +40,21 @@
     request.GET.get('value')
     return HttpResponse("success")
 }-->
+<form action='' enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+          {{ gender_checkbox }}
+          {{ age_dropdown }}
+          {{ weight_dropdown }}
+          {{ height_dropdown }}
 </form>
+
 </div>
 <script>
     var fountains={{ fountains|safe}};
-var paths={{paths|safe}};
-var pathtypes={{pathtypes|safe}};
-var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
-var startfinishmarkers=Array(Object.keys(paths).length).fill(null);
+    var paths={{paths|safe}};
+    var pathtypes={{pathtypes|safe}};
+    var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
+    var startfinishmarkers=Array(Object.keys(paths).length).fill(null);
         function calculateRouteFromAtoB (platform,waypoints,col,pathindex) {
   var router = platform.getRoutingService(),
     routeRequestParams = {

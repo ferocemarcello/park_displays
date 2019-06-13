@@ -1,8 +1,12 @@
 FROM python:3.7
 
-WORKDIR /usr/src/app
+ENV PYTHONUNBUFFERED 1
 
-COPY * ./
+RUN mkdir /park_displays_app
+
+WORKDIR /park_displays_app
+
+COPY * /park_displays_app/
 
 RUN pip install -r requirements.txt
 

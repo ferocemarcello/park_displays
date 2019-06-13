@@ -4,8 +4,9 @@ from .data_manager import ParkManager
 from .xmlmanager import XmlManager
 from pprint import pprint
 import requests
+APPID="676536c0f3533a7868a16beed9f14ba4"
 class RunWalkRecommender():
-    def __init__(self,path_types,gender,age,weight,height,kcal,avgweekkm,shoetype,activity):
+    def __init__(self,path_types,gender,age,weight,height,kcal,avgweekkm,shoetype,activity,):
         self.gender=gender
         self.age=age
         self.weight=weight
@@ -17,8 +18,13 @@ class RunWalkRecommender():
         self.paths=ParkManager(parkname="englischer_garten",xmlmanager=xmg,pathtypes=path_types).getPaths()
         self.shoetype=shoetype
     def recommendPaths(self):
-        weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Munich&APPID=676536c0f3533a7868a16beed9f14ba4')
+        weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Munich&APPID='+APPID)
         prweather=(weather.json())
+        desc = (prweather['weather'])[0]['description']
+        hum=(prweather['main'])["humidity"]
+        temp=(prweather['main'])['temp']
+        wind=prweather['wind']
+        clouds=prweather['clouds']
         if self.activity=='running':
             return self.recommendRunning()
         else:

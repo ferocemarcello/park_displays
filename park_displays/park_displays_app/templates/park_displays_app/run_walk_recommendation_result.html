@@ -1,21 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Recommendation Result</title>
+    <title>Park Details</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  <script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-core.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-service.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-pano.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css"/><!--?dp-version=1542186754 1526040296-->
+<style>
+            html, body {
+                width: 1080px;
+                height: 1920px;
+                margin: 0;
+                padding: 0;
+                background-color: white;
+            }
+    input[type="range"] {
+        width:400px;}
+        </style>
 </head>
 <body>
-{{context}}
-{{pathrecommendations}}
 
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
+    {{ recommendations|safe }}
+</div>
 <script>
-    // set up containers for the map  + panel
+          // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');
 
 //Step 1: initialize communication with the platform
 var platform = new H.service.Platform({
-  app_id: 'KfjYxKFR65JNn6KGSink',
-  app_code: '--NDudeZYCPWjK333-3TxQ',
+  app_id: "{{ app_id }}",
+  app_code: "{{ app_code }}",
   useCIT: true,
   useHTTPS: true
 });
@@ -38,7 +59,8 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
-</script>
 
+
+</script>
 </body>
 </html>

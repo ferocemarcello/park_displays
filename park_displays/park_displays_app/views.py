@@ -13,6 +13,8 @@ from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
 
+app_code='--NDudeZYCPWjK333-3TxQ'
+app_id='KfjYxKFR65JNn6KGSink'
 path_types=XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()
 gymtool_types = XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getToolTypes()
@@ -52,11 +54,12 @@ def runwalkrecresult(request):
     activity="running"
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
     shoetype=AthleteManager(0,xmlmng).getShoeType()
-    pathrecommendations=RunWalkRecommender(path_types=path_types,gender=gender,age=age,weight=weight,height=height,kcal=kcal,avgweekkm=avgweekkm,shoetype=shoetype,activity=activity).recommendPaths()
+    recommendations=RunWalkRecommender(path_types=path_types,gender=gender,age=age,weight=weight,height=height,kcal=kcal,avgweekkm=avgweekkm,shoetype=shoetype,activity=activity).recommendPaths()
     template = loader.get_template('park_displays_app/run_walk_recommendation_result.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_RUNWALK_REC_RESULT",
-        'pathrecommendations':pathrecommendations,
+        'recommendations':recommendations,
+        'app_id':app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 def freeweightrecresult(request):
@@ -201,6 +204,8 @@ def similarusers(request):
         'gymathletes':json.dumps(gymathletes),
         'freeweightathletes':json.dumps(freeweightathletes),
         'stretchers':json.dumps(stretchers),
+        'app_id':app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
@@ -241,6 +246,8 @@ def outdoorgym(request):
         'age_dropdown': ageintervalselection,
         'weight_dropdown': weightselection,
         'height_dropdown': heightselection,
+        'app_id':app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 
@@ -275,6 +282,8 @@ def parkdetails(request):
         'pathheightdiffs':pathheightdiffdict,#dict of height differences of paths
         'pathslopes':pathslopesdict,#dict of slopes of paths
         'pathlenghts':pathlenghtsdict,#dict of lenghts of paths
+        'app_id':app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 
@@ -329,6 +338,8 @@ def runwalk(request):
         'age_dropdown': ageintervalselection,
         'weight_dropdown': weightselection,
         'height_dropdown': heightselection,
+        'app_id':app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 
@@ -403,6 +414,8 @@ def findgroups(request):
     context = {
         'radiobuttons': training,
         'grouplist':json.dumps(grouplist),
+        'app_id':app_id,
+        'app_code': app_code,
     }
     return HttpResponse(template.render(context, request))
 
@@ -416,12 +429,16 @@ def run_walk_recommendation(request):
     template = loader.get_template('park_displays_app/run_walk_recommendation.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_run_walk_recommendation",
+        'app_id':app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 def gym_recommendation(request):
     template = loader.get_template('park_displays_app/gym_recommendation_result.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_gym_recommendation",
+        'app_id': app_id,
+        'app_code':app_code,
     }
     return HttpResponse(template.render(context, request))
 def freeweight_recommendation(request):

@@ -53,6 +53,47 @@ class RunWalkRecommender():
         else:
             return self.recommendWalking()
     def recommendRunning(self):
+        score=100
+        #score based on gender, age, bmi, avgweekkm
+        if self.gender.lower()=="female":
+            score-=10
+        if self.gender.lower()=="other":
+            score-=5
+        if self.age<=14:
+            score-=20
+        if self.age>=15 and self.age<=18:
+            score-=10
+        if self.age>=19 and self.age<=23:
+            score -= 5
+        if self.age>=24 and self.age<=33:
+            pass
+        if self.age>=34 and self.age<=42:
+            score -= -10
+        if self.age>=43 and self.age<=55:
+            score-=20
+        if self.age>=56 and self.age<=67:
+            score-=25
+        if self.age>=68 and self.age>=75:
+            score-=30
+        if self.age>=76:
+            score-=35
+        bmi=(self.weight)/(self.height^2)
+        if bmi<16:
+            score-=10
+        if bmi<18.5 and bmi >=16:
+            score-=5
+        if bmi>=18.5 and bmi<25:
+            pass
+        if bmi>=25 and bmi<30:
+            score -= 5
+        if bmi>=30 and bmi<35:
+            score-=10
+        if bmi >=35:
+            score-=15
+        if self.avgweekkm<30:
+            score-=10
+        if self.avgweekkm>=30 and self.avgweekkm<60:
+            score-=5
         return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed
     def recommendWalking(self):
         return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed. warmup and cooldown will have 0 value. They are not necessary for walking

@@ -2,10 +2,11 @@ import os
 
 from .data_manager import ParkManager
 from .xmlmanager import XmlManager
+from .weather import Weather
 from datetime import  datetime
 import pytz
-import requests
 APPID="676536c0f3533a7868a16beed9f14ba4"
+kelvin_zero_celsius=273.15
 #https://openweathermap.org/weather-conditions
 weatherdescthunderstorm={200:"thunderstorm with light rain",201:"thunderstorm with rain",202:"thunderstorm with heavy rain",210:"light thunderstorm",211:"thunderstorm",212:"heavy thunderstorm",221:"ragged thunderstorm",230:"thunderstorm with light drizzle",231:"thunderstorm with drizzle",232:"thunderstorm with heavy drizzle"}
 weatherdescdrizzle={300:"light intensity drizzle",301:"drizzle",302:"heavy intensity drizzle",310:"light intensity drizzle rain",311:"drizzle rain",312:"heavy intensity drizzle rain",313:"shower rain and drizzle",314:"heavy shower rain and drizzle",321:"shower drizzle"}
@@ -27,32 +28,16 @@ class RunWalkRecommender():
         self.paths=ParkManager(parkname="englischer_garten",xmlmanager=xmg,pathtypes=path_types).getPaths()
         self.shoetype=shoetype
     def recommendPaths(self):
-        #https://openweathermap.org/current
-        weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q=Munich&APPID='+APPID)
-        prweather=(weather.json())
-        desc = (prweather['weather'])[0]['description']
-        hum=(prweather['main'])["humidity"]
-        temp=(prweather['main'])['temp']#kelvin
-        visibility=prweather['visibility']#meters
-        temp = (prweather['main'])['pressure']  # hpa
-        wind_speed=(prweather['wind'])['speed']#m/s
-        clouds=prweather['clouds']#%cloudiness
         tz = pytz.timezone('Europe/Berlin')
-        sunrise=datetime.fromtimestamp(prweather['sys']['sunrise'])#,tz
-        sunset = datetime.fromtimestamp(prweather['sys']['sunset'])
-        pastrain=None
-        try:
-            pastrain=prweather['rain']
-        except:
-            pass
         berlin_now = datetime.now(tz)
-        hour=berlin_now.hour
-        minute=berlin_now.minute
+        hour = berlin_now.hour
+        minute = berlin_now.minute
+        weather=Weather("Munich",APPID)
         if self.activity=='running':
-            return self.recommendRunning()
+            return self.recommendRunning(weather)
         else:
-            return self.recommendWalking()
-    def recommendRunning(self):
+            return self.recommendWalking(weather)
+    def recommendRunning(self,weather):
         score=100
         #score based on gender, age, bmi, avgweekkm
         if self.gender.lower()=="female":
@@ -94,6 +79,26 @@ class RunWalkRecommender():
             score-=10
         if self.avgweekkm>=30 and self.avgweekkm<60:
             score-=5
+        if weather.desc["id"] in weatherdescthunderstorm.keys() or weather.desc["id"] in weatherdescsnow.keys():
+            score-=5
+        if weather.temp<5+kelvin_zero_celsius or weather.temp>25+kelvin_zero_celsius:
+            score -= 2
+        if weather.temp<0+kelvin_zero_celsius or weather.temp>30+kelvin_zero_celsius:
+            score -= 3
+        if weather.hum>80 and weather.hum<=90:
+            score -= 2
+        if weather.hum>90:
+            score-=3
+        if weather.wind_speed>=10:
+            score-=2
+        if weather.wind_speed>=17:
+            score-=3
+        if weather.pres<=920:
+            score-=2
+        if weather.pres<=870:
+            score-3
+        #shoetype depending on weight and path type, and length
+        #shoetype/pathtype-length
         return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed
     def recommendWalking(self):
         return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed. warmup and cooldown will have 0 value. They are not necessary for walking

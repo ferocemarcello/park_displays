@@ -7,7 +7,7 @@ import json
 
 # Create your views here.
 from .xmlmanager import XmlManager
-from .recommendation import RunWalkRecommender
+from .recommendation import RunWalkRecommender,GymRecommender,GroupRecommender,FreeweightStretchingRecommender
 from .data_manager import ParkManager,DataProcesser,AthleteManager
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
@@ -18,7 +18,8 @@ app_id='KfjYxKFR65JNn6KGSink'
 path_types=XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()
 gymtool_types = XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getToolTypes()
-
+body_parts = XmlManager(
+        os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getBodyParts()
 def index(request):
     template = loader.get_template('park_displays_app/index.html')
     context = {
@@ -96,9 +97,11 @@ def gymrecresult(request):
     weight=75
     height=186
     kcal=700
-    avgweekkm=40
+    bodyparts=body_parts
     activity="gym"
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    gymtools=ParkManager("englischer_garten",xmlmng,path_types,gymtool_types).getGymTools()
+    recommendation=GymRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,bodyparts=bodyparts,machines=gymtools).recommendActivities()
     template = loader.get_template('park_displays_app/gym_recommendation_result.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_GYM_REC_RESULT",
@@ -211,7 +214,6 @@ def similarusers(request):
 def outdoorgym(request):
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
-
     datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
     choices=[(x[0],x[0]) for x in datamng.getGymTools()]
     gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")

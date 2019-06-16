@@ -59,4 +59,13 @@
         <shoetype>Road A2</shoetype>
         <shoetype>Road A3</shoetype>
     </shoetypes>
+    <bodyparts>
+        <part>Front Abs</part>
+        <part>Side Abs</part>
+        <part>Arms</part>
+        <part>Hig Legs</part>
+        <part>Low Legs</part>
+        <part>Chest</part>
+        <part>Back</part>
+    </bodyparts>
 </filters>

@@ -17,10 +17,51 @@ weatherdescclear={800:"clear sky"}
 weatherdescclouds={801:"few clouds: 11-25%",802:"scattered clouds: 25-50%",803:"scattered clouds: 25-50%",804:"overcast clouds: 85-100%"}
 
 
-
-
+def getScoreOnBody(score, gender,age,weight,height,avgweekkm=None):
+    # score based on gender, age, bmi, avgweekkm
+    if gender.lower() == "female":
+        score -= 10
+    if gender.lower() == "other":
+        score -= 5
+    if age <= 14:
+        score -= 20
+    if age >= 15 and age <= 18:
+        score -= 10
+    if age >= 19 and age <= 23:
+        score -= 5
+    if age >= 24 and age <= 33:
+        pass
+    if age >= 34 and age <= 42:
+        score -= -10
+    if age >= 43 and age <= 55:
+        score -= 20
+    if age >= 56 and age <= 67:
+        score -= 25
+    if age >= 68 and age >= 75:
+        score -= 30
+    if age >= 76:
+        score -= 35
+    bmi = (weight) / (height ^ 2)
+    if bmi < 16:
+        score -= 10
+    if bmi < 18.5 and bmi >= 16:
+        score -= 5
+    if bmi >= 18.5 and bmi < 25:
+        pass
+    if bmi >= 25 and bmi < 30:
+        score -= 5
+    if bmi >= 30 and bmi < 35:
+        score -= 10
+    if bmi >= 35:
+        score -= 15
+    if avgweekkm!=None:
+        if avgweekkm < 30:
+            score -= 10
+        if avgweekkm >= 30 and avgweekkm < 60:
+            score -= 5
+    return score
 class RunWalkRecommender():
-    def __init__(self,path_types,gender,age,weight,height,kcal,avgweekkm,shoetype,activity):
+    def __init__(self,gender,age,weight,height,kcal,activity,avgweekkm,shoetype,path_types):
         self.gender=gender
         self.age=age
         self.weight=weight
@@ -43,7 +84,7 @@ class RunWalkRecommender():
             return self.recommendWalking(weather)
     def recommendRunning(self,weather):
         score=100
-        score=self.getScoreOnBody(score)# worst score depending on body only is 100-70=30
+        score=getScoreOnBody(score,self.gender,self.age,self.weight,self.height,self.avgweekkm)# worst score depending on body only is 100-70=30
         score=self.getScoreOnWeather(score,weather)# worst score depending on weather only is 100-25=75
         # worst score depending on body and weather is 100-70-25=5
         pathscores=self.getPathScores(score,"running")#shoetype depending on weight and path type, and length, steepness, desired kcal
@@ -53,7 +94,7 @@ class RunWalkRecommender():
         return paths_with_scores#pathscore, path
     def recommendWalking(self,weather):
         score = 100
-        score = self.getScoreOnBody(score)  # worst score depending on body only is 100-70=30
+        score = getScoreOnBody(score,self.gender,self.age,self.weight,self.height,self.avgweekkm)  # worst score depending on body only is 100-70=30
         score = self.getScoreOnWeather(score, weather)  # worst score depending on weather only is 100-25=75
         # worst score depending on body and weather is 100-70-25=5
         pathscores = self.getPathScores(score,
@@ -62,49 +103,6 @@ class RunWalkRecommender():
         for i in range(len(pathscores)):
             paths_with_scores[i] = (pathscores[i], self.paths[i])
         return paths_with_scores  # pathscore, path
-
-    def getScoreOnBody(self, score):
-        # score based on gender, age, bmi, avgweekkm
-        if self.gender.lower() == "female":
-            score -= 10
-        if self.gender.lower() == "other":
-            score -= 5
-        if self.age <= 14:
-            score -= 20
-        if self.age >= 15 and self.age <= 18:
-            score -= 10
-        if self.age >= 19 and self.age <= 23:
-            score -= 5
-        if self.age >= 24 and self.age <= 33:
-            pass
-        if self.age >= 34 and self.age <= 42:
-            score -= -10
-        if self.age >= 43 and self.age <= 55:
-            score -= 20
-        if self.age >= 56 and self.age <= 67:
-            score -= 25
-        if self.age >= 68 and self.age >= 75:
-            score -= 30
-        if self.age >= 76:
-            score -= 35
-        bmi = (self.weight) / (self.height ^ 2)
-        if bmi < 16:
-            score -= 10
-        if bmi < 18.5 and bmi >= 16:
-            score -= 5
-        if bmi >= 18.5 and bmi < 25:
-            pass
-        if bmi >= 25 and bmi < 30:
-            score -= 5
-        if bmi >= 30 and bmi < 35:
-            score -= 10
-        if bmi >= 35:
-            score -= 15
-        if self.avgweekkm < 30:
-            score -= 10
-        if self.avgweekkm >= 30 and self.avgweekkm < 60:
-            score -= 5
-        return score
 
     def getScoreOnWeather(self, score,weather):
         if weather.desc["id"] in weatherdescthunderstorm.keys() or weather.desc["id"] in weatherdescsnow.keys():
@@ -156,22 +154,29 @@ class RunWalkRecommender():
             pathscores[i] =(1-(abs(self.kcal - requiredkcal) / self.kcal))*100#(1-relative error)*100
         return pathscores
 
-
-
-
-
-
-
 class GymRecommender():
-    def __init__(self,gender,age,weight,height,kcal,bodyparts:[]):
+    def __init__(self,gender,age,weight,height,kcal,bodyparts:[],machines:[]):
         self.gender=gender
         self.age=age
         self.weight=weight
         self.height=height
         self.kcal=kcal
         self.bodyparts=bodyparts
+        self.machines=machines
     def recommendActivities(self):
-        return [(None,None,None)]#list of (machine, time, intensity)   intensity can be speed, weight, Force...
+        bodyscore=100
+        bodyscore=getScoreOnBody(bodyscore,self.gender,self.age,self.weight,self.height)
+        machinescores=self.getMachinesWithScores(self.machines,self.bodyparts)
+        machines_with_time=self.getMachinesWithTime(machinescores,bodyscore,self.kcal)
+        return machines_with_time#list of (machine, time)
+
+    def getMachinesWithScores(self, machines, bodyparts):
+        return []
+
+    def getMachinesWithTime(self, machinescores, bodyscore, kcal):
+        return []
+
+
 class FreeweightStretchingRecommender():
     def __init__(self,gender,age,weight,height,kcal,intensity, stretching=False, freeweight=False):
         self.gender=gender

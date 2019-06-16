@@ -79,6 +79,12 @@ class XmlManager():
             for gymtooltype in child:
                 gymtooltypes.append(gymtooltype.text)
         return gymtooltypes
+    def getBodyParts(self):
+        bodyparts = []
+        for child in self.root.iter('bodyparts'):
+            for bodypart in child:
+                bodyparts.append(bodypart.text)
+        return bodyparts
     def getAgeIntervals(self):
         ageintervals=[]
         for child in self.root.iter('ageintervals'):

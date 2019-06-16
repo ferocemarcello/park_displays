@@ -15,8 +15,12 @@ weatherdescsnow={600:"light snow",601:"Snow",602:"Heavy snow",611:"Sleet",612:"L
 weatherdescatmosphere={701:"mist",711:"Smoke",721:"Haze",731:"sand/ dust whirls",741:"fog",751:"sand",761:"dust",762:"volcanic ash",771:"squalls",781:"tornado"}
 weatherdescclear={800:"clear sky"}
 weatherdescclouds={801:"few clouds: 11-25%",802:"scattered clouds: 25-50%",803:"scattered clouds: 25-50%",804:"overcast clouds: 85-100%"}
+
+
+
+
 class RunWalkRecommender():
-    def __init__(self,path_types,gender,age,weight,height,kcal,avgweekkm,shoetype,activity,):
+    def __init__(self,path_types,gender,age,weight,height,kcal,avgweekkm,shoetype,activity):
         self.gender=gender
         self.age=age
         self.weight=weight
@@ -39,46 +43,61 @@ class RunWalkRecommender():
             return self.recommendWalking(weather)
     def recommendRunning(self,weather):
         score=100
-        #score based on gender, age, bmi, avgweekkm
-        if self.gender.lower()=="female":
-            score-=10
-        if self.gender.lower()=="other":
-            score-=5
-        if self.age<=14:
-            score-=20
-        if self.age>=15 and self.age<=18:
-            score-=10
-        if self.age>=19 and self.age<=23:
+        score=self.getScoreOnBody(score)# worst score depending on body only is 100-70=30
+        score=self.getScoreOnWeather(score,weather)# worst score depending on weather only is 100-25=75
+        # worst score depending on body and weather is 100-70-25=5
+        pathscores=self.getPathScores(score)#shoetype depending on weight and path type, and length, steepness, desired kcal
+        paths_with_scores=[None]*len(self.paths)
+        for i in range(len(pathscores)):
+            paths_with_scores[i]=(pathscores[i],self.paths[i])
+        return paths_with_scores#pathscore, path
+    def recommendWalking(self,weather):
+        return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed. warmup and cooldown will have 0 value. They are not necessary for walking
+
+    def getScoreOnBody(self, score):
+        # score based on gender, age, bmi, avgweekkm
+        if self.gender.lower() == "female":
+            score -= 10
+        if self.gender.lower() == "other":
             score -= 5
-        if self.age>=24 and self.age<=33:
+        if self.age <= 14:
+            score -= 20
+        if self.age >= 15 and self.age <= 18:
+            score -= 10
+        if self.age >= 19 and self.age <= 23:
+            score -= 5
+        if self.age >= 24 and self.age <= 33:
             pass
-        if self.age>=34 and self.age<=42:
+        if self.age >= 34 and self.age <= 42:
             score -= -10
-        if self.age>=43 and self.age<=55:
-            score-=20
-        if self.age>=56 and self.age<=67:
-            score-=25
-        if self.age>=68 and self.age>=75:
-            score-=30
-        if self.age>=76:
-            score-=35
-        bmi=(self.weight)/(self.height^2)
-        if bmi<16:
-            score-=10
-        if bmi<18.5 and bmi >=16:
-            score-=5
-        if bmi>=18.5 and bmi<25:
-            pass
-        if bmi>=25 and bmi<30:
+        if self.age >= 43 and self.age <= 55:
+            score -= 20
+        if self.age >= 56 and self.age <= 67:
+            score -= 25
+        if self.age >= 68 and self.age >= 75:
+            score -= 30
+        if self.age >= 76:
+            score -= 35
+        bmi = (self.weight) / (self.height ^ 2)
+        if bmi < 16:
+            score -= 10
+        if bmi < 18.5 and bmi >= 16:
             score -= 5
-        if bmi>=30 and bmi<35:
-            score-=10
-        if bmi >=35:
-            score-=15
-        if self.avgweekkm<30:
-            score-=10
-        if self.avgweekkm>=30 and self.avgweekkm<60:
-            score-=5
+        if bmi >= 18.5 and bmi < 25:
+            pass
+        if bmi >= 25 and bmi < 30:
+            score -= 5
+        if bmi >= 30 and bmi < 35:
+            score -= 10
+        if bmi >= 35:
+            score -= 15
+        if self.avgweekkm < 30:
+            score -= 10
+        if self.avgweekkm >= 30 and self.avgweekkm < 60:
+            score -= 5
+        return score
+
+    def getScoreOnWeather(self, score,weather):
         if weather.desc["id"] in weatherdescthunderstorm.keys() or weather.desc["id"] in weatherdescsnow.keys():
             score-=5
         if weather.temp<5+kelvin_zero_celsius or weather.temp>25+kelvin_zero_celsius:
@@ -96,12 +115,43 @@ class RunWalkRecommender():
         if weather.pres<=920:
             score-=2
         if weather.pres<=870:
-            score-3
-        #shoetype depending on weight and path type, and length
-        #shoetype/pathtype-length
-        return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed
-    def recommendWalking(self):
-        return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed. warmup and cooldown will have 0 value. They are not necessary for walking
+            score-=3
+        return score
+
+    def getPathScores(self,atleteCondition):
+        # shoetype depending on weight and path type, and length, steepness, desired kcal
+        weightperkm=self.weight
+        if atleteCondition>90:
+            weightperkm=self.weight-0.2*self.weight
+        if atleteCondition>80 and atleteCondition<=90:
+            weightperkm = self.weight - 0.1 * self.weight
+        if atleteCondition<60:
+            weightperkm = self.weight + 0.2 * self.weight
+        if atleteCondition<70 and atleteCondition>=60:
+            weightperkm = self.weight + 0.1 * self.weight
+        pathscores = [100] * len(self.paths)
+        for i in range(len(self.paths)):
+            if int(self.paths[i][0][2])!=0:#steepness different than 0
+                weightperkm+=weightperkm*(int(self.paths[i][0][2])/100)#eg at steepness level weight=70, steepness 2% =>weight=70+70*(2/100)=70+70*0.02=70+1.4=71.4
+            if self.paths[i][0][1]=="Pavement":
+                weightperkm -= 0.01 * weightperkm
+            if self.paths[i][0][1]=="Dirt":
+                weightperkm += 0.01 * weightperkm
+            if self.shoetype in ["Road A3","Trail"]:
+                weightperkm+=0.01*weightperkm
+            if self.shoetype in ["Road A1","Track"]:
+                weightperkm-=0.01*weightperkm
+
+            requiredkcal=weightperkm*(int(self.paths[i][0][3]))/1000#adjusted weight*path length in km
+            pathscores[i] =(1-(abs(self.kcal - requiredkcal) / self.kcal))*100#(1-relative error)*100
+        return pathscores
+
+
+
+
+
+
+
 class GymRecommender():
     def __init__(self,gender,age,weight,height,kcal,bodyparts:[]):
         self.gender=gender

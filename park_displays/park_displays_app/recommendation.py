@@ -46,13 +46,22 @@ class RunWalkRecommender():
         score=self.getScoreOnBody(score)# worst score depending on body only is 100-70=30
         score=self.getScoreOnWeather(score,weather)# worst score depending on weather only is 100-25=75
         # worst score depending on body and weather is 100-70-25=5
-        pathscores=self.getPathScores(score)#shoetype depending on weight and path type, and length, steepness, desired kcal
+        pathscores=self.getPathScores(score,"running")#shoetype depending on weight and path type, and length, steepness, desired kcal
         paths_with_scores=[None]*len(self.paths)
         for i in range(len(pathscores)):
             paths_with_scores[i]=(pathscores[i],self.paths[i])
         return paths_with_scores#pathscore, path
     def recommendWalking(self,weather):
-        return [(None,None,None,None)]#pathid,#warmup,#cooldown,#avgspeed. warmup and cooldown will have 0 value. They are not necessary for walking
+        score = 100
+        score = self.getScoreOnBody(score)  # worst score depending on body only is 100-70=30
+        score = self.getScoreOnWeather(score, weather)  # worst score depending on weather only is 100-25=75
+        # worst score depending on body and weather is 100-70-25=5
+        pathscores = self.getPathScores(score,
+                                        "walking")  # shoetype depending on weight and path type, and length, steepness, desired kcal
+        paths_with_scores = [None] * len(self.paths)
+        for i in range(len(pathscores)):
+            paths_with_scores[i] = (pathscores[i], self.paths[i])
+        return paths_with_scores  # pathscore, path
 
     def getScoreOnBody(self, score):
         # score based on gender, age, bmi, avgweekkm
@@ -118,7 +127,7 @@ class RunWalkRecommender():
             score-=3
         return score
 
-    def getPathScores(self,atleteCondition):
+    def getPathScores(self,atleteCondition,activity):
         # shoetype depending on weight and path type, and length, steepness, desired kcal
         weightperkm=self.weight
         if atleteCondition>90:
@@ -141,7 +150,8 @@ class RunWalkRecommender():
                 weightperkm+=0.01*weightperkm
             if self.shoetype in ["Road A1","Track"]:
                 weightperkm-=0.01*weightperkm
-
+            if activity=="walking":
+                weightperkm*=0.40
             requiredkcal=weightperkm*(int(self.paths[i][0][3]))/1000#adjusted weight*path length in km
             pathscores[i] =(1-(abs(self.kcal - requiredkcal) / self.kcal))*100#(1-relative error)*100
         return pathscores

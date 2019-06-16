@@ -155,7 +155,7 @@ class RunWalkRecommender():
         return pathscores
 
 class GymRecommender():
-    def __init__(self,gender,age,weight,height,kcal,bodyparts:[],machines:[]):
+    def __init__(self,gender,age,weight,height,kcal,bodyparts:[],machines:[],gymtool_scores):
         self.gender=gender
         self.age=age
         self.weight=weight
@@ -163,18 +163,64 @@ class GymRecommender():
         self.kcal=kcal
         self.bodyparts=bodyparts
         self.machines=machines
+        self.gymtool_scores=gymtool_scores
     def recommendActivities(self):
         bodyscore=100
         bodyscore=getScoreOnBody(bodyscore,self.gender,self.age,self.weight,self.height)
-        machinescores=self.getMachinesWithScores(self.machines,self.bodyparts)
-        machines_with_time=self.getMachinesWithTime(machinescores,bodyscore,self.kcal)
+        machinescores=self.getMachinesWithScores()
+        machines_with_time=self.getMachinesWithTime(machinescores,bodyscore)
         return machines_with_time#list of (machine, time)
 
-    def getMachinesWithScores(self, machines, bodyparts):
-        return []
+    def getMachinesWithScores(self):
+        machinescores=[]
+        for machine in self.machines:
+            bodypartdict={}
+            machinescore=None
+            for gymtool in self.gymtool_scores:
+                if gymtool[0]==machine[0]:
+                    machinescore=gymtool
+                    break
+            for bodypart in self.bodyparts:
+                bodypart=(bodypart.replace(" ",""))
+                bodypart=bodypart.lower()
+                bodypartdict[bodypart]=machinescore[1][bodypart]
+            machinescores.append((machine[0],bodypartdict))
+        return machinescores
 
-    def getMachinesWithTime(self, machinescores, bodyscore, kcal):
-        return []
+    def getMachinesWithTime(self, machinescores, bodyscore):
+        divider=7
+        if self.weight<60:
+            divider=7.5
+        if self.weight>=60 and divider<75:
+            divider=7
+        if self.weight>=75:
+            divider=6.5
+        if bodyscore>90:
+            divider+=0.2
+        if bodyscore>80 and bodyscore<=90:
+            divider += 0.3
+        if bodyscore<60:
+            divider -= 0.3
+        if bodyscore<70 and bodyscore>=60:
+            divider -= 0.2
+        time=self.kcal/divider#minutes
+        machinescoressum = {}
+        for machinescore in machinescores:
+            sumscoremachine=0
+            for bodypart in machinescore[1].keys():
+                sumscoremachine += int(machinescore[1][bodypart])
+            machinescoressum[machinescore[0]]=sumscoremachine
+        ratiosmachines={}
+        totsumscore=0
+        for machine in machinescoressum.keys():
+            totsumscore+=machinescoressum[machine]
+        for machine in machinescoressum.keys():
+            ratiosmachines[machine]=machinescoressum[machine]/totsumscore
+        machineswithtime={}
+        for machine in ratiosmachines.keys():
+            machineswithtime[machine]=time*ratiosmachines[machine]
+
+        return machineswithtime
 
 
 class FreeweightStretchingRecommender():

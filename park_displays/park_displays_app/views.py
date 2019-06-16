@@ -101,10 +101,12 @@ def gymrecresult(request):
     activity="gym"
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     gymtools=ParkManager("englischer_garten",xmlmng,path_types,gymtool_types).getGymTools()
-    recommendation=GymRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,bodyparts=bodyparts,machines=gymtools).recommendActivities()
+    gymtool_scores = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "gymtool_bodypart.xml").getGymToolsScore()
+    recommendation=GymRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,bodyparts=bodyparts,machines=gymtools,gymtool_scores=gymtool_scores).recommendActivities()
     template = loader.get_template('park_displays_app/gym_recommendation_result.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_GYM_REC_RESULT",
+        'recommendation':recommendation,
     }
     return HttpResponse(template.render(context, request))
 

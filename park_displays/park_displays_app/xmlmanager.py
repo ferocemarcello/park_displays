@@ -43,6 +43,13 @@ class XmlManager():
                             if f.tag=="gymtool":
                                 toollist.append((f.text,(f.attrib["lat"],f.attrib["lng"])))
                 return toollist
+    def getGymToolsScore(self):
+        for child in self.root.iter('gymtooltypes'):
+                toollist = []
+                for c in child:
+                    if c.tag == 'gymtooltype':
+                        toollist.append((c.text,{"frontabs":c.attrib["frontabs"],"sideabs":c.attrib["sideabs"],"arms":c.attrib["arms"],"highlegs":c.attrib["highlegs"],"lowlegs":c.attrib["lowlegs"],"chest":c.attrib["chest"],"back":c.attrib["back"]}))
+                return toollist
     def getAthletes(self):
         athletes = []
         for child in self.root.iter('athletes'):

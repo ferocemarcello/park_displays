@@ -243,7 +243,17 @@ class FreeweightStretchingRecommender():
         if self.stretching:
             exerciselist.append([(x, time, time/2) for x in flexs])#list of (exercise, time, breaktime)
         if self.freeweight:
+            bodyscore = 100
+            bodyscore = getScoreOnBody(bodyscore, self.gender, self.age, self.weight, self.height)
             # http://www.fitclick.com/calories_burned
+            if bodyscore > 90:
+                self.weight*= 0.8
+            if bodyscore > 80 and bodyscore <= 90:
+                self.weight *= 0.9
+            if bodyscore < 60:
+                self.weight *= 1.1
+            if bodyscore < 70 and bodyscore >= 60:
+                self.weight *= 1.2
             if self.weight>=120:
                 plankconsumption=3
                 sideplankconsumption = 6

@@ -239,9 +239,10 @@ class FreeweightStretchingRecommender():
         strenghts = XmlManager(os.path.dirname(
             os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getStrenghtexericises()
         time=1.2*self.intensity#1.2 seconds per level of intensity, max intensity is 120 seconds per exercises
-        if self.stretching and not self.freeweight:
-            return [(x, time, time/2) for x in flexs]#list of (exercise, time, breaktime)
-        if not self.stretching and self.freeweight:
+        exerciselist=[]#stretching/strenght
+        if self.stretching:
+            exerciselist.append([(x, time, time/2) for x in flexs])#list of (exercise, time, breaktime)
+        if self.freeweight:
             # http://www.fitclick.com/calories_burned
             if self.weight>=120:
                 plankconsumption=3
@@ -308,7 +309,8 @@ class FreeweightStretchingRecommender():
                 timesquat /= 4
                 timepushup /= 4
                 repetitions = 4
-            return [("Plank",timeplank,0.6*self.intensity,repetitions),("Side Plank",timesideplank,0.6*self.intensity,repetitions),("Squat",timesquat,0.6*self.intensity,repetitions),("Push-up",timepushup,0.6*self.intensity,repetitions)]#list of (exercise, time, breaktime,repetitions)
+            exerciselist.append([("Plank",timeplank,0.6*self.intensity,repetitions),("Side Plank",timesideplank,0.6*self.intensity,repetitions),("Squat",timesquat,0.6*self.intensity,repetitions),("Push-up",timepushup,0.6*self.intensity,repetitions)])#list of (exercise, time, breaktime,repetitions)
+        return tuple(exerciselist)
 class GroupRecommender():
     def __init__(self,group,intensity,stretching=False, freeweight=False):
         self.group=group

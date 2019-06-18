@@ -10,7 +10,7 @@ class ConnectModal extends Component {
       <div className={styles['modalWrapper']}>
         <div className={styles['modalInner']}>
           <div style={{display: 'flex', marginBottom: 16}}>
-            <h2 style={{margin: 0}}>Connect</h2>
+            <h2 className={styles['title']}>Connect</h2>
             <div style={{flexGrow: 1}}></div>
             <div onClick={closeConnectModal} className={styles['closeButton']}>
               <FontAwesomeIcon icon="times" />
@@ -23,10 +23,14 @@ class ConnectModal extends Component {
             <div>
               <input type="password" placeholder="Password"/>
             </div>
-            <button>Log In</button>
+            <button className={styles['socialButton']} style={{marginTop: 0}}>Log In</button>
           </form>
-          <div>
-            <button>Social 1</button>
+
+          <div style={{marginTop: 10}}>
+            <button className={styles['socialButton']}><FontAwesomeIcon icon={['fab', 'strava']} />&nbsp;&nbsp;Login with Strava</button>
+            <button className={styles['socialButton']}><FontAwesomeIcon icon={['fab', 'facebook']} />&nbsp;&nbsp;Login with Facebook</button>
+            <button className={styles['socialButton']}>Login with Garmin Connect</button>
+            <button className={styles['socialButton']}>Login with Polar</button>
           </div>
         </div>
       </div>

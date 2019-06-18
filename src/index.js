@@ -1,10 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft, faMap, faMedkit, faPlus, faSun, faTimes, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faChevronRight,
+  faMap,
+  faMedkit,
+  faPlus,
+  faSun,
+  faTimes,
+  faUserCircle
+} from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import { faFacebook, faGoogle, faStrava } from '@fortawesome/free-brands-svg-icons';
 
 library.add([
   faUserCircle,
@@ -13,7 +23,11 @@ library.add([
   faPlus,
   faMedkit,
   faArrowLeft,
-  faTimes
+  faTimes,
+  faStrava,
+  faFacebook,
+  faGoogle,
+  faChevronRight
 ]);
 
 ReactDOM.render(<App />, document.getElementById('root'));

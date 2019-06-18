@@ -75,6 +75,16 @@ class HomePage extends Component {
             <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
           </div>
         </section>
+        <section className={styles['GroupFitnessSection']}>
+          <div>
+            <div className={styles['SectionTitle']}>Group Fitness</div>
+            <div className={styles['SectionDescription']}>Community powered Workouts</div>
+            <Slider sliderId={3}>
+              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
+            </Slider>
+            <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
+          </div>
+        </section>
         <section className={styles['NutritionSection']}>
           <div>
             <div className={styles['SectionTitle']}>Nutrition</div>

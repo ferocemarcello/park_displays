@@ -171,7 +171,7 @@ def grouprecresult(request):
     maxage=72
     kcal=500
     intensity=60#0-100
-    exercises = GroupRecommender(numcomponents=numcomponents, nummales=nummales, numunder18=numunder18, numover70=numover70, avgage=avgage,minage=minage,maxage=maxage,kcal=kcal,stretching=True, freeweight=False).recommendExercises()
+    exercises = GroupRecommender(numcomponents=numcomponents, nummales=nummales, numunder18=numunder18, numover70=numover70, avgage=avgage,minage=minage,maxage=maxage,kcal=kcal,stretching=True, freeweight=True,intensity=intensity).recommendExercises()
     context = {
         'number_of_components':number_of_components,
         'number_of_males':number_of_males,
@@ -180,7 +180,8 @@ def grouprecresult(request):
         'average_age':average_age,
         'minimum_age':minimum_age,
         'max_age':max_age,
-        'typeselection':typeselection
+        'typeselection':typeselection,
+        'exercises':exercises
     }
     return HttpResponse(template.render(context, request))
 

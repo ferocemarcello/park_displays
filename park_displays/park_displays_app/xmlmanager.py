@@ -92,6 +92,18 @@ class XmlManager():
             for bodypart in child:
                 bodyparts.append(bodypart.text)
         return bodyparts
+    def getStrenghtexericises(self):
+        strenghtexericises = []
+        for child in self.root.iter('strenghtexericises'):
+            for strenghtexericise in child:
+                strenghtexericises.append(strenghtexericise.text)
+        return strenghtexericises
+    def getFlexibilityexericises(self):
+        flexibilityexercises = []
+        for child in self.root.iter('flexibilityexercises'):
+            for flexibilityexercise in child:
+                flexibilityexercises.append(flexibilityexercise.text)
+        return flexibilityexercises
     def getAgeIntervals(self):
         ageintervals=[]
         for child in self.root.iter('ageintervals'):

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './HomePage.module.scss';
 import Glide from '@glidejs/glide';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class SliderItem extends Component {
   render() {
@@ -19,7 +18,6 @@ class SliderItem extends Component {
               <div><small>Duration: {duration}/3</small></div>
               <div><small>Difficulty: {difficulty}/3</small></div>
             </div>
-
           </div>
         </div>
       </li>

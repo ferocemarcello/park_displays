@@ -240,8 +240,75 @@ class FreeweightStretchingRecommender():
             os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getStrenghtexericises()
         time=1.2*self.intensity#1.2 seconds per level of intensity, max intensity is 120 seconds per exercises
         if self.stretching and not self.freeweight:
-            return [(x, time, time/2) for x in flexs]
-        return [(None,None,None)]#list of (exercise, time, breaktime)
+            return [(x, time, time/2) for x in flexs]#list of (exercise, time, breaktime)
+        if not self.stretching and self.freeweight:
+            # http://www.fitclick.com/calories_burned
+            if self.weight>=120:
+                plankconsumption=3
+                sideplankconsumption = 6
+                squatconsumption=6
+                pushupconsumption=5#per minute
+            if self.weight>=95 and self.weight<120:
+                plankconsumption = 2
+                pushupconsumption=2
+                squatconsumption = 5
+                sideplankconsumption = 5
+            if self.weight >= 70 and self.weight < 90:
+                plankconsumption = 2
+                sideplankconsumption = 4
+                squatconsumption = 4
+                pushupconsumption = 2
+            if self.weight < 70:
+                plankconsumption = 1
+                sideplankconsumption=3
+                squatconsumption = 3
+                pushupconsumption = 2
+            averageconsumption=(plankconsumption+sideplankconsumption+squatconsumption+pushupconsumption)/4
+            weightplank=plankconsumption/averageconsumption
+            weightsideplank = sideplankconsumption / averageconsumption
+            weightsquat = squatconsumption / averageconsumption
+            weightpushup = pushupconsumption / averageconsumption
+            if weightplank > 1:
+                weightplank = weightplank - abs(1 - weightplank) * 2
+            elif weightplank < 1:
+                weightplank = weightplank + abs(1 - weightplank) * 2
+            if weightsideplank > 1:
+                weightsideplank = weightsideplank - abs(1 - weightsideplank) * 2
+            elif weightsideplank < 1:
+                weightsideplank = weightsideplank + abs(1 - weightsideplank) * 2
+            if weightsquat > 1:
+                weightsquat = weightsquat - abs(1 - weightsquat) * 2
+            elif weightsquat < 1:
+                weightsquat = weightsquat + abs(1 - weightsquat) * 2
+            if weightpushup > 1:
+                weightpushup = weightpushup - abs(1 - weightpushup) * 2
+            elif weightpushup < 1:
+                weightpushup = weightpushup + abs(1 - weightpushup) * 2
+            tottime=self.kcal/averageconsumption
+            timeplank=((tottime/4)*weightplank)*60#seconds
+            timesideplank=((tottime/4)*weightsideplank)*60
+            timesquat=((tottime/4)*weightsquat)*60
+            timepushup=((tottime/4)*weightpushup)*60
+            repetitions = 1
+            if self.intensity>=50 and self.intensity<75:
+                timeplank/=2
+                timesideplank/=2
+                timesquat/=2
+                timepushup/=2
+                repetitions=2
+            if self.intensity>=25 and self.intensity<50:
+                timeplank /= 3
+                timesideplank /= 3
+                timesquat /= 3
+                timepushup /= 3
+                repetitions = 3
+            if self.intensity<25:
+                timeplank /= 4
+                timesideplank /= 4
+                timesquat /= 4
+                timepushup /= 4
+                repetitions = 4
+            return [("Plank",timeplank,0.6*self.intensity,repetitions),("Side Plank",timesideplank,0.6*self.intensity,repetitions),("Squat",timesquat,0.6*self.intensity,repetitions),("Push-up",timepushup,0.6*self.intensity,repetitions)]#list of (exercise, time, breaktime,repetitions)
 class GroupRecommender():
     def __init__(self,group,intensity,stretching=False, freeweight=False):
         self.group=group

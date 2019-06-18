@@ -77,7 +77,7 @@ def freeweightrecresult(request):
     height=186
     kcal=700
     intensity=60#0-100
-    exercises=FreeweightStretchingRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,intensity=intensity,freeweight=False,stretching=True).recommendExercises()
+    exercises=FreeweightStretchingRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,intensity=intensity,freeweight=True,stretching=False).recommendExercises()
     template = loader.get_template('park_displays_app/freeweight_recommendation_result.html')
     context = {
         'exercises': exercises,

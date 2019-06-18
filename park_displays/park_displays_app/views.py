@@ -76,12 +76,11 @@ def freeweightrecresult(request):
     weight=75
     height=186
     kcal=700
-    avgweekkm=40
-    activity="freeweight"
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
+    intensity=60#0-100
+    exercises=FreeweightStretchingRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,intensity=intensity,freeweight=False,stretching=True).recommendExercises()
     template = loader.get_template('park_displays_app/freeweight_recommendation_result.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_FREEWEIGHT_REC_RESULT",
+        'exercises': exercises,
     }
     return HttpResponse(template.render(context, request))
 def gymrecresult(request):

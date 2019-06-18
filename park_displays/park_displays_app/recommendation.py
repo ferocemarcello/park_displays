@@ -230,8 +230,17 @@ class FreeweightStretchingRecommender():
         self.weight=weight
         self.height=height
         self.kcal=kcal
-        self.intensity=intensity
+        self.intensity=intensity#0-100
+        self.stretching=stretching
+        self.freeweight=freeweight
     def recommendExercises(self):
+        flexs = XmlManager(os.path.dirname(os.path.realpath(
+            __file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getFlexibilityexericises()
+        strenghts = XmlManager(os.path.dirname(
+            os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getStrenghtexericises()
+        time=1.2*self.intensity#1.2 seconds per level of intensity, max intensity is 120 seconds per exercises
+        if self.stretching and not self.freeweight:
+            return [(x, time, time/2) for x in flexs]
         return [(None,None,None)]#list of (exercise, time, breaktime)
 class GroupRecommender():
     def __init__(self,group,intensity,stretching=False, freeweight=False):

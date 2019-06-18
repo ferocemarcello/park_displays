@@ -97,7 +97,6 @@ def gymrecresult(request):
     height=186
     kcal=700
     bodyparts=body_parts
-    activity="gym"
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     gymtools=ParkManager("englischer_garten",xmlmng,path_types,gymtool_types).getGymTools()
     gymtool_scores = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "gymtool_bodypart.xml").getGymToolsScore()
@@ -162,6 +161,17 @@ def grouprecresult(request):
     typeselection = CheckBox("Select Type")
     typeselection.fields['selection'].choices = trainingtypes
     typeselection.fields['selection'].initial = trainingtypes
+    gender="male"
+    numcomponents=10
+    nummales=4
+    numunder18=3
+    numover70=1
+    avgage=40
+    minage=17
+    maxage=72
+    kcal=500
+    intensity=60#0-100
+    exercises = GroupRecommender(numcomponents=numcomponents, nummales=nummales, numunder18=numunder18, numover70=numover70, avgage=avgage,minage=minage,maxage=maxage,kcal=kcal,stretching=True, freeweight=False).recommendExercises()
     context = {
         'number_of_components':number_of_components,
         'number_of_males':number_of_males,

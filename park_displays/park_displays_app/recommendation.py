@@ -312,8 +312,17 @@ class FreeweightStretchingRecommender():
             exerciselist.append([("Plank",timeplank,0.6*self.intensity,repetitions),("Side Plank",timesideplank,0.6*self.intensity,repetitions),("Squat",timesquat,0.6*self.intensity,repetitions),("Push-up",timepushup,0.6*self.intensity,repetitions)])#list of (exercise, time, breaktime,repetitions)
         return tuple(exerciselist)
 class GroupRecommender():
-    def __init__(self,group,intensity,stretching=False, freeweight=False):
-        self.group=group
-        self.intensity=intensity
+    def __init__(self,numcomponents, nummales, numunder18, numover70, avgage,minage,maxage,kcal,intensity,stretching=False, freeweight=False):
+        self.numcomponents=numcomponents
+        self.nummales=nummales
+        self.numunder18=numunder18
+        self.numover70=numover70
+        self.avgage=avgage
+        self.minage=minage
+        self.maxage=maxage
+        self.kcal=kcal
+        self.intensity=intensity#0-100
+        self.stretching=stretching
+        self.freeweight=freeweight
     def recommendExercises(self):
-        return [(None,None,None)]#list of (exercise, time, breaktime)
+        return None

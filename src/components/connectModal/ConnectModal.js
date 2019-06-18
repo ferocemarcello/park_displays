@@ -7,7 +7,7 @@ class ConnectModal extends Component {
     const { closeConnectModal } = this.props;
 
     return (
-      <div className={styles['modalWrapper']}>
+      <div className={styles['modalWrapper']} onClick={closeConnectModal}>
         <div className={styles['modalInner']}>
           <div style={{display: 'flex', marginBottom: 16}}>
             <h2 className={styles['title']}>Connect</h2>

@@ -68,4 +68,22 @@
         <part>Chest</part>
         <part>Back</part>
     </bodyparts>
+    <strenghtexericises>
+        <exercise>Crunch</exercise>
+        <exercise>Plank</exercise>
+        <exercise>Side Plank</exercise>
+        <exercise>Squat</exercise>
+        <exercise>Push-up</exercise>
+    </strenghtexericises>
+    <flexibilityexercises>
+        <exercise>Standing Closed Legs Stretch</exercise>
+        <exercise>Standing Open Legs Stretch</exercise>
+        <exercise>Sitting Closed Legs Stretch</exercise>
+        <exercise>Standing Open Legs Stretch</exercise>
+        <exercise>Frog Stretch</exercise>
+        <exercise>Single Leg Standing Front Stretch</exercise>
+        <exercise>Single Leg Standing Back Stretch</exercise>
+        <exercise>Arm Extension Back Stretch</exercise>
+        <exercise>Cross-Body Shoulder Stretch</exercise>
+    </flexibilityexercises>
 </filters>

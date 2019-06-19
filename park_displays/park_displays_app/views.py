@@ -212,6 +212,9 @@ def similarusers(request):
     gymathletes=datamng.getGymAthletes()
     freeweightathletes=datamng.getFreeweightAthletes()
     stretchers = datamng.getStretchers()
+
+    activityselection = Dropdown(label="Select Activity", choices=[('Running','Running'), ('Walking','Walking'), ('Outdoor Gym','Outdoor Gym'), ('Freeweight','Freeweight'), ('Stretching','Stretching')])
+
     template = loader.get_template('park_displays_app/similarusers.html')
     context = {
         'runners':json.dumps(runners),
@@ -221,6 +224,7 @@ def similarusers(request):
         'stretchers':json.dumps(stretchers),
         'app_id':app_id,
         'app_code':app_code,
+        'activity_filter': activityselection
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):

@@ -26,7 +26,23 @@
 </head>
 <body>
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
-Put Filters here
+    <form action='' enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+    {{activity_filter}}
+    </form>
+
+    Runners:
+    {{runners}}
+    Walkers:
+    {{walkers}}
+    Gym:
+    {{gymathletes}}
+    Freeweight:
+    {{freeweightathletes}}
+    Stretchers:
+    {{stretchers}}
+
+
 </div>
 <script>
     // set up containers for the map  + panel

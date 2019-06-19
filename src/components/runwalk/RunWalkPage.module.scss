@@ -18,3 +18,22 @@
   flex-grow: 1;
   //height: 100px;
 }
+
+.ListSection {
+  padding: 15px;
+}
+
+.ListItem {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: #ebebeb;
+  }
+}
+
+.ListItemTextSection {
+  padding-left: 20px;
+}

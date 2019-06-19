@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import styles from './HomePage.module.scss';
 import Glide from '@glidejs/glide';
 
@@ -39,6 +40,25 @@ class Slider extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    new Glide(`.glide${this.props.sliderId}`, {
+      type: 'slider',
+      startAt: 0,
+      perView: 5,
+      focusAt: 'center'
+    }).mount();
+  }
+}
+
+class ShowAllLink extends Component {
+  render() {
+    return (
+      <div style={{float: 'right', marginTop: 16}}>
+        <Link to={this.props.to} style={{color: '#fff', textDecoration: 'none'}}>Show All <FontAwesomeIcon icon="chevron-right" /></Link>
+      </div>
+    );
+  }
 }
 
 class HomePage extends Component {
@@ -52,7 +72,7 @@ class HomePage extends Component {
             <Slider sliderId={1}>
               { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
             </Slider>
-            <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
+            <ShowAllLink to="/runwalk" />
           </div>
         </section>
         <section className={styles['BodyweightSection']}>
@@ -62,7 +82,7 @@ class HomePage extends Component {
             <Slider sliderId={2}>
               { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
             </Slider>
-            <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
+            <ShowAllLink to="/bodyweight" />
           </div>
         </section>
         <section className={styles['GymSection']}>
@@ -72,27 +92,27 @@ class HomePage extends Component {
             <Slider sliderId={3}>
               { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
             </Slider>
-            <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
+            <ShowAllLink to="/gym" />
           </div>
         </section>
         <section className={styles['GroupFitnessSection']}>
           <div>
             <div className={styles['SectionTitle']}>Group Fitness</div>
             <div className={styles['SectionDescription']}>Community powered Workouts</div>
-            <Slider sliderId={3}>
+            <Slider sliderId={4}>
               { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
             </Slider>
-            <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
+            <ShowAllLink to="/groupfitness" />
           </div>
         </section>
         <section className={styles['NutritionSection']}>
           <div>
             <div className={styles['SectionTitle']}>Nutrition</div>
             <div className={styles['SectionDescription']}>Find places to fuel up after workout</div>
-            <Slider sliderId={4}>
+            <Slider sliderId={5}>
               { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
             </Slider>
-            <div style={{float: 'right', marginTop: 16}}>Show All <FontAwesomeIcon icon="chevron-right" /></div>
+            <ShowAllLink to="/nutrition" />
           </div>
         </section>
       </div>
@@ -100,7 +120,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    new Glide('.glide1', {
+    /*new Glide('.glide1', {
       type: 'slider',
       startAt: 0,
       perView: 5,
@@ -127,6 +147,13 @@ class HomePage extends Component {
       perView: 5,
       focusAt: 'center'
     }).mount();
+
+    new Glide('.glide5', {
+      type: 'slider',
+      startAt: 0,
+      perView: 5,
+      focusAt: 'center'
+    }).mount();*/
   }
 }
 

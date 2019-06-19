@@ -9,7 +9,7 @@ class ToolBar extends Component {
     const { showConnectModal } = this.props;
 
     return (
-      <div className="toolbar">
+      <div className="toolbar" id="appToolbar">
         <BackToolbarItem history={this.props.history} />
         <ToolBarItem text="Emergency" icon="medkit" to="/emergency" />
         <ToolBarItem text="Park Map" icon="map" to="/map" />

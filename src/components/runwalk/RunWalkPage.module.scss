@@ -28,12 +28,31 @@
   flex-direction: row;
   background: #fff;
   cursor: pointer;
+  text-decoration: none;
+  color: #000;
 
   &:hover {
     background: #ebebeb;
+  }
+
+  &:not(:first-child) {
+    margin-top: 16px;
   }
 }
 
 .ListItemTextSection {
   padding-left: 20px;
+}
+
+.ListItemTextSectionTitle {
+  fontSize: 1.5rem;
+  padding-top: 16px;
+}
+
+.ListItemTextSectionBody {
+  color: #808080;
+}
+
+.ListItemTextSectionDescription {
+  font-family: "Helvetica Neue";
 }

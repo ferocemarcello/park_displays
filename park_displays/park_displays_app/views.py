@@ -20,25 +20,22 @@ gymtool_types = XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getToolTypes()
 body_parts = XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getBodyParts()
+
 def index(request):
-    template = loader.get_template('park_displays_app/index.html')
+    template = loader.get_template('park_displays_app/startpage.html')
     context = {
 
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_INDEX",
     }
     return HttpResponse(template.render(context, request))
+
 def emergency(request):
     template = loader.get_template('park_displays_app/emergency.html')
     context = {
         'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_EMERGENCY",
     }
     return HttpResponse(template.render(context, request))
-def weather(request):
-    template = loader.get_template('park_displays_app/weather.html')
-    context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_WEATHER",
-    }
-    return HttpResponse(template.render(context, request))
+
 def runwalkrecresult(request):
 
     '''inputf = FormClass(None,request.POST, request.FILES)

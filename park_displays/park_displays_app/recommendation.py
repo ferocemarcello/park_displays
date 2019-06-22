@@ -235,95 +235,79 @@ class FreeweightStretchingRecommender():
     def recommendExercises(self):
         flexs = XmlManager(os.path.dirname(os.path.realpath(
             __file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getFlexibilityexericises()
-        strenghts = XmlManager(os.path.dirname(
-            os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getStrenghtexericises()
         time=1.2*self.intensity#1.2 seconds per level of intensity, max intensity is 120 seconds per exercises
         exerciselist=[]#stretching/strenght
-        bodyscore = 100
-        bodyscore = getScoreOnBody(bodyscore, self.gender, self.age, self.weight, self.height)
-        # http://www.fitclick.com/calories_burned
-        if bodyscore > 90:
-            self.weight *= 0.8
-            time*=1.2
-        if bodyscore > 80 and bodyscore <= 90:
-            self.weight *= 0.9
-            time*=1.1
-        if bodyscore < 60:
-            self.weight *= 1.1
-            time*=0.9
-        if bodyscore < 70 and bodyscore >= 60:
-            self.weight *= 1.2
-            time*=0.8
+        bodyscore = getScoreOnBody(100, self.gender, self.age, self.weight, self.height)
+        self.weight=self.adjustWeightFreeWeightBodyScore(bodyscore=bodyscore)
+        time = self.adjustTimeFreeWeightBodyScore(bodyscore=bodyscore, time=time)
         if self.stretching:
             exerciselist.append([(x, time, time/2) for x in flexs])#list of (exercise, time, breaktime)
         if self.freeweight:
-            if self.weight>=120:
-                plankconsumption=3
-                sideplankconsumption = 6
-                squatconsumption=6
-                pushupconsumption=5#per minute
-            if self.weight>=95 and self.weight<120:
-                plankconsumption = 2
-                pushupconsumption=2
-                squatconsumption = 5
-                sideplankconsumption = 5
-            if self.weight >= 70 and self.weight < 90:
-                plankconsumption = 2
-                sideplankconsumption = 4
-                squatconsumption = 4
-                pushupconsumption = 2
-            if self.weight < 70:
-                plankconsumption = 1
-                sideplankconsumption=3
-                squatconsumption = 3
-                pushupconsumption = 2
-            averageconsumption=(plankconsumption+sideplankconsumption+squatconsumption+pushupconsumption)/4
-            weightplank=plankconsumption/averageconsumption
-            weightsideplank = sideplankconsumption / averageconsumption
-            weightsquat = squatconsumption / averageconsumption
-            weightpushup = pushupconsumption / averageconsumption
-            if weightplank > 1:
-                weightplank = weightplank - abs(1 - weightplank) * 2
-            elif weightplank < 1:
-                weightplank = weightplank + abs(1 - weightplank) * 2
-            if weightsideplank > 1:
-                weightsideplank = weightsideplank - abs(1 - weightsideplank) * 2
-            elif weightsideplank < 1:
-                weightsideplank = weightsideplank + abs(1 - weightsideplank) * 2
-            if weightsquat > 1:
-                weightsquat = weightsquat - abs(1 - weightsquat) * 2
-            elif weightsquat < 1:
-                weightsquat = weightsquat + abs(1 - weightsquat) * 2
-            if weightpushup > 1:
-                weightpushup = weightpushup - abs(1 - weightpushup) * 2
-            elif weightpushup < 1:
-                weightpushup = weightpushup + abs(1 - weightpushup) * 2
-            tottime=self.kcal/averageconsumption
-            timeplank=((tottime/4)*weightplank)*60#seconds
-            timesideplank=((tottime/4)*weightsideplank)*60
-            timesquat=((tottime/4)*weightsquat)*60
-            timepushup=((tottime/4)*weightpushup)*60
+            strenghts = XmlManager(os.path.dirname(
+                os.path.realpath(
+                    __file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml").getStrenghtexericisesKcalIntervals()
+            exercises=[x[0] for x in strenghts]
+            exerciseconsumptions=[]
+            for ex in exercises:
+                exerciseconsumptions.append(self.getExerciseConsumptionWeight(exerciseskcals=strenghts,exercise=ex))
+            averageconsumption=sum(exerciseconsumptions)/len(exerciseconsumptions)
+            exerciseweights=[]
+            for ex in exerciseconsumptions:
+                exweight=ex/averageconsumption
+                if exweight > 1:
+                    exweight= exweight - abs(1 - exweight) * 2
+                elif exweight< 1:
+                    exweight = exweight + abs(1 - exweight) * 2
+                exerciseweights.append(exweight)
+            tottime=self.kcal/averageconsumption#in minutes
+            times=[]
+            for exweight in exerciseweights:
+                times.append(((tottime/len(exerciseweights))*exweight)*60)#seconds
             repetitions = 1
-            if self.intensity>=50 and self.intensity<75:
-                timeplank/=2
-                timesideplank/=2
-                timesquat/=2
-                timepushup/=2
+            if 50<=self.intensity<75:
+                for i in range(len(times)):
+                    times[i]/=2
                 repetitions=2
-            if self.intensity>=25 and self.intensity<50:
-                timeplank /= 3
-                timesideplank /= 3
-                timesquat /= 3
-                timepushup /= 3
-                repetitions = 3
-            if self.intensity<25:
-                timeplank /= 4
-                timesideplank /= 4
-                timesquat /= 4
-                timepushup /= 4
-                repetitions = 4
-            exerciselist.append([("Plank",timeplank,0.6*self.intensity,repetitions),("Side Plank",timesideplank,0.6*self.intensity,repetitions),("Squat",timesquat,0.6*self.intensity,repetitions),("Push-up",timepushup,0.6*self.intensity,repetitions)])#list of (exercise, time, breaktime,repetitions)
+            elif 25<=self.intensity<50:
+                for i in range(len(times)):
+                    times[i]/=3
+                repetitions=3
+            elif self.intensity<25:
+                for i in range(len(times)):
+                    times[i]/=4
+                repetitions=4
+            for i in range(len(exercises)):
+                #60 seconds break for intensity=100=maxvalue
+                exerciselist.append((exercises[i],times[i],0.6*self.intensity,repetitions))#list of (exercise, time, breaktime,repetitions)
         return tuple(exerciselist)
+
+    def adjustWeightFreeWeightBodyScore(self, bodyscore):
+        if bodyscore > 90:
+            return self.weight * 0.8
+        elif 80<bodyscore <= 90:
+            return self.weight * 0.9
+        elif 60<=bodyscore < 70:
+            return self.weight* 1.2
+        elif bodyscore < 60:
+            return self.weight *1.1
+
+    def adjustTimeFreeWeightBodyScore(self, bodyscore, time):
+        if bodyscore > 90:
+            return time*1.2
+        elif 80<bodyscore <= 90:
+            return time*1.1
+        elif 60<=bodyscore < 70:
+            return time*0.8
+        elif bodyscore < 60:
+            return time*0.9
+
+    def getExerciseConsumptionWeight(self, exerciseskcals, exercise):
+        for i in range(len(exerciseskcals)):
+            if exerciseskcals[i][0]==exercise:
+                for j in range(len(exerciseskcals[i][1])):
+                    if exerciseskcals[i][1][j][1]<=self.weight<exerciseskcals[i][1][j][0]:
+                        return exerciseskcals[i][1][j][2]
+
 
 class GroupRecommender():
     def __init__(self,numcomponents, nummales, numunder18, numover70, avgage,minage,maxage,kcal,intensity,stretching=False, freeweight=False):

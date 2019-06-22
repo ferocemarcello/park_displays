@@ -98,6 +98,15 @@ class XmlManager():
             for strenghtexericise in child:
                 strenghtexericises.append(strenghtexericise.text)
         return strenghtexericises
+    def getStrenghtexericisesKcalIntervals(self):
+        strenghtexericises = []
+        for child in self.root.iter('strenghtexericises'):
+            for strenghtexericise in child:
+                exercisekcal=(strenghtexericise.text,[])
+                for kcal in strenghtexericise:
+                    exercisekcal[1].append((int(kcal.attrib["upperbound"]),int(kcal.attrib["lowerbound"]),int(kcal.text)))
+                strenghtexericises.append(exercisekcal)
+        return strenghtexericises
     def getFlexibilityexericises(self):
         flexibilityexercises = []
         for child in self.root.iter('flexibilityexercises'):

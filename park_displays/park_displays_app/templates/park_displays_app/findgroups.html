@@ -92,6 +92,9 @@ var groups={{ grouplist |safe}};
             if(!groups[i][1]){
                 groupmarkertext+="freeweight exercises"
             }
+            groupmarkertext+="\n";
+            groupmarkertext+="average age:"+groups[i][3]+"\n";
+            groupmarkertext+="number of components:"+groups[i][4];
     groupmarker.setData(groupmarkertext);
     groupmarker.addEventListener("tap", markerlistener, false);
     function markerlistener(evt){

@@ -20,13 +20,12 @@ class XmlManager():
     def getGroups(self,parkname):
         for child in self.root.iter('park'):
             if child.attrib["name"]==parkname:
-
                 grouplist = []
                 for c in child:
                     if c.tag == 'groups':
                         for f in c:
                             if f.tag=="group":
-                                grouplist.append(((f.attrib["lat"],f.attrib["lng"]),f.attrib["stretching"]=="True",f.attrib["freeweight"]=="True"))
+                                grouplist.append(((f.attrib["lat"],f.attrib["lng"]),f.attrib["stretching"]=="True",f.attrib["freeweight"]=="True",float(f.attrib["avgage"]),int(f.attrib["numcomponents"])))
                 return grouplist
     def getMinMaxNumGroupFilter(self,groupFilter):
         for child in self.root.iter('filters'):

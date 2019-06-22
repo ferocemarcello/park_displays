@@ -104,7 +104,18 @@ class XmlManager():
             for strenghtexericise in child:
                 exercisekcal=(strenghtexericise.text,[])
                 for kcal in strenghtexericise:
-                    exercisekcal[1].append((int(kcal.attrib["upperbound"]),int(kcal.attrib["lowerbound"]),int(kcal.text)))
+                    if kcal.tag=="kcal":
+                        exercisekcal[1].append((int(kcal.attrib["upperbound"]),int(kcal.attrib["lowerbound"]),int(kcal.text)))
+                strenghtexericises.append(exercisekcal)
+        return strenghtexericises
+    def getStrenghtexericisesKcalIntervalsGroup(self):
+        strenghtexericises = []
+        for child in self.root.iter('strenghtexericises'):
+            for strenghtexericise in child:
+                exercisekcal=(strenghtexericise.text,[])
+                for kcal in strenghtexericise:
+                    if kcal.tag=="kcalgroup":
+                        exercisekcal[1].append((int(kcal.attrib["upperbound"]),int(kcal.attrib["lowerbound"]),float(kcal.text)))
                 strenghtexericises.append(exercisekcal)
         return strenghtexericises
     def getFlexibilityexericises(self):

@@ -71,21 +71,46 @@
     <strenghtexericises><!-- # http://www.fitclick.com/calories_burned -->
         <exercise>Crunch<kcal lowerbound="120" upperbound="200">3</kcal>
         <kcal lowerbound="70" upperbound="120">2</kcal>
-        <kcal lowerbound="0" upperbound="70">1</kcal></exercise>
+        <kcal lowerbound="0" upperbound="70">1</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">1</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">1</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">2</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">3</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">3</kcalgroup></exercise>
         <exercise>Plank<kcal lowerbound="120" upperbound="200">3</kcal>
         <kcal lowerbound="70" upperbound="120">2</kcal>
-        <kcal lowerbound="0" upperbound="70">1</kcal></exercise>
+        <kcal lowerbound="0" upperbound="70">1</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">1</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">2</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">2</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">2</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">3</kcalgroup></exercise>
         <exercise>Side Plank<kcal lowerbound="120" upperbound="200">6</kcal>
         <kcal lowerbound="90" upperbound="120">5</kcal>
             <kcal lowerbound="70" upperbound="90">4</kcal>
-        <kcal lowerbound="0" upperbound="70">3</kcal></exercise>
+        <kcal lowerbound="0" upperbound="70">3</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">3</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">4</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">4.5</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">5</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">6</kcalgroup></exercise>
         <exercise>Squat<kcal lowerbound="120" upperbound="200">6</kcal>
         <kcal lowerbound="90" upperbound="120">5</kcal>
             <kcal lowerbound="70" upperbound="90">4</kcal>
-        <kcal lowerbound="0" upperbound="70">3</kcal></exercise>
+        <kcal lowerbound="0" upperbound="70">3</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">3</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">4</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">4.5</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">5</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">6</kcalgroup></exercise>
         <exercise>Push-up<kcal lowerbound="120" upperbound="200">5</kcal>
             <kcal lowerbound="40" upperbound="120">2</kcal>
-        <kcal lowerbound="0" upperbound="40">1</kcal></exercise>
+        <kcal lowerbound="0" upperbound="40">1</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">2</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">2</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">2</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">2</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">5</kcalgroup></exercise>
     </strenghtexericises>
     <flexibilityexercises>
         <exercise>Standing Closed Legs Stretch</exercise>

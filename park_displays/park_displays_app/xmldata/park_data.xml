@@ -52,10 +52,10 @@
         <stretching><athlete lat="48.146404" lng="11.592444"></athlete>
         </stretching>
         <groups>
-            <group lat="48.148314" lng="11.588836" stretching="True" freeweight="False"></group>
-            <group lat="48.147197" lng="11.586433" stretching="False" freeweight="True"></group>
-            <group lat="48.145079" lng="11.589952" stretching="True" freeweight="True"></group>
-            <group lat="48.148601" lng="11.592548" stretching="False" freeweight="True"></group>
+            <group lat="48.148314" lng="11.588836" stretching="True" freeweight="False" avgage="30" numcomponents="10"></group>
+            <group lat="48.147197" lng="11.586433" stretching="False" freeweight="True" avgage="25" numcomponents="7"></group>
+            <group lat="48.145079" lng="11.589952" stretching="True" freeweight="True" avgage="40" numcomponents="15"></group>
+            <group lat="48.148601" lng="11.592548" stretching="False" freeweight="True" avgage="35" numcomponents="20"></group>
         </groups>
     </park>
     <park name="maximiliansanlagen">

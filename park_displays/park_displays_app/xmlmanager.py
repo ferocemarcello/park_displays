@@ -20,13 +20,12 @@ class XmlManager():
     def getGroups(self,parkname):
         for child in self.root.iter('park'):
             if child.attrib["name"]==parkname:
-
                 grouplist = []
                 for c in child:
                     if c.tag == 'groups':
                         for f in c:
                             if f.tag=="group":
-                                grouplist.append(((f.attrib["lat"],f.attrib["lng"]),f.attrib["stretching"]=="True",f.attrib["freeweight"]=="True"))
+                                grouplist.append(((f.attrib["lat"],f.attrib["lng"]),f.attrib["stretching"]=="True",f.attrib["freeweight"]=="True",float(f.attrib["avgage"]),int(f.attrib["numcomponents"])))
                 return grouplist
     def getMinMaxNumGroupFilter(self,groupFilter):
         for child in self.root.iter('filters'):
@@ -97,6 +96,26 @@ class XmlManager():
         for child in self.root.iter('strenghtexericises'):
             for strenghtexericise in child:
                 strenghtexericises.append(strenghtexericise.text)
+        return strenghtexericises
+    def getStrenghtexericisesKcalIntervals(self):
+        strenghtexericises = []
+        for child in self.root.iter('strenghtexericises'):
+            for strenghtexericise in child:
+                exercisekcal=(strenghtexericise.text,[])
+                for kcal in strenghtexericise:
+                    if kcal.tag=="kcal":
+                        exercisekcal[1].append((int(kcal.attrib["upperbound"]),int(kcal.attrib["lowerbound"]),int(kcal.text)))
+                strenghtexericises.append(exercisekcal)
+        return strenghtexericises
+    def getStrenghtexericisesKcalIntervalsGroup(self):
+        strenghtexericises = []
+        for child in self.root.iter('strenghtexericises'):
+            for strenghtexericise in child:
+                exercisekcal=(strenghtexericise.text,[])
+                for kcal in strenghtexericise:
+                    if kcal.tag=="kcalgroup":
+                        exercisekcal[1].append((int(kcal.attrib["upperbound"]),int(kcal.attrib["lowerbound"]),float(kcal.text)))
+                strenghtexericises.append(exercisekcal)
         return strenghtexericises
     def getFlexibilityexericises(self):
         flexibilityexercises = []

@@ -42,6 +42,7 @@ def runwalkrecresult(request):
     age=0
     weight=0
     height=0
+    kcal=0
 
     if request.method == 'POST':
         #gender_input = CheckBox(request.POST)
@@ -56,6 +57,8 @@ def runwalkrecresult(request):
         weight_input = request.POST.getlist('selection')[2]
         #if height_input.is_valid():
         height_input = request.POST.getlist('selection')[3]
+
+        kcal_input = request.POST.getlist('selection')[4]
 
         gender = gender_input
 
@@ -114,7 +117,25 @@ def runwalkrecresult(request):
         elif height_input == ">=210 cm":
             height = 210
 
-    kcal=700
+        if kcal_input == "<100":
+            kcal = 100
+        elif kcal_input == "100-499":
+            kcal = 300
+        elif kcal_input == "500-899":
+            kcal = 700
+        elif kcal_input == "900-1299":
+            kcal = 1100
+        elif kcal_input == "1300-1699":
+            kcal = 1500
+        elif kcal_input == "1700-2099":
+            kcal = 1900
+        elif kcal_input == "2100-2499":
+            kcal = 2300
+        elif kcal_input == "2500-2899":
+            kcal = 2700
+        elif kcal_input == ">=2900":
+            kcal = 2900
+
     avgweekkm=40
     activity="running"
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
@@ -135,11 +156,93 @@ def freeweightrecresult(request):
         if len(request.FILES.getlist('file_field')) == 2:
             coordinatesfile = request.FILES.getlist('file_field')[0]'''
 
-    gender="male"
-    age=31
-    weight=75
-    height=186
-    kcal=700
+    gender=""
+    age=0
+    weight=0
+    height=0
+    kcal=0
+    gender_input = request.POST.getlist('selection')[0]
+    age_input = request.POST.getlist('selection')[1]
+    weight_input = request.POST.getlist('selection')[2]
+    height_input = request.POST.getlist('selection')[3]
+    kcal_input = request.POST.getlist('selection')[4]
+
+    gender = gender_input
+
+    if age_input == "<18":
+        age = 18
+    elif age_input == "18-24":
+        age = 22
+    elif age_input == "25-34":
+        age = 30
+    elif age_input == "35-44":
+        age = 40
+    elif age_input == "45-54":
+        age = 50
+    elif age_input == "55-64":
+        age = 60
+    elif age_input == "65-74":
+        age = 70
+    elif age_input == ">=75":
+        age = 75
+
+    if weight_input == "<40":
+        weight = 40
+    elif weight_input == "40-49 kg":
+        weight = 45
+    elif weight_input == "50-59 kg":
+        weight = 55
+    elif weight_input == "60-69 kg":
+        weight = 65
+    elif weight_input == "70-79 kg":
+        weight = 75
+    elif weight_input == "80-89 kg":
+        weight = 85
+    elif weight_input == "90-99 kg":
+        weight = 95
+    elif weight_input == "100-109 kg":
+        weight = 105
+    elif weight_input == "110-119 kg":
+        weight = 115
+    elif weight_input == ">=120":
+        weight = 120
+
+    if height_input == "<150 cm":
+        height = 150
+    elif height_input == "150-159 cm":
+        height = 155
+    elif height_input == "160-169 cm":
+        height = 165
+    elif height_input == "170-179 cm":
+        height = 175
+    elif height_input == "180-189 cm":
+        height = 185
+    elif height_input == "190-199 cm":
+        height = 195
+    elif height_input == "200-209 cm":
+        height = 205
+    elif height_input == ">=210 cm":
+        height = 210
+
+    if kcal_input == "<100":
+        kcal = 100
+    elif kcal_input == "100-499":
+        kcal = 300
+    elif kcal_input == "500-899":
+        kcal = 700
+    elif kcal_input == "900-1299":
+        kcal = 1100
+    elif kcal_input == "1300-1699":
+        kcal = 1500
+    elif kcal_input == "1700-2099":
+        kcal = 1900
+    elif kcal_input == "2100-2499":
+        kcal = 2300
+    elif kcal_input == "2500-2899":
+        kcal = 2700
+    elif kcal_input == ">=2900":
+        kcal = 2900
+
     intensity=60#0-100
     exercises=FreeweightStretchingRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,intensity=intensity,freeweight=True,stretching=True).recommendExercises()
     template = loader.get_template('park_displays_app/freeweight_recommendation_result.html')
@@ -155,11 +258,93 @@ def gymrecresult(request):
         if len(request.FILES.getlist('file_field')) == 2:
             coordinatesfile = request.FILES.getlist('file_field')[0]'''
 
-    gender="male"
-    age=31
-    weight=75
-    height=186
-    kcal=700
+    gender = ""
+    age = 0
+    weight = 0
+    height = 0
+    kcal = 0
+    gender_input = request.POST.getlist('selection')[0]
+    age_input = request.POST.getlist('selection')[1]
+    weight_input = request.POST.getlist('selection')[2]
+    height_input = request.POST.getlist('selection')[3]
+    kcal_input = request.POST.getlist('selection')[4]
+
+    gender = gender_input
+
+    if age_input == "<18":
+        age = 18
+    elif age_input == "18-24":
+        age = 22
+    elif age_input == "25-34":
+        age = 30
+    elif age_input == "35-44":
+        age = 40
+    elif age_input == "45-54":
+        age = 50
+    elif age_input == "55-64":
+        age = 60
+    elif age_input == "65-74":
+        age = 70
+    elif age_input == ">=75":
+        age = 75
+
+    if weight_input == "<40":
+        weight = 40
+    elif weight_input == "40-49 kg":
+        weight = 45
+    elif weight_input == "50-59 kg":
+        weight = 55
+    elif weight_input == "60-69 kg":
+        weight = 65
+    elif weight_input == "70-79 kg":
+        weight = 75
+    elif weight_input == "80-89 kg":
+        weight = 85
+    elif weight_input == "90-99 kg":
+        weight = 95
+    elif weight_input == "100-109 kg":
+        weight = 105
+    elif weight_input == "110-119 kg":
+        weight = 115
+    elif weight_input == ">=120":
+        weight = 120
+
+    if height_input == "<150 cm":
+        height = 150
+    elif height_input == "150-159 cm":
+        height = 155
+    elif height_input == "160-169 cm":
+        height = 165
+    elif height_input == "170-179 cm":
+        height = 175
+    elif height_input == "180-189 cm":
+        height = 185
+    elif height_input == "190-199 cm":
+        height = 195
+    elif height_input == "200-209 cm":
+        height = 205
+    elif height_input == ">=210 cm":
+        height = 210
+
+    if kcal_input == "<100":
+        kcal = 100
+    elif kcal_input == "100-499":
+        kcal = 300
+    elif kcal_input == "500-899":
+        kcal = 700
+    elif kcal_input == "900-1299":
+        kcal = 1100
+    elif kcal_input == "1300-1699":
+        kcal = 1500
+    elif kcal_input == "1700-2099":
+        kcal = 1900
+    elif kcal_input == "2100-2499":
+        kcal = 2300
+    elif kcal_input == "2500-2899":
+        kcal = 2700
+    elif kcal_input == ">=2900":
+        kcal = 2900
+        
     bodyparts=body_parts
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     gymtools=ParkManager("englischer_garten",xmlmng,path_types,gymtool_types).getGymTools()
@@ -311,13 +496,16 @@ def outdoorgym(request):
     genderselection.fields['selection'].choices = genderchoices
 
     agechoices = [(x, x) for x in xml.getAgeIntervals()]
-    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+    ageintervalselection = Dropdown(label="Age", choices=[('', "Select Age")] + agechoices)
 
     heightchoices = [(x,x) for x in xml.getHeightIntervals()]
-    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+    heightselection = Dropdown(label="Height",choices=[('', "Select Height")] + heightchoices)
 
     weightchoices = [(x,x) for x in xml.getWeightIntervals()]
-    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+    weightselection = Dropdown(label="Weight",choices=[('', "Select Weight")] + weightchoices)
+
+    kcalchoices = [(x,x) for x in xml.getKcalIntervals()]
+    kcalselection = Dropdown(label="Kcal",choices=[('', "Select Kcal")] + kcalchoices)
 
     context = {
         'gymtoolscoordinates':json.dumps(gymtoolscoordinates),
@@ -328,6 +516,7 @@ def outdoorgym(request):
         'age_dropdown': ageintervalselection,
         'weight_dropdown': weightselection,
         'height_dropdown': heightselection,
+        'kcal_dropdown': kcalselection,
         'app_id':app_id,
         'app_code':app_code,
     }
@@ -407,6 +596,9 @@ def runwalk(request):
     weightchoices = [(x,x) for x in xml.getWeightIntervals()]
     weightselection = Dropdown(label="Weight",choices=[('', "Select Weight")] + weightchoices)
 
+    kcalchoices = [(x,x) for x in xml.getKcalIntervals()]
+    kcalselection = Dropdown(label="Kcal",choices=[('', "Select Kcal")] + kcalchoices)
+
     context = {
         'fountains': json.dumps(fountainlist),  # water fountains
         'paths': json.dumps(pathsformtatted),  # list of paths
@@ -420,6 +612,7 @@ def runwalk(request):
         'age_dropdown': ageintervalselection,
         'weight_dropdown': weightselection,
         'height_dropdown': heightselection,
+        'kcal_dropdown': kcalselection,
         'app_id':app_id,
         'app_code':app_code,
     }
@@ -435,25 +628,25 @@ def freeweight(request):
     trainingtypeselection = CheckMultiCheckBox(choices=typechoices, label="Select type of training")
 
     agechoices=[(x,x) for x in xml.getAgeIntervals()]
-    ageintervalselection = Dropdown(label="Select age",choices=agechoices)
+    ageintervalselection = Dropdown(label="Age",choices=[('', "Select Age")] + agechoices)
 
     heightchoices = [(x,x) for x in xml.getHeightIntervals()]
-    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+    heightselection = Dropdown(label="Height",choices=[('', "Select Height")] + heightchoices)
 
     weightchoices = [(x,x) for x in xml.getWeightIntervals()]
-    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+    weightselection = Dropdown(label="Weight",choices=[('', "Select Weight")] + weightchoices)
 
     kcalchoices = [(x,x) for x in xml.getKcalIntervals()]
-    kcalselection = Dropdown(label="Select Kcal",choices=kcalchoices)
+    kcalselection = Dropdown(label="Kcal",choices=[('', "Select Kcal")] + kcalchoices)
 
     template = loader.get_template('park_displays_app/freeweight.html')
     context = {
-        'checkbox1': genderselection,
-        'dropdown1': ageintervalselection,
-        'checkbox2': trainingtypeselection,
-        'dropdown2': weightselection,
-        'dropdown3': heightselection,
-        'dropdown4': kcalselection,
+        'gender_checkbox': genderselection,
+        'age_dropdown': ageintervalselection,
+        'training_type_checkbox': trainingtypeselection,
+        'weight_dropdown': weightselection,
+        'height_dropdown': heightselection,
+        'kcal_dropdown': kcalselection,
     }
     return HttpResponse(template.render(context, request))
 def groupfitness(request):
@@ -467,13 +660,13 @@ def groupfitness(request):
     genderselection.fields['selection'].choices = genderchoices
 
     agechoices = [(x, x) for x in xml.getAgeIntervals()]
-    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+    ageintervalselection = Dropdown(label="Age", choices=[('', "Select Age")] + agechoices)
 
     heightchoices = [(x,x) for x in xml.getHeightIntervals()]
-    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+    heightselection = Dropdown(label="Height",choices=[('', "Select Height")] + heightchoices)
 
     weightchoices = [(x,x) for x in xml.getWeightIntervals()]
-    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+    weightselection = Dropdown(label="Weight",choices=[('', "Select Weight")] + weightchoices)
 
     context = {
         'gender_checkbox': genderselection,

@@ -15,23 +15,20 @@
 
 <form action='' enctype="multipart/form-data" method="post">
       {% csrf_token %}
-          {{ checkbox1 }}
-          {{ dropdown1 }}
+
 </form>
 
-<form action='' enctype="multipart/form-data" method="post">
+<form action='freeweightrecresult' enctype="multipart/form-data" method="post">
       {% csrf_token %}
-          {{ checkbox2 }}
-          {{ dropdown2 }}
-          {{ dropdown3 }}
-          {{ dropdown4 }}
+          {{ gender_checkbox }}
+          {{ age_dropdown }}
+          {{ weight_dropdown }}
+          {{ height_dropdown }}
+          {{ kcal_dropdown }}
+          {{ training_type_checkbox }}
     <input id="intensity" type="range" value="50" min="1" max="100" step="1"> Intensity </input>
-
+    <button type='submit'>Get Recommendations</button>
 </form>
-<form action='freeweightrecresult' method='POST'>
-    {% csrf_token %}
-<button type='submit'>Get Recommendations</button>
 
-</form>
 </body>
 </html>

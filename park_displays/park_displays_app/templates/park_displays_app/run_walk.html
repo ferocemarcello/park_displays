@@ -46,10 +46,11 @@
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
     {{watercheckbox}}
     {{pathcheckboxes}}
+    {{steepness_slider}}<br>
+    {{height_slider}}<br>
+    {{length_slider}}
 
-    <input id="slider1" type="range" value="3" min="1" max="100" step="1"> Steepness </input>
-    <input id="slider2" type="range" value="3" min="1" max="100" step="1"> Height Difference </input>
-    <input id="slider3" type="range" value="3" min="1" max="100" step="1"> Length </input><!--onchange="callFun(this.value)"function callFun(value) {
+    <!--onchange="callFun(this.value)"function callFun(value) {
     fetch('call_your_url/?value='+ value).then(function(response) {
         console.log(response.status);
     }

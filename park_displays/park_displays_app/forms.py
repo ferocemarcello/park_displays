@@ -28,3 +28,14 @@ class Dropdown(forms.Form):
         if label and len(choices)>0:
             self.fields['selection'].label=label
             self.fields['selection'].choices = choices
+
+class Slider(forms.Form):
+    intensity = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'step':'1', 'min':'0', 'max':'100'}), label="")
+
+    def __init__(self,label=None, *args, **kwargs):
+        super(Slider, self).__init__(*args, **kwargs)
+        self.fields['intensity'].widget.attrs.update({'type': 'range'})
+        self.fields['intensity'].widget.attrs.update({'step': '1'})
+        self.fields['intensity'].widget.attrs.update({'min': '0'})
+        self.fields['intensity'].widget.attrs.update({'max': '100'})
+        self.fields['intensity'].label=label

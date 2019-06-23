@@ -12,6 +12,7 @@ from .data_manager import ParkManager,DataProcesser,AthleteManager
 from .forms import CheckMultiCheckBox
 from .forms import CheckBox
 from .forms import Dropdown
+from .forms import Slider
 
 app_code='--NDudeZYCPWjK333-3TxQ'
 app_id='KfjYxKFR65JNn6KGSink'
@@ -140,6 +141,7 @@ def runwalkrecresult(request):
     activity="running"
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athletes.xml")
     shoetype=AthleteManager(0,xmlmng).getShoeType()
+
     recommendations=RunWalkRecommender(path_types=path_types,gender=gender,age=age,weight=weight,height=height,kcal=kcal,avgweekkm=avgweekkm,shoetype=shoetype,activity=activity).recommendPaths()#list of tuples(score, path), those have to be read and interpreted by the frontend
     template = loader.get_template('park_displays_app/run_walk_recommendation_result.html')
     context = {
@@ -243,13 +245,15 @@ def freeweightrecresult(request):
     elif kcal_input == ">=2900":
         kcal = 2900
 
-    intensity=60#0-100
+    intensity = int(request.POST['intensity'])
+
     exercises=FreeweightStretchingRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,intensity=intensity,freeweight=True,stretching=True).recommendExercises()
     template = loader.get_template('park_displays_app/freeweight_recommendation_result.html')
     context = {
         'exercises': exercises,
     }
     return HttpResponse(template.render(context, request))
+
 def gymrecresult(request):
 
     '''inputf = FormClass(None,request.POST, request.FILES)
@@ -599,6 +603,10 @@ def runwalk(request):
     kcalchoices = [(x,x) for x in xml.getKcalIntervals()]
     kcalselection = Dropdown(label="Kcal",choices=[('', "Select Kcal")] + kcalchoices)
 
+    steepness_slider = Slider(label='Steepness')
+    length_slider = Slider(label='Length')
+    height_slider = Slider(label='Height')
+
     context = {
         'fountains': json.dumps(fountainlist),  # water fountains
         'paths': json.dumps(pathsformtatted),  # list of paths
@@ -613,6 +621,9 @@ def runwalk(request):
         'weight_dropdown': weightselection,
         'height_dropdown': heightselection,
         'kcal_dropdown': kcalselection,
+        'steepness_slider': steepness_slider,
+        'height_slider': height_slider,
+        'length_slider': length_slider,
         'app_id':app_id,
         'app_code':app_code,
     }
@@ -639,6 +650,8 @@ def freeweight(request):
     kcalchoices = [(x,x) for x in xml.getKcalIntervals()]
     kcalselection = Dropdown(label="Kcal",choices=[('', "Select Kcal")] + kcalchoices)
 
+    intensity_slider = Slider(label="Intensity")
+
     template = loader.get_template('park_displays_app/freeweight.html')
     context = {
         'gender_checkbox': genderselection,
@@ -647,6 +660,7 @@ def freeweight(request):
         'weight_dropdown': weightselection,
         'height_dropdown': heightselection,
         'kcal_dropdown': kcalselection,
+        'intensity_slider':intensity_slider
     }
     return HttpResponse(template.render(context, request))
 def groupfitness(request):

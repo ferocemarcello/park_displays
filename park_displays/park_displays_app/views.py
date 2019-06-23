@@ -38,15 +38,82 @@ def emergency(request):
 
 def runwalkrecresult(request):
 
-    '''inputf = FormClass(None,request.POST, request.FILES)
-    inputf2 = FormClass(request.POST)
-    if request.method == 'POST' and inputf.is_valid() and inputf2.is_valid():
-        if len(request.FILES.getlist('file_field')) == 2:
-            coordinatesfile = request.FILES.getlist('file_field')[0]'''
-    gender="male"
-    age=31
-    weight=75
-    height=186
+    gender=""
+    age=0
+    weight=0
+    height=0
+
+    if request.method == 'POST':
+        #gender_input = CheckBox(request.POST)
+        #age_input = Dropdown(request.POST)
+        #weight_input = Dropdown(request.POST)
+        #height_input = Dropdown(request.POST)
+        #if gender_input.is_valid():
+        gender_input = request.POST.getlist('selection')[0]
+        #if age_input.is_valid():
+        age_input = request.POST.getlist('selection')[1]
+        #if weight_input.is_valid():
+        weight_input = request.POST.getlist('selection')[2]
+        #if height_input.is_valid():
+        height_input = request.POST.getlist('selection')[3]
+
+        gender = gender_input
+
+        if age_input == "<18":
+            age = 18
+        elif age_input == "18-24":
+            age = 22
+        elif age_input == "25-34":
+            age = 30
+        elif age_input == "35-44":
+            age = 40
+        elif age_input == "45-54":
+            age = 50
+        elif age_input == "55-64":
+            age = 60
+        elif age_input == "65-74":
+            age = 70
+        elif age_input == ">=75":
+            age = 75
+
+        if weight_input == "<40":
+            weight = 40
+        elif weight_input == "40-49 kg":
+            weight = 45
+        elif weight_input == "50-59 kg":
+            weight = 55
+        elif weight_input == "60-69 kg":
+            weight = 65
+        elif weight_input == "70-79 kg":
+            weight = 75
+        elif weight_input == "80-89 kg":
+            weight = 85
+        elif weight_input == "90-99 kg":
+            weight = 95
+        elif weight_input == "100-109 kg":
+            weight = 105
+        elif weight_input == "110-119 kg":
+            weight = 115
+        elif weight_input == ">=120":
+            weight = 120
+
+        if height_input == "<150 cm":
+            height = 150
+        elif height_input == "150-159 cm":
+            height = 155
+        elif height_input == "160-169 cm":
+            height = 165
+        elif height_input == "170-179 cm":
+            height = 175
+        elif height_input == "180-189 cm":
+            height = 185
+        elif height_input == "190-199 cm":
+            height = 195
+        elif height_input == "200-209 cm":
+            height = 205
+        elif height_input == ">=210 cm":
+            height = 210
+
     kcal=700
     avgweekkm=40
     activity="running"
@@ -328,17 +395,17 @@ def runwalk(request):
 
     #recommendation filters
     genderchoices = [(x, x) for x in xml.getGenders()]
-    genderselection = CheckBox("Select Gender")
+    genderselection = CheckBox("Gender")
     genderselection.fields['selection'].choices = genderchoices
 
     agechoices = [(x, x) for x in xml.getAgeIntervals()]
-    ageintervalselection = Dropdown(label="Select age", choices=agechoices)
+    ageintervalselection = Dropdown(label="Age", choices=[('', "Select Age")] + agechoices)
 
     heightchoices = [(x,x) for x in xml.getHeightIntervals()]
-    heightselection = Dropdown(label="Select Height",choices=heightchoices)
+    heightselection = Dropdown(label="Height",choices=[('', "Select Height")] + heightchoices)
 
     weightchoices = [(x,x) for x in xml.getWeightIntervals()]
-    weightselection = Dropdown(label="Select Weight",choices=weightchoices)
+    weightselection = Dropdown(label="Weight",choices=[('', "Select Weight")] + weightchoices)
 
     context = {
         'fountains': json.dumps(fountainlist),  # water fountains

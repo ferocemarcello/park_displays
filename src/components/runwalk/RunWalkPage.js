@@ -3,7 +3,7 @@ import { Map, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './RunWalkPage.module.scss';
-import data from './data.json';
+import data from '../../data.json';
 
 class TrackListItem extends Component {
   render() {
@@ -68,8 +68,6 @@ class RunWalkPage extends Component {
 
 
   render() {
-    const centerPosition = [48.148673, 11.589373];
-
     console.log(data);
     const { filterSectionExpanded } = this.state;
 

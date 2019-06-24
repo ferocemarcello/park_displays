@@ -9,6 +9,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@glidejs/glide": "^3.3.0",
+    "highcharts": "^7.1.2",
+    "highcharts-react-official": "^2.2.2",
     "leaflet": "^1.5.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

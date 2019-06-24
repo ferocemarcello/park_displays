@@ -8,8 +8,6 @@ class TrackDetail extends Component {
 
     const track = data.filter(track => track.id == this.props.match.params.trackId)[0];
 
-    console.log(track)
-
     return (
       <div className={styles['TrackDetailPage']} style={{background: 'url(\'/bg.jpg\') no-repeat center center fixed', backgroundSize: 'cover'}}>
         <section className={styles['TextSection']}>

@@ -56,3 +56,17 @@
 .ListItemTextSectionDescription {
   font-family: "Helvetica Neue";
 }
+
+.FilterSectionHeader {
+  background: rgba(0, 0, 0, .3);
+  padding: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.FilterSectionBody {
+  background: rgba(0, 0, 0, .15);
+  overflow: hidden;
+  padding: 0 16px;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+}

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faArrowDown,
-  faArrowLeft, faArrowsAltH, faArrowUp,
+  faArrowLeft, faArrowsAltH, faArrowUp, faCaretDown, faCaretUp,
   faChevronRight, faClock, faLayerGroup,
   faMap,
   faMedkit,
@@ -33,7 +33,9 @@ library.add([
   faClock,
   faArrowUp,
   faArrowDown,
-  faLayerGroup
+  faLayerGroup,
+  faCaretDown,
+  faCaretUp
 ]);
 
 ReactDOM.render(<App />, document.getElementById('root'));

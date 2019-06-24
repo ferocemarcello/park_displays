@@ -14,12 +14,8 @@ class TrackListItem extends Component {
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' />
-          <Marker position={[48.161126,11.598448]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-          <Polyline color="lime" positions={waypoints} />
+          <Marker position={waypoints[0]} />
+          <Polyline color="#006ec0" positions={waypoints} />
         </Map>
         <div className={styles['ListItemTextSection']}>
           <div className={styles['ListItemTextSectionTitle']}>{trackName}</div>
@@ -75,72 +71,63 @@ class RunWalkPage extends Component {
     const centerPosition = [48.148673, 11.589373];
 
     console.log(data);
+    const { filterSectionExpanded } = this.state;
 
     return (
       <div className={styles['RunWalkPage']} style={{background: 'url(\'/bg.jpg\') no-repeat center center fixed', backgroundSize: 'cover'}}>
         <div className={styles['TextSection']} id="textSection">
           <h1>Running & Walking</h1>
-          RunWalkPage
-          <div style={{}}>Filter Section Header <button onClick={this.toggleFilterSection}>Toggle</button> <button onClick={this.toggleLine}>Toggle Line</button></div>
-          <div style={{height: this.state.filterSectionExpanded ? 250 : 0, overflow: 'hidden', transition: 'height 0.5s ease-in-out'}}>
-            Filter Section
+        </div>
+        <div className={styles['FilterSectionHeader']} onClick={this.toggleFilterSection}>
+          <div style={{float: 'left'}}>Filter Running & Walking Tracks</div>
+          <div style={{float: 'right'}}>
+            <FontAwesomeIcon icon={filterSectionExpanded ? 'caret-up' : 'caret-down'} />
           </div>
         </div>
+        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 150 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
+          <p>
+            <span>Distance</span>
+            <span>
+              <input type="range" min="0" max="100" />
+            </span>
+          </p>
+          <p>
+            <span>Duration</span>
+            <span>
+              <input type="range" min="0" max="100" />
+            </span>
+          </p>
+          <p>
+            <span>Height Difference</span>
+            <span>
+              <input type="range" min="0" max="100" />
+            </span>
+          </p>
+          <p>
+            <span>Ground Type</span>
+            <span>
+              <input type="checkbox" name="groundType" /> Gravel
+              <input type="checkbox" name="groundType" /> Grass
+              <input type="checkbox" name="groundType" /> Asphalt
+            </span>
+          </p>
+        </div>
         <div className={styles['ListSection']}>
-          <TrackListItem
-            trackId="00001"
-            trackName="Englischer Garten 1"
-            trackDistance="5.4 km"
-            trackDuration="1:30 h"
-            trackUp="4 hm"
-            trackDown="12 hm"
-            trackGroundType="Gravel"
-            trackAnnotation="Hier könnte jetzt noch irgendein Text stehen, der den Nutzer einlädt die Strecke zu laufen."
-            waypoints={data.waypoints} />
-
-          <TrackListItem
-            trackId="00001"
-            trackName="Englischer Garten 2"
-            trackDistance="5.4 km"
-            trackDuration="1:30 h"
-            trackUp="4 hm"
-            trackDown="12 hm"
-            trackGroundType="Gravel"
-            trackAnnotation="Hier könnte jetzt noch irgendein Text stehen, der den Nutzer einlädt die Strecke zu laufen."
-            waypoints={data.waypoints} />
-
-          <TrackListItem
-            trackId="00001"
-            trackName="Englischer Garten 3"
-            trackDistance="5.4 km"
-            trackDuration="1:30 h"
-            trackUp="4 hm"
-            trackDown="12 hm"
-            trackGroundType="Gravel"
-            trackAnnotation="Hier könnte jetzt noch irgendein Text stehen, der den Nutzer einlädt die Strecke zu laufen."
-            waypoints={data.waypoints} />
-
-          <TrackListItem
-            trackId="00001"
-            trackName="Englischer Garten 4"
-            trackDistance="5.4 km"
-            trackDuration="1:30 h"
-            trackUp="4 hm"
-            trackDown="12 hm"
-            trackGroundType="Gravel"
-            trackAnnotation="Hier könnte jetzt noch irgendein Text stehen, der den Nutzer einlädt die Strecke zu laufen."
-            waypoints={data.waypoints} />
-
-          <TrackListItem
-            trackId="00001"
-            trackName="Englischer Garten 5"
-            trackDistance="5.4 km"
-            trackDuration="1:30 h"
-            trackUp="4 hm"
-            trackDown="12 hm"
-            trackGroundType="Gravel"
-            trackAnnotation="Hier könnte jetzt noch irgendein Text stehen, der den Nutzer einlädt die Strecke zu laufen."
-            waypoints={data.waypoints} />
+          {
+            data.map((track) =>
+              <TrackListItem
+                trackId={track.id}
+                trackName={track.name}
+                trackDistance={track.distance}
+                trackDuration={track.duration}
+                trackUp={track.heightDifferenceUp}
+                trackDown={track.heightDifferenceDown}
+                trackGroundType={track.groundType}
+                trackAnnotation={track.annotation}
+                waypoints={track.waypoints}
+              />
+            )
+          }
         </div>
       </div>
     )

@@ -10,7 +10,7 @@ class BodyweightExerciseListItem extends Component {
 
     return (
       <Link to={`/bodyweight/exercises/${id}`}  className={styles['ListItem']}>
-        <img style={{height: 220, width: 440}} src={image} />
+        <img style={{height: 220, width: 440}} src={image} alt="Exercise Image" />
         <div className={styles['ListItemTextSection']}>
           <div className={styles['ListItemTextSectionTitle']}>{name}</div>
           <div className={styles['ListItemTextSectionBody']}>
@@ -125,7 +125,7 @@ class BodyweightPage extends Component {
               data.exercises.map((exercise) =>
               <BodyweightExerciseListItem
                 id={exercise.id}
-                image={null}
+                image={exercise.image}
                 name={exercise.name}
                 difficulty={exercise.difficulty}
                 targetMusclegroups={exercise.muscleGroups}

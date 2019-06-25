@@ -6,7 +6,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/burpees-picture-id491208835"
     },
     {
       "id": 2,
@@ -14,7 +14,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/beautiful-energetic-fitness-girl-doing-mountain-climber-exercises-she-picture-id1126709711"
     },
     {
       "id": 3,
@@ -22,7 +22,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/young-man-athlete-doing-extreme-pushups-handstand-as-part-of-picture-id937407100"
     },
     {
       "id": 4,
@@ -30,7 +30,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/she-never-skips-a-warm-up-picture-id842972604"
     },
     {
       "id": 5,
@@ -46,7 +46,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/building-his-muscles-picture-id656380588"
     },
     {
       "id": 7,
@@ -54,7 +54,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/flexion-picture-id491375381"
     },
     {
       "id": 8,
@@ -62,7 +62,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/young-woman-doing-squats-on-a-road-at-sunset-picture-id505370218"
     },
     {
       "id": 9,
@@ -70,7 +70,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/above-view-of-sweaty-black-athlete-doing-situps-in-a-gym-picture-id1147308484"
     },
     {
       "id": 10,
@@ -102,7 +102,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/lunging-is-good-for-the-legs-picture-id1036780614"
     },
     {
       "id": 14,
@@ -110,7 +110,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://media.istockphoto.com/photos/onehanded-no-problem-picture-id1135544482"
     },
     {
       "id": 15,
@@ -118,7 +118,7 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://www.cheatsheet.com/wp-content/uploads/2015/09/pistols.jpg"
     },
     {
       "id": 16,
@@ -132,7 +132,7 @@
   "workouts": [
     {
       "id": 1,
-      "name": "Workout 1",
+      "name": "Palisade",
       "rounds": [
         {
           "exercises": [

@@ -9,7 +9,7 @@ class BodyweightExerciseListItem extends Component {
     const {id, name, image, difficulty, targetMusclegroups} = this.props;
 
     return (
-      <Link to={`/bodyweight/exercise/${id}`}  className={styles['ListItem']}>
+      <Link to={`/bodyweight/exercises/${id}`}  className={styles['ListItem']}>
         <img style={{height: 220, width: 440}} src={image} />
         <div className={styles['ListItemTextSection']}>
           <div className={styles['ListItemTextSectionTitle']}>{name}</div>
@@ -33,7 +33,7 @@ class BodyweightWorkoutListItem extends Component {
     const {id, name, image, difficulty, duration, targetMusclegroups} = this.props;
 
     return (
-      <Link to={`/bodyweight/workout/${id}`}  className={styles['ListItem']}>
+      <Link to={`/bodyweight/workouts/${id}`}  className={styles['ListItem']}>
         <img style={{height: 220, width: 440}} src={image} />
         <div className={styles['ListItemTextSection']}>
           <div className={styles['ListItemTextSectionTitle']}>{name}</div>

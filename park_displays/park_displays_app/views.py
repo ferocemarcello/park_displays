@@ -24,8 +24,6 @@ body_parts = XmlManager(
 def index(request):
     template = loader.get_template('park_displays_app/startpage.html')
     context = {
-
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_INDEX",
     }
     return HttpResponse(template.render(context, request))
 
@@ -454,6 +452,10 @@ def login(request):
     }
     return HttpResponse(template.render(context, request))
 def similarusers(request):
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     runners=datamng.getRunners()
@@ -477,6 +479,10 @@ def similarusers(request):
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
@@ -523,6 +529,10 @@ def outdoorgym(request):
     return HttpResponse(template.render(context, request))
 
 def parkdetails(request):
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
     template = loader.get_template('park_displays_app/parkdetails.html')
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
     datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
@@ -559,6 +569,10 @@ def parkdetails(request):
     return HttpResponse(template.render(context, request))
 
 def runwalk(request):
+    location=request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/run_walk.html')
@@ -619,6 +633,10 @@ def runwalk(request):
     return HttpResponse(template.render(context, request))
 
 def freeweight(request):
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     genderchoices = [(x,x) for x in xml.getGenders()]
     genderselection = CheckBox("Select Gender")
@@ -650,6 +668,10 @@ def freeweight(request):
     }
     return HttpResponse(template.render(context, request))
 def groupfitness(request):
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/groupfitness.html')

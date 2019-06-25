@@ -53,14 +53,8 @@ class RunWalkPage extends Component {
     }));
   };
 
-  componentDidMount() {
-    /*global $:true*/
-    $('#map-section').css('height', window.innerHeight - $('#appToolbar').height() - $('#textSection').height());
-  }
-
 
   render() {
-    console.log(data);
     const { filterSectionExpanded } = this.state;
 
     return (

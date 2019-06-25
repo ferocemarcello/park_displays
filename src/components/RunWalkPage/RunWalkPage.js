@@ -3,7 +3,7 @@ import { Map, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './RunWalkPage.module.scss';
-import data from '../../data.json';
+import data from '../../data/RunWalkData.json';
 
 class TrackListItem extends Component {
   render() {
@@ -58,7 +58,7 @@ class RunWalkPage extends Component {
     const { filterSectionExpanded } = this.state;
 
     return (
-      <div className={styles['RunWalkPage']} style={{background: 'url(\'/bg.jpg\') no-repeat center center fixed', backgroundSize: 'cover'}}>
+      <div className={styles['RunWalkPage']}>
         <div className={styles['TextSection']} id="textSection">
           <h1>Running & Walking</h1>
         </div>

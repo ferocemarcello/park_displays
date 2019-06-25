@@ -1,0 +1,73 @@
+.BodyweightPage {
+  font-family: 'Russo One', sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: url('/bg.jpg') no-repeat center center fixed;
+  backgroundSize: cover;
+}
+
+.TextSection {
+  padding: 16px;
+
+  &>h1 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.MapSection {
+  flex-grow: 1;
+  //height: 100px;
+}
+
+.ListSection {
+  padding: 15px;
+}
+
+.ListItem {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+
+  &:hover {
+    background: #ebebeb;
+  }
+
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
+}
+
+.ListItemTextSection {
+  padding-left: 20px;
+}
+
+.ListItemTextSectionTitle {
+  fontSize: 1.5rem;
+  padding-top: 16px;
+}
+
+.ListItemTextSectionBody {
+  color: #808080;
+}
+
+.ListItemTextSectionDescription {
+  font-family: "Helvetica Neue";
+}
+
+.FilterSectionHeader {
+  background: rgba(0, 0, 0, .3);
+  padding: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.FilterSectionBody {
+  background: rgba(0, 0, 0, .15);
+  overflow: hidden;
+  padding: 0 16px;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import data from '../../data.json';
+import data from '../../data/RunWalkData.json';
 import styles from './TrackDetailPage.module.scss';
 import { Map, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
 import { icon } from 'leaflet';

@@ -1,0 +1,175 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "name": "Burpees",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "Climbers",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 3,
+      "name": "Handstand Push Ups",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 4,
+      "name": "Jumping Jacks",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 5,
+      "name": "Leg Levers",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 6,
+      "name": "Pull Ups",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 7,
+      "name": "Push Ups",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 8,
+      "name": "Squats",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 9,
+      "name": "Sit Ups",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 10,
+      "name": "Froggers",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 11,
+      "name": "High Jumps",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 12,
+      "name": "Jack Knives",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 13,
+      "name": "Lunges",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 14,
+      "name": "One handed Push Ups",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 15,
+      "name": "Pistols",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    },
+    {
+      "id": 16,
+      "name": "Stand Ups",
+      "youtubeUrl": "https://youtu.be/INOesxF1CZk",
+      "muscleGroups": [],
+      "difficulty": 1,
+      "image": ""
+    }
+  ],
+  "workouts": [
+    {
+      "id": 1,
+      "name": "Workout 1",
+      "rounds": [
+        {
+          "exercises": [
+            {
+              "reps": 20,
+              "exerciseId": 1
+            },
+            {
+              "reps": 30,
+              "exerciseId": 2
+            },
+            {
+              "reps": 25,
+              "exerciseId": 1
+            }
+          ],
+          "breakBetween": 30
+        },
+        {
+          "exercises": [
+            {
+              "reps": 10,
+              "exerciseId": 1
+            },
+            {
+              "reps": 20,
+              "exerciseId": 2
+            },
+            {
+              "reps": 15,
+              "exerciseId": 1
+            }
+          ],
+          "breakBetween": 30
+        }
+      ],
+      "breakBetweenRounds": 30
+    }
+  ]
+}

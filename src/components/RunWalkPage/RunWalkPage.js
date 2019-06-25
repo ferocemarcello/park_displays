@@ -42,8 +42,7 @@ class RunWalkPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterSectionExpanded: false,
-      line: true
+      filterSectionExpanded: false
     };
   }
 
@@ -53,13 +52,6 @@ class RunWalkPage extends Component {
       filterSectionExpanded: !prevState.filterSectionExpanded
     }));
   };
-
-  toggleLine = () => {
-    this.setState((prevState) => ({
-      ...prevState,
-      line: !prevState.line
-    }));
-  }
 
   componentDidMount() {
     /*global $:true*/

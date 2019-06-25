@@ -40,6 +40,7 @@
           {{ weight_dropdown }}
           {{ height_dropdown }}
           {{ kcal_dropdown }}
+    <input type="text" name="location" hidden=true/>
     <button type='submit'>Get Recommendations</button>
 </form>
 
@@ -185,7 +186,9 @@ platform.configure(H.map.render.panorama.RenderEngine);
 //Step 2: initialize a map
 map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
   });
-map.setCenter({lat:48.148673, lng:11.589373});
+lat={{ parkcoord|safe }}[0];
+lng={{ parkcoord|safe }}[1];
+map.setCenter({lat:lat, lng:lng});
 map.setZoom(15);
 
 //Step 3: make the map interactive
@@ -219,4 +222,21 @@ for(var i=0;i<Object.keys(paths).length;i++){
 }
 </script>
 </body>
+<script>
+        var pos=""
+        function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(setPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+  function setPosition(position) {
+
+      pos=[position.coords.latitude,position.coords.longitude];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+}
+}
+getLocation();</script>
 </html>

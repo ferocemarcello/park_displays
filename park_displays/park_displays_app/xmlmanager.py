@@ -17,6 +17,11 @@ class XmlManager():
                             if f.tag=="fountain":
                                 fountainlist.append((f.attrib["lat"],f.attrib["lng"]))
                 return fountainlist
+    def getParkList(self):
+        parklist=[]
+        for child in self.root.iter('park'):
+            parklist.append((child.attrib["name"],(float(child.attrib["lat"]),float(child.attrib["lng"]))))
+        return parklist
     def getGroups(self,parkname):
         for child in self.root.iter('park'):
             if child.attrib["name"]==parkname:

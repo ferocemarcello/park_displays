@@ -24,6 +24,7 @@
 
 <form action='findgroups' method='POST'>
     {% csrf_token %}
+    <input type="text" name="location" hidden=true/>
   <button type="submit" id="find_groups">Find fitness groups</button>
 </form>
 
@@ -32,4 +33,21 @@
   <button type="submit" id="group_recommendations">Get group recommendations</button>
 </form>
 </body>
+<script>
+        var pos=""
+        function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(setPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+  function setPosition(position) {
+
+      pos=[position.coords.latitude,position.coords.longitude];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+}
+}
+getLocation();</script>
 </html>

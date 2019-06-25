@@ -21,7 +21,6 @@
 <br>
 <form action='freeweight' method='POST'>
     {% csrf_token %}
-    <input type="text" name="location" hidden=true/>
 <button type='submit'> freeweight exercises</button>
 </form>
 
@@ -33,7 +32,6 @@
 
 <form action='groupfitness' method='POST'>
     {% csrf_token %}
-    <input type="text" name="location" hidden=true/>
 <button type='submit'>Group Fitness</button>
 </form>
 <form action='similarusers' method='POST'>

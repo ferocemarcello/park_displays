@@ -71,7 +71,9 @@ platform.configure(H.map.render.panorama.RenderEngine);
 //Step 2: initialize a map
 map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
   });
-map.setCenter({lat:48.148673, lng:11.589373});
+lat={{ parkcoord|safe }}[0];
+lng={{ parkcoord|safe }}[1];
+map.setCenter({lat:lat, lng:lng});
 map.setZoom(15);
 
 //Step 3: make the map interactive

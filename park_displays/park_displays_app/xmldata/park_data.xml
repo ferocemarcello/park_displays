@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <parks>
-    <park name="englischer_garten">
+    <park name="englischer_garten" lat="48.164187" lng="11.605617">
         <paths>
             <path terrain="Gravel" steepness="2" height_difference="40" length="2000"><!-- Capital letters are important. those should match filter types -->
                 <waypoints>
@@ -58,7 +58,7 @@
             <group lat="48.148601" lng="11.592548" stretching="False" freeweight="True" avgage="35" numcomponents="20"></group>
         </groups>
     </park>
-    <park name="maximiliansanlagen">
+    <park name="maximiliansanlagen" lat="48.139462" lng="11.596452">
         <paths></paths>
         <fountains>
     <fountain lat="48.144486" lng="11.597591"></fountain>
@@ -67,7 +67,7 @@
     <fountain lat="48.139784" lng="11.594882"></fountain>
 </fountains>
     </park>
-    <park name="olympiapark">
+    <park name="olympiapark" lat="48.171640" lng="11.553165">
         <paths></paths>
         <fountains>
     <fountain lat="48.172392" lng="11.554712"></fountain>
@@ -76,7 +76,7 @@
     <fountain lat="48.169102" lng="11.555652"></fountain>
 </fountains>
     </park>
-    <park name="schlosspark_nymphenburg">
+    <park name="schlosspark_nymphenburg" lat="48.157426" lng="11.492958">
         <paths></paths>
         <fountains>
     <fountain lat="48.155506" lng="11.501791"></fountain>

@@ -35,7 +35,13 @@ def emergency(request):
     return HttpResponse(template.render(context, request))
 
 def runwalkrecresult(request):
-
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkcoord = list(park[1])
     gender=""
     age=0
     weight=0
@@ -115,23 +121,23 @@ def runwalkrecresult(request):
         elif height_input == ">=210 cm":
             height = 210
 
-        if kcal_input == "<100":
+        if kcal_input == "<100 kcal":
             kcal = 100
-        elif kcal_input == "100-499":
+        elif kcal_input == "100-499 kcal":
             kcal = 300
-        elif kcal_input == "500-899":
+        elif kcal_input == "500-899 kcal":
             kcal = 700
-        elif kcal_input == "900-1299":
+        elif kcal_input == "900-1299 kcal":
             kcal = 1100
-        elif kcal_input == "1300-1699":
+        elif kcal_input == "1300-1699 kcal":
             kcal = 1500
-        elif kcal_input == "1700-2099":
+        elif kcal_input == "1700-2099 kcal":
             kcal = 1900
-        elif kcal_input == "2100-2499":
+        elif kcal_input == "2100-2499 kcal":
             kcal = 2300
-        elif kcal_input == "2500-2899":
+        elif kcal_input == "2500-2899 kcal":
             kcal = 2700
-        elif kcal_input == ">=2900":
+        elif kcal_input == ">=2900 kcal":
             kcal = 2900
 
     avgweekkm=40
@@ -144,6 +150,7 @@ def runwalkrecresult(request):
         'recommendations':recommendations,
         'app_id':app_id,
         'app_code':app_code,
+        'parkcoord': parkcoord,
     }
     return HttpResponse(template.render(context, request))
 def freeweightrecresult(request):
@@ -256,6 +263,14 @@ def gymrecresult(request):
         if len(request.FILES.getlist('file_field')) == 2:
             coordinatesfile = request.FILES.getlist('file_field')[0]'''
 
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkname = park[0]
+    parkcoord = list(park[1])
     gender = ""
     age = 0
     weight = 0
@@ -345,13 +360,13 @@ def gymrecresult(request):
         
     bodyparts=body_parts
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    gymtools=ParkManager("englischer_garten",xmlmng,path_types,gymtool_types).getGymTools()
+    gymtools=ParkManager(parkname,xmlmng,path_types,gymtool_types).getGymTools()
     gymtool_scores = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "gymtool_bodypart.xml").getGymToolsScore()
     recommendation=GymRecommender(gender=gender,age=age,weight=weight,height=height,kcal=kcal,bodyparts=bodyparts,machines=gymtools,gymtool_scores=gymtool_scores).recommendActivities()
     template = loader.get_template('park_displays_app/gym_recommendation_result.html')
     context = {
-        'context': "THIS CAPITAL STRING IS PART OF THE CONTEXT_GYM_REC_RESULT",
         'recommendation':recommendation,
+        'parkcoord': parkcoord,
     }
     return HttpResponse(template.render(context, request))
 
@@ -457,7 +472,11 @@ def similarusers(request):
     location[0] = float(location[0])
     location[1] = float(location[1])
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkname = park[0]
+    parkcoord = list(park[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    datamng = ParkManager(parkname, xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     runners=datamng.getRunners()
     walkers=datamng.getWalkers()
     gymathletes=datamng.getGymAthletes()
@@ -475,7 +494,8 @@ def similarusers(request):
         'stretchers':json.dumps(stretchers),
         'app_id':app_id,
         'app_code':app_code,
-        'activity_filter': activityselection
+        'activity_filter': activityselection,
+        'parkcoord':parkcoord,
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
@@ -484,8 +504,12 @@ def outdoorgym(request):
     location[0] = float(location[0])
     location[1] = float(location[1])
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkname = park[0]
+    parkcoord = list(park[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
-    datamng = ParkManager("englischer_garten", xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
+    datamng = ParkManager(parkname, xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
     choices=[(x[0],x[0]) for x in datamng.getGymTools()]
     gymselectionmulticheck = CheckMultiCheckBox(choices=choices,label="Select Gym tools to show")
     template = loader.get_template('park_displays_app/outdoorgym.html')
@@ -525,6 +549,7 @@ def outdoorgym(request):
         'kcal_dropdown': kcalselection,
         'app_id':app_id,
         'app_code':app_code,
+        'parkcoord': parkcoord,
     }
     return HttpResponse(template.render(context, request))
 
@@ -533,9 +558,13 @@ def parkdetails(request):
     location = location.split(',')
     location[0] = float(location[0])
     location[1] = float(location[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkname = park[0]
+    parkcoord = list(park[1])
     template = loader.get_template('park_displays_app/parkdetails.html')
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    datamng = ParkManager(parkname, xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     waterselection=CheckMultiCheckBox(choices=[('Water Fountains','Water Fountains')],label="Show water fountains")
     terrainchoices = [(x, x) for x in XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
@@ -565,6 +594,7 @@ def parkdetails(request):
         'pathlenghts':pathlenghtsdict,#dict of lenghts of paths
         'app_id':app_id,
         'app_code':app_code,
+        'parkcoord': parkcoord,
     }
     return HttpResponse(template.render(context, request))
 
@@ -573,11 +603,15 @@ def runwalk(request):
     location = location.split(',')
     location[0] = float(location[0])
     location[1] = float(location[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkname = park[0]
+    parkcoord = list(park[1])
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/run_walk.html')
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    datamng = ParkManager(parkname, xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     waterselection = CheckMultiCheckBox(choices=[('Water Fountains', 'Water Fountains')], label="Show water fountains")
     terrainchoices = [(x, x) for x in XmlManager(
         os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_filters.xml").getPathTypes()]
@@ -629,14 +663,11 @@ def runwalk(request):
         'kcal_dropdown': kcalselection,
         'app_id':app_id,
         'app_code':app_code,
+        'parkcoord': parkcoord,
     }
     return HttpResponse(template.render(context, request))
 
 def freeweight(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     genderchoices = [(x,x) for x in xml.getGenders()]
     genderselection = CheckBox("Select Gender")
@@ -668,10 +699,6 @@ def freeweight(request):
     }
     return HttpResponse(template.render(context, request))
 def groupfitness(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/groupfitness.html')
@@ -698,10 +725,18 @@ def groupfitness(request):
     }
     return HttpResponse(template.render(context, request))
 def findgroups(request):
+    location = request.POST.get('location')
+    location = location.split(',')
+    location[0] = float(location[0])
+    location[1] = float(location[1])
+    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+    parkname = park[0]
+    parkcoord = list(park[1])
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     trainingtypes=[(x,x) for x in xmlmng.getTrainingTypes()]+[('Both','Both')]
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    datamng = ParkManager("englischer_garten", xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
+    datamng = ParkManager(parkname, xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     grouplist=datamng.getGroups()
     training = CheckBox("Choose type of training")
     training.fields['selection'].choices = trainingtypes
@@ -713,6 +748,7 @@ def findgroups(request):
         'grouplist':json.dumps(grouplist),
         'app_id':app_id,
         'app_code': app_code,
+        'parkcoord': parkcoord,
     }
     return HttpResponse(template.render(context, request))
 

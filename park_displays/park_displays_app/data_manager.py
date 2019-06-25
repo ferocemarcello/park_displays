@@ -1,4 +1,23 @@
 from .xmlmanager import XmlManager
+from math import sin, cos, sqrt, atan2, radians
+
+
+def getDistanceCoordinates(parklocation, location):
+    # approximate radius of earth in metres
+    R = 6373000.0
+
+    lat1 = radians(parklocation[0])
+    lon1 = radians(parklocation[1])
+    lat2 = radians(location[0])
+    lon2 = radians(location[1])
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    return R * c
 
 
 class ParkManager:
@@ -55,23 +74,27 @@ class ParkManager:
         return self.xmlmanager.getFountains(parkname=self.parkname)
     def getGymTools(self):
         return self.xmlmanager.getGymTools(parkname=self.parkname)
-
     def getRunners(self):
         return self.xmlmanager.getRunners(parkname=self.parkname)
-
     def getWalkers(self):
         return self.xmlmanager.getWalkers(parkname=self.parkname)
-
     def getGymAthletes(self):
         return self.xmlmanager.getGymAthletes(parkname=self.parkname)
-
     def getFreeweightAthletes(self):
         return self.xmlmanager.getFreeweightAthletes(parkname=self.parkname)
-
     def getStretchers(self):
         return self.xmlmanager.getStretchers(parkname=self.parkname)
     def getGroups(self):
         return self.xmlmanager.getGroups(parkname=self.parkname)
+
+    @classmethod
+    def getParkFromLocation(cls, location, xmlmanager:XmlManager):
+        parklist=xmlmanager.getParkList()
+        for park in parklist:
+            if getDistanceCoordinates(park[1],location)<1000:
+                return park
+        return parklist[0]
+
 
 class AthleteManager:
     def __init__(self, athleteid,xmlmanager: XmlManager):

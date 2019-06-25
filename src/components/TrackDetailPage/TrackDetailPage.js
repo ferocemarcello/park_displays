@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import data from '../../data.json';
-import styles from './TrackDetail.module.scss';
+import styles from './TrackDetailPage.module.scss';
 import { Map, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
 import { icon } from 'leaflet';
 
-class TrackDetail extends Component {
+class TrackDetailPage extends Component {
 
   leafletMonumentIcon = icon({
     iconUrl: 'monument_icon.png',
@@ -79,4 +79,4 @@ class TrackDetail extends Component {
   }
 }
 
-export default TrackDetail
+export default TrackDetailPage

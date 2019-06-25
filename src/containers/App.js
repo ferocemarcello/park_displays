@@ -10,6 +10,7 @@ import WeatherForecastPage from '../components/weatherforecast/WeatherForecastPa
 import ConnectModal from '../components/connectModal/ConnectModal';
 import RunWalkPage from '../components/runwalk/RunWalkPage';
 import TrackDetail from '../components/trackDetail/TrackDetail';
+import BodyweightPage from '../components/BodyweightPage/BodyweightPage';
 
 const history = createHashHistory();
 
@@ -43,12 +44,13 @@ class App extends Component {
       <div className="App">
         <Router history={history}>
           <main className="appContentWrapper">
-            <Route path="/" exact component={HomePage} />
             <Route path="/emergency" exact component={EmergencyPage} />
             <Route path="/map" exact component={ParkMapPage} />
             <Route path="/weather" exact component={WeatherForecastPage} />
             <Route path="/runwalk" exact component={RunWalkPage} />
             <Route path="/runwalk/track/:trackId" exact component={TrackDetail} />
+            <Route path="/bodyweight" exact component={BodyweightPage} />
+            <Route path="/" exact component={HomePage} />
           </main>
           <ToolBar history={history} showConnectModal={this.showConnectModal} />
           { connectModalOpen ? <ConnectModal closeConnectModal={this.hideConnectModal} /> : null }

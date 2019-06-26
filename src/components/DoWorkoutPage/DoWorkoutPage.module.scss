@@ -1,0 +1,27 @@
+.DoWorkoutPage {
+  font-family: 'Russo One', sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: url('/bg.jpg') no-repeat center center fixed;
+  backgroundSize: cover;
+  height: 100%;
+}
+
+.TextSection {
+  padding: 16px;
+
+  &>h1, &>h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  &>h2 {
+    color: rgba(0, 0, 0, .35)
+  }
+}
+
+.Timer {
+  height: 300px;
+  width: 300px;
+  text-align: center;
+}

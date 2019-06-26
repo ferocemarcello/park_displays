@@ -4,23 +4,43 @@ import { Link } from 'react-router-dom';
 import styles from './HomePage.module.scss';
 import Glide from '@glidejs/glide';
 
+import RunWalkData from '../../data/RunWalkData';
+
+class CircleBar extends Component {
+  render() {
+    const { value, maxValue } = this.props;
+    return (
+      <span>
+        {
+          [...new Array(value)].map((_, i) => <FontAwesomeIcon icon="circle" className={styles['CircleProgressDarkGrey']} key={i} />)
+        }
+        {
+          (maxValue - value) > 0 ?
+            [...new Array(maxValue - value)].map((_, i) => <FontAwesomeIcon icon="circle"  className={styles['CircleProgressLightGrey']} key={i} />) : null
+        }
+      </span>
+    );
+  }
+}
+
 class SliderItem extends Component {
   render() {
-    const { title, text, difficulty, duration } = this.props;
-
+    const { title, text, difficulty, duration, linkTo } = this.props;
     return (
-      <li className="glide__slide" style={{background: 'white', color: 'black', fontSize: '1.2rem'}}>
-        <div style={{padding: 16}}>
-          <div>{title}</div>
-          <div style={{color: 'darkgrey', fontSize: '.9rem', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'}}>
-            <span dangerouslySetInnerHTML={{__html: text}}></span>
-            <hr />
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-              <div><small>Duration: {duration}/3</small></div>
-              <div><small>Difficulty: {difficulty}/3</small></div>
+      <li className={`glide__slide ${styles['SliderItem']}`}>
+        <Link to={linkTo}>
+          <div style={{padding: 16}}>
+            <div>{title}</div>
+            <div style={{color: 'darkgrey', fontSize: '.9rem', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'}}>
+              <span dangerouslySetInnerHTML={{__html: text}}></span>
+              <hr />
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div><small>Duration: <CircleBar value={+duration} maxValue={3} /></small></div>
+                <div><small>Difficulty: <CircleBar value={+difficulty} maxValue={3} /></small></div>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </li>
     );
   }
@@ -70,7 +90,7 @@ class HomePage extends Component {
             <div className={styles['SectionTitle']}>Running / Walking</div>
             <div className={styles['SectionDescription']}>Routes for walking</div>
             <Slider sliderId={1}>
-              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
+              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise_ ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" linkTo="/test1" />) }
             </Slider>
             <ShowAllLink to="/runwalk" />
           </div>
@@ -117,43 +137,6 @@ class HomePage extends Component {
         </section>
       </div>
     )
-  }
-
-  componentDidMount() {
-    /*new Glide('.glide1', {
-      type: 'slider',
-      startAt: 0,
-      perView: 5,
-      focusAt: 'center'
-    }).mount();
-
-    new Glide('.glide2', {
-      type: 'slider',
-      startAt: 0,
-      perView: 5,
-      focusAt: 'center'
-    }).mount();
-
-    new Glide('.glide3', {
-      type: 'slider',
-      startAt: 0,
-      perView: 5,
-      focusAt: 'center'
-    }).mount();
-
-    new Glide('.glide4', {
-      type: 'slider',
-      startAt: 0,
-      perView: 5,
-      focusAt: 'center'
-    }).mount();
-
-    new Glide('.glide5', {
-      type: 'slider',
-      startAt: 0,
-      perView: 5,
-      focusAt: 'center'
-    }).mount();*/
   }
 }
 

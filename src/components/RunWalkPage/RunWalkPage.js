@@ -68,33 +68,31 @@ class RunWalkPage extends Component {
             <FontAwesomeIcon icon={filterSectionExpanded ? 'caret-up' : 'caret-down'} />
           </div>
         </div>
-        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 150 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
-          <p>
-            <span>Distance</span>
-            <span>
-              <input type="range" min="0" max="100" />
-            </span>
-          </p>
-          <p>
-            <span>Duration</span>
-            <span>
-              <input type="range" min="0" max="100" />
-            </span>
-          </p>
-          <p>
-            <span>Height Difference</span>
-            <span>
-              <input type="range" min="0" max="100" />
-            </span>
-          </p>
-          <p>
-            <span>Ground Type</span>
-            <span>
-              <input type="checkbox" name="groundType" /> Gravel
-              <input type="checkbox" name="groundType" /> Grass
-              <input type="checkbox" name="groundType" /> Asphalt
-            </span>
-          </p>
+        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 200 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
+          <table className={styles['FilterTable']}>
+            <tbody>
+            <tr>
+              <td scope="row">Distance</td>
+              <td><input type="range" min="0" max="100" /></td>
+            </tr>
+            <tr>
+              <td scope="row">Duration</td>
+              <td><input type="range" min="0" max="100" /></td>
+            </tr>
+            <tr>
+              <td scope="row">Height Difference</td>
+              <td><input type="range" min="0" max="100" /></td>
+            </tr>
+            <tr>
+              <td scope="row">Ground Type</td>
+              <td>
+                <input type="checkbox" name="groundType" /> Gravel&nbsp;&nbsp;
+                <input type="checkbox" name="groundType" /> Grass&nbsp;&nbsp;
+                <input type="checkbox" name="groundType" /> Asphalt&nbsp;&nbsp;
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div className={styles['ListSection']}>
           {

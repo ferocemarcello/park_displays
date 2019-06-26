@@ -58,7 +58,20 @@ class BodyweightPage extends Component {
     super(props);
     this.state = {
       filterSectionExpanded: false,
-      displayType: 'EXERCISES'
+      displayType: 'EXERCISES',
+      muscleGroups: {
+        abs: true,
+        biceps: true,
+        calves: true,
+        chest: true,
+        forearm: true,
+        glutes: true,
+        lowerBack: true,
+        shoulder: true,
+        triceps: true,
+        upperBack: true,
+        upperLeg: true
+      }
     };
   }
 
@@ -76,8 +89,20 @@ class BodyweightPage extends Component {
     }));
   };
 
+  toggleMuscleGroup = (evt) => {
+    const { value } = evt.target;
+
+    this.setState((prevState) => ({
+      ...prevState,
+      muscleGroups: {
+        ...prevState.muscleGroups,
+        [value]: !prevState.muscleGroups[value]
+      }
+    }));
+  };
+
   render() {
-    const { filterSectionExpanded, displayType } = this.state;
+    const { filterSectionExpanded, displayType, muscleGroups } = this.state;
 
     return (
       <div className={styles['BodyweightPage']} style={{background: 'url(\'/bg.jpg\') no-repeat center center fixed', backgroundSize: 'cover'}}>
@@ -90,34 +115,42 @@ class BodyweightPage extends Component {
             <FontAwesomeIcon icon={filterSectionExpanded ? 'caret-up' : 'caret-down'} />
           </div>
         </div>
-        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 150 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
-          <p>
-            <span>Show Exercises or Workouts</span>
-            <span>
-              <input type="radio" name="toggleType" checked={displayType === 'EXERCISES'} onClick={this.setDisplayType.bind(null, 'EXERCISES')} /> Exercises
-              <input type="radio" name="toggleType" checked={displayType === 'WORKOUTS'} onClick={this.setDisplayType.bind(null, 'WORKOUTS')} /> Workouts
-            </span>
-          </p>
-          <p>
-            <span>Duration</span>
-            <span>
-              <input type="range" min="0" max="100" />
-            </span>
-          </p>
-          <p>
-            <span>Difficulty</span>
-            <span>
-              <input type="range" min="0" max="100" />
-            </span>
-          </p>
-          <p>
-            <span>Muscle Groups</span>
-            <span>
-              <input type="checkbox" name="groundType" /> Gravel
-              <input type="checkbox" name="groundType" /> Grass
-              <input type="checkbox" name="groundType" /> Asphalt
-            </span>
-          </p>
+        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 200 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
+          <table className={styles['FilterTable']}>
+            <tbody>
+            <tr>
+              <td scope="row">Toggle Exercises / Workouts</td>
+              <td>
+                <input type="radio" name="toggleType" checked={displayType === 'EXERCISES'} onClick={this.setDisplayType.bind(null, 'EXERCISES')} /> Exercises&nbsp;&nbsp;
+                <input type="radio" name="toggleType" checked={displayType === 'WORKOUTS'} onClick={this.setDisplayType.bind(null, 'WORKOUTS')} /> Workouts
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">Duration</td>
+              <td><input type="range" min="0" max="100" /></td>
+            </tr>
+            <tr>
+              <td scope="row">Difficulty</td>
+              <td><input type="range" min="0" max="100" /></td>
+            </tr>
+            <tr>
+              <td scope="row">Muscle Groups</td>
+              <td>
+                <input type="checkbox" name="muscleGroups" value="abs" checked={muscleGroups.abs} onChange={this.toggleMuscleGroup} /> Abs&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="biceps" checked={muscleGroups.biceps} onChange={this.toggleMuscleGroup} /> Biceps&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="calves" checked={muscleGroups.calves} onChange={this.toggleMuscleGroup} /> Calves&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="chest" checked={muscleGroups.chest} onChange={this.toggleMuscleGroup} /> Chest&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="forearm" checked={muscleGroups.forearm} onChange={this.toggleMuscleGroup} /> Forearm&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="glutes" checked={muscleGroups.glutes} onChange={this.toggleMuscleGroup} /> Glutes&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="lowerBack" checked={muscleGroups.lowerBack} onChange={this.toggleMuscleGroup} /> Lower Back&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="shoulder" checked={muscleGroups.shoulder} onChange={this.toggleMuscleGroup} /> Shoulder&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="triceps" checked={muscleGroups.triceps} onChange={this.toggleMuscleGroup} /> Triceps&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="upperBack" checked={muscleGroups.upperBack} onChange={this.toggleMuscleGroup} /> Upper Back&nbsp;&nbsp;
+                <input type="checkbox" name="muscleGroups" value="upperLeg" checked={muscleGroups.upperLeg} onChange={this.toggleMuscleGroup} /> Upper Leg&nbsp;&nbsp;
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div className={styles['ListSection']}>
           {

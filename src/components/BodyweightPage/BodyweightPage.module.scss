@@ -71,3 +71,13 @@
   padding: 0 16px;
   transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
 }
+
+.FilterTable {
+  flex: 1 1 auto;
+  font-weight: 100;
+
+  & td {
+    padding: .75rem;
+    vertical-align: top;
+  }
+}

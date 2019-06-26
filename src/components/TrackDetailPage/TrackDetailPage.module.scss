@@ -18,3 +18,14 @@
     color: rgba(0, 0, 0, .35)
   }
 }
+
+.DetailTable {
+  flex: 1 1 auto;
+  font-weight: 100;
+
+  & td {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+}

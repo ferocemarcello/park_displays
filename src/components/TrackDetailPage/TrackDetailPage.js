@@ -22,40 +22,62 @@ class TrackDetailPage extends Component {
         <section className={styles['TextSection']}>
           <h2>Running & Walking</h2>
           <h1>{track.name}</h1>
+          <div style={{display: 'flex', height: 300}}>
+            <table className={styles['DetailTable']}>
+              <tbody>
+              <tr>
+                <td scope="row">Distance</td>
+                <td>1.6 km</td>
+              </tr>
+              <tr>
+                <td scope="row">Duration</td>
+                <td>1:20 h</td>
+              </tr>
+              <tr>
+                <td scope="row">Ascent</td>
+                <td>12 m</td>
+              </tr>
+              <tr>
+                <td scope="row">Descent</td>
+                <td>12 m</td>
+              </tr>
+              </tbody>
+            </table>
+            <HighchartsReact style={{flex: '1 1 auto'}}
+                             highcharts={Highcharts}
+                             options={{
+                               chart: {
+                                 type: 'area',
+                                 animation: false,
+                                 backgroundColor: 'rgba(0,0,0,0)'
+                               },
+                               title: {
+                                 text: 'Height Profile'
+                               },
+                               series: [{
+                                 name: 'Elevation',
+                                 data: track.waypointElevation,
+                                 color: '#006ec0'
+                               }],
+                               tooltip: {
+                                 enabled: false
+                               },
+                               legend: {
+                                 enabled: false
+                               },
+                               xAxis: {
+                                 visible: false
+                               },
+                               yAxis: {
+                                 title: {
+                                   text: 'Meters'
+                                 }
+                               },
+                               credits: false
+                             }}
+            />
+          </div>
         </section>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={{
-            chart: {
-              type: 'area',
-              animation: false,
-              backgroundColor: 'rgba(0,0,0,0)'
-            },
-            title: {
-              text: undefined
-            },
-            series: [{
-              name: 'Elevation',
-              data: track.waypointElevation,
-              color: '#006ec0'
-            }],
-            tooltip: {
-              enabled: false
-            },
-            legend: {
-              enabled: false
-            },
-            xAxis: {
-              visible: false
-            },
-            yAxis: {
-              title: {
-                text: 'Meters'
-              }
-            },
-            credits: false
-          }}
-        />
         <section style={{height: 450}}>
           <Map bounds={track.waypoints} style={{height: 550}}>
             <TileLayer

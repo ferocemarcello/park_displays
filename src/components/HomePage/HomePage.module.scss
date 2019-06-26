@@ -46,3 +46,30 @@
 .NutritionSection {
   background: url("https://media.istockphoto.com/photos/healthy-buddha-bowl-lunch-with-grilled-chicken-quinoa-spinach-avocado-picture-id920931456");
 }
+
+.SliderItem {
+  background: #fff;
+  color: #000;
+  font-size: 1.2rem;
+
+   &>a,
+   &a:visited{
+     text-decoration: none;
+     color: #000;
+   }
+}
+
+$CircleProgressPadding: 4px;
+
+.CircleProgressDarkGrey {
+  color: #000;
+}
+
+.CircleProgressDarkGrey,
+.CircleProgressLightGrey {
+  font-size: .5rem;
+
+  &:not(:last-child) {
+    padding-right: $CircleProgressPadding;
+  }
+}

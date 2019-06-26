@@ -501,6 +501,7 @@ def similarusers(request):
 def outdoorgym(request):
     location = request.POST.get('location')
     location = location.split(',')
+    return HttpResponse("location[0]=%s." % location[0])
     location[0] = float(location[0])
     location[1] = float(location[1])
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")

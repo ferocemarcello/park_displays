@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<athletes>
+<athlete id="0" age="31" height="186" weight="75" shoetype="Road A2"></athlete>
+    <athlete id="1" age="25" height="188" weight="77" shoetype="Road A3"></athlete>
+</athletes>

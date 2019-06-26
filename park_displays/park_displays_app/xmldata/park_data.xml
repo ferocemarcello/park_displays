@@ -1,59 +1,88 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <parks>
-    <englischer_garten>
-<fountains>
+    <park name="englischer_garten" lat="48.164187" lng="11.605617">
+        <paths>
+            <path terrain="Gravel" steepness="2" height_difference="40" length="2000"><!-- Capital letters are important. those should match filter types -->
+                <waypoints>
+                    <waypoint lat="48.143573" lng="11.588202"></waypoint>
+                    <waypoint lat="48.145279" lng="11.591532"></waypoint>
+                    <waypoint lat="48.149131" lng="11.589335"></waypoint>
+                    <waypoint lat="48.149967" lng="11.585131"></waypoint>
+                </waypoints>
+            </path>
+            <path terrain="Pavement" steepness="6" height_difference="60" length="1000">
+                <waypoints>
+                    <waypoint lat="48.144518" lng="11.583674"></waypoint>
+                    <waypoint lat="48.156540" lng="11.590261"></waypoint>
+                    <waypoint lat="48.155186" lng="11.599886"></waypoint>
+                </waypoints>
+            </path>
+            <path terrain="Dirt" steepness="1" height_difference="50" length="5000">
+                <waypoints>
+                    <waypoint lat="48.147195" lng="11.591148"></waypoint>
+                    <waypoint lat="48.150625" lng="11.591871"></waypoint>
+                    <waypoint lat="48.156250" lng="11.595904"></waypoint>
+                </waypoints>
+            </path>
+        </paths>
+        <gymtools>
+            <gymtool lat="48.156088" lng="11.595853">Smith Machine</gymtool>
+            <gymtool lat="48.154714" lng="11.594308">Air Walker</gymtool>
+            <gymtool lat="48.152767" lng="11.594695">Rower</gymtool>
+            <gymtool lat="48.152395" lng="11.591004">Weight Bench</gymtool>
+        </gymtools>
+        <fountains>
     <fountain lat="48.148329" lng="11.590489"></fountain>
     <fountain lat="48.147355" lng="11.587056"></fountain>
     <fountain lat="48.146382" lng="11.591733"></fountain>
     <fountain lat="48.149560" lng="11.586069"></fountain>
 </fountains>
-        <paths>
-            <path terrain="gravel">
-                <start lat="48.143573" lng="11.588202"></start>
-                <waypoints>
-                    <waypoint lat="48.145279" lng="11.591532"></waypoint>
-                    <waypoint lat="48.149131" lng="11.589335"></waypoint>
-                </waypoints>
-                <end lat="48.149967" lng="11.585131"></end>
-            </path>
-            <path terrain="pavement">
-                <start lat="48.144518" lng="11.583674"></start>
-                <waypoints>
-                    <waypoint lat="48.156540" lng="11.590261"></waypoint>
-                </waypoints>
-                <end lat="48.155186" lng="11.599886"></end>
-            </path>
-            <path terrain="dirt">
-                <start lat="48.147195" lng="11.591148"></start>
-                <waypoints>
-                    <waypoint lat="48.150625" lng="11.591871"></waypoint>
-                </waypoints>
-                <end lat="48.156250" lng="11.595904"></end>
-            </path>
-        </paths>
-</englischer_garten>
-<maximiliansanlagen>
-<fountains>
+        <running>
+            <athlete lat="48.143573" lng="11.588202"></athlete><!-- position should be start of a path, e.g. first waypoint -->
+            <athlete lat="48.144518" lng="11.583674"></athlete>
+        </running>
+        <walking>
+            <athlete lat="48.147195" lng="11.591148"></athlete>
+        </walking>
+        <outdoorgym>
+            <athlete lat="48.152395" lng="11.591004"></athlete><!-- position should be position of a tool -->
+        </outdoorgym>
+        <freeweight><athlete lat="48.145801" lng="11.584811"></athlete><!-- position can coincide with position of the display -->
+        </freeweight>
+        <stretching><athlete lat="48.146404" lng="11.592444"></athlete>
+        </stretching>
+        <groups>
+            <group lat="48.148314" lng="11.588836" stretching="True" freeweight="False" avgage="30" numcomponents="10"></group>
+            <group lat="48.147197" lng="11.586433" stretching="False" freeweight="True" avgage="25" numcomponents="7"></group>
+            <group lat="48.145079" lng="11.589952" stretching="True" freeweight="True" avgage="40" numcomponents="15"></group>
+            <group lat="48.148601" lng="11.592548" stretching="False" freeweight="True" avgage="35" numcomponents="20"></group>
+        </groups>
+    </park>
+    <park name="maximiliansanlagen" lat="48.139462" lng="11.596452">
+        <paths></paths>
+        <fountains>
     <fountain lat="48.144486" lng="11.597591"></fountain>
     <fountain lat="48.141610" lng="11.597591"></fountain>
     <fountain lat="48.138870" lng="11.596368"></fountain>
     <fountain lat="48.139784" lng="11.594882"></fountain>
 </fountains>
-</maximiliansanlagen>
-<olympiapark>
-<fountains>
+    </park>
+    <park name="olympiapark" lat="48.171640" lng="11.553165">
+        <paths></paths>
+        <fountains>
     <fountain lat="48.172392" lng="11.554712"></fountain>
     <fountain lat="48.169673" lng="11.554309"></fountain>
     <fountain lat="48.170310" lng="11.551960"></fountain>
     <fountain lat="48.169102" lng="11.555652"></fountain>
 </fountains>
-</olympiapark>
-<schlosspark_nymphenburg>
-<fountains>
+    </park>
+    <park name="schlosspark_nymphenburg" lat="48.157426" lng="11.492958">
+        <paths></paths>
+        <fountains>
     <fountain lat="48.155506" lng="11.501791"></fountain>
     <fountain lat="48.157127" lng="11.500220"></fountain>
     <fountain lat="48.156079" lng="11.495652"></fountain>
     <fountain lat="48.157672" lng="11.496051"></fountain>
 </fountains>
-</schlosspark_nymphenburg>
+    </park>
 </parks>

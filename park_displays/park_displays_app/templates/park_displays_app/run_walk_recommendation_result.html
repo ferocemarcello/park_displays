@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Find fitness groups</title>
+    <title>Park Details</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
   <script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-core.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-service.js" charset="utf-8"></script>
@@ -28,31 +28,11 @@
 <div id="openweathermap-widget-15"></div>
 <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,cityid: '2867714',appid: '383e70bba76730ecf8c30b9bcad1f3f2',units: 'metric',containerid: 'openweathermap-widget-15',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
 
-<form action='' enctype="multipart/form-data" method="post">
-      {% csrf_token %}
-          {{ radiobuttons }}
-    <input id="intensity" type="range" value="50" min="1" max="100" step="1">Average age</input>
-    <input id="intensity" type="range" value="50" min="1" max="100" step="1">Male/Femal Ratio</input>
-    <input id="intensity" type="range" value="50" min="1" max="100" step="1">Intensity</input>
-</form>
-<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
+    {{ recommendations|safe }}
+</div>
 <script>
-            // Hold a reference to any infobubble opened
-var bubble
-        function openBubble(position, text){
- if(!bubble){
-    bubble =  new H.ui.InfoBubble(
-      position,
-      // The FO property holds the province name.
-      {content: text});
-    ui.addBubble(bubble);
-  } else {
-    bubble.setPosition(position);
-    bubble.setContent(text);
-    bubble.open();
-  }
-}
-    // set up containers for the map  + panel
+          // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');
 
 //Step 1: initialize communication with the platform
@@ -83,32 +63,8 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
-var groups={{ grouplist |safe}};
-    for(var i=0; i<groups.length;i++){
-        var groupicon=new H.map.Icon("{% static 'park_displays_app/groupicon.png' %}", {size: {w: 32, h: 32}});
-            var groupmarker=new H.map.Marker({lat:groups[i][0][0], lng:groups[i][0][1]},{icon:groupicon});
-            var groupmarkertext="Fitness group doing ";
-            if(groups[i][1] && groups[i][2]){
-                groupmarkertext+="stretching and freeweight exercises"
-            }
-            if(!groups[i][2]){
-                groupmarkertext+="stretching"
-            }
-            if(!groups[i][1]){
-                groupmarkertext+="freeweight exercises"
-            }
-            groupmarkertext+="\n";
-            groupmarkertext+="average age:"+groups[i][3]+"\n";
-            groupmarkertext+="number of components:"+groups[i][4];
-    groupmarker.setData(groupmarkertext);
-    groupmarker.addEventListener("tap", markerlistener, false);
-    function markerlistener(evt){
-  map.setCenter(evt.target.getPosition());
-  openBubble(evt.target.getPosition(), evt.target.getData());
-}
-  map.addObject(groupmarker);
 
-}
+
 </script>
 </body>
 </html>

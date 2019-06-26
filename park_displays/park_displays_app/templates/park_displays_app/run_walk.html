@@ -1,8 +1,10 @@
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Run_walk</title>
+    <title>Running/Walking</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
   <script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-core.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://js.api.here.com/v3/3.0/mapsjs-service.js" charset="utf-8"></script>
@@ -24,15 +26,154 @@
         </style>
 </head>
 <body>
-<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:lightgrey"></div>
+<form action='login' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Login</button>
+</form>
+<div id="openweathermap-widget-15"></div>
+<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,cityid: '2867714',appid: '383e70bba76730ecf8c30b9bcad1f3f2',units: 'metric',containerid: 'openweathermap-widget-15',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+
+<form action='runwalkrecresult' enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          {{ gender_checkbox }}
+          {{ age_dropdown }}
+          {{ weight_dropdown }}
+          {{ height_dropdown }}
+          {{ kcal_dropdown }}
+    <input type="text" name="location" hidden=true/>
+    <button type='submit'>Get Recommendations</button>
+</form>
+
+<div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
+    {{watercheckbox}}
+    {{pathcheckboxes}}
+
+    <input id="slider1" type="range" value="3" min="1" max="100" step="1"> Steepness </input>
+    <input id="slider2" type="range" value="3" min="1" max="100" step="1"> Height Difference </input>
+    <input id="slider3" type="range" value="3" min="1" max="100" step="1"> Length </input><!--onchange="callFun(this.value)"function callFun(value) {
+    fetch('call_your_url/?value='+ value).then(function(response) {
+        console.log(response.status);
+    }
+    def call_view(request):
+    request.GET.get('value')
+    return HttpResponse("success")
+}-->
+
+
+
+</div>
 <script>
-    // set up containers for the map  + panel
+    var fountains={{ fountains|safe}};
+    var paths={{paths|safe}};
+    var pathtypes={{pathtypes|safe}};
+    var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
+    var startfinishmarkers=Array(Object.keys(paths).length).fill(null);
+        function calculateRouteFromAtoB (platform,waypoints,col,pathindex) {
+  var router = platform.getRoutingService(),
+    routeRequestParams = {
+      mode: 'shortest;pedestrian',
+      representation: 'display',
+      routeattributes : 'waypoints,summary,shape,legs',
+      maneuverattributes: 'direction,action',
+			language: 'en-US',//en-gb,en-us,de-de,it-IT
+    };
+  for(var i=0; i<waypoints.length;i++){
+    s='waypoint'+(i);
+    routeRequestParams[s]=waypoints[i];
+}
+
+  router.calculateRoute(
+    routeRequestParams,
+    onSuccResult=function(result) {
+    onSuccess(result, col,pathindex);//from 0 to 1, from 0 to 4
+},
+    onError
+  );
+}
+/**
+ * This function will be called if a communication error occurs during the JSON-P request
+ * @param  {Object} error  The error message received.
+ */
+function onError(error) {
+  alert('Error in showing the route!');
+}
+
+/**
+ * This function will be called once the Routing REST API provides a response
+ * @param  {Object} result          A JSONP object representing the calculated route
+ *
+ * see: https://developer.here.com/rest-apis/documentation/routing/topics/resource-type-calculate-route.html
+ */
+function onSuccess(result,col,pathindex) {
+    //['rgba(0, 128, 255, 0.7)','red','orange','green','SaddleBrown','DarkOrchid','black','grey','Violet','Navy'];
+  var route = result.response.route[0];
+ /*
+  * The styling of the route response on the map is entirely under the developer's control.
+  * A representitive styling can be found the full JS + HTML code of this example
+  * in the functions below:
+  */
+  addRouteShapeToMap(route,col,pathindex);
+
+  // ... etc.
+}
+/**
+ * Creates a H.map.Polyline from the shape of the route and adds it to the map.
+ * @param {Object} route A route as received from the H.service.RoutingService
+ */
+function addRouteShapeToMap(route,col,pathindex){
+  var strip = new H.geo.Strip(),
+    routeShape = route.shape,
+    polyline;
+
+  routeShape.forEach(function(point) {
+    var parts = point.split(',');
+    strip.pushLatLngAlt(parts[0], parts[1]);
+  });
+
+  polyline = new H.map.Polyline(strip, {
+    style: {
+      lineWidth: 6,
+      strokeColor: col
+    },
+    arrows: { fillColor: 'white', frequency: 2, width: 1.2, length: 0.9 },
+    visibility:true
+  });
+  debugger;
+  // Add the polyline to the map
+  map.addObject(polyline);
+  // And zoom to its bounding rectangle
+  map.setViewBounds(polyline.getBounds(), true);
+  polylines[pathindex]=polyline;
+  var startmarkericon=new H.map.Icon("{% static 'park_displays_app/startmarker.png' %}", {size: {w: 32, h: 32}});
+    var startmarker=new H.map.Marker({lat:paths[pathindex][0][0], lng:paths[pathindex][0][1]},{icon:startmarkericon});
+    map.addObject(startmarker);
+    var finishlineicon=new H.map.Icon("{% static 'park_displays_app/finishline.png' %}", {size: {w: 32, h: 32}});
+    var finishline=new H.map.Marker({lat:paths[pathindex][paths[pathindex].length-1][0], lng:paths[pathindex][paths[pathindex].length-1][1]},{icon:finishlineicon});
+    map.addObject(finishline);
+    startfinishmarkers[pathindex]=[startmarker,finishline]
+}
+        // Hold a reference to any infobubble opened
+var bubble
+        function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
+          // set up containers for the map  + panel
 var mapContainer = document.getElementById('map');
 
 //Step 1: initialize communication with the platform
 var platform = new H.service.Platform({
-  app_id: 'KfjYxKFR65JNn6KGSink',
-  app_code: '--NDudeZYCPWjK333-3TxQ',
+  app_id: "{{ app_id }}",
+  app_code: "{{ app_code }}",
   useCIT: true,
   useHTTPS: true
 });
@@ -45,7 +186,9 @@ platform.configure(H.map.render.panorama.RenderEngine);
 //Step 2: initialize a map
 map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
   });
-map.setCenter({lat:48.148673, lng:11.589373});
+lat={{ parkcoord|safe }}[0];
+lng={{ parkcoord|safe }}[1];
+map.setCenter({lat:lat, lng:lng});
 map.setZoom(15);
 
 //Step 3: make the map interactive
@@ -55,18 +198,45 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
-</script>
-<input id="slider1" type="range" value="3" min="1" max="100" step="1" /><!--onchange="callFun(this.value)"function callFun(value) {
-    fetch('call_your_url/?value='+ value).then(function(response) {
-        console.log(response.status);
+for(var i=0; i<fountains.length;i++){
+    var waterfountainicon=new H.map.Icon("{% static 'park_displays_app/water.png' %}", {size: {w: 32, h: 32}});
+    var waterfountain=new H.map.Marker({lat:fountains[i][0], lng:fountains[i][1]},{icon:waterfountainicon});
+    var watermarkertext="water fountain";
+    waterfountain.setData(watermarkertext);
+    waterfountain.addEventListener("tap", markerlistener, false);
+    function markerlistener(evt){
+  map.setCenter(evt.target.getPosition());
+  openBubble(evt.target.getPosition(), evt.target.getData());
+}
+  map.addObject(waterfountain);
+}
+var colors=['Blue','Red','Orange','Green','SaddleBrown','DarkOrchid','Black','Grey','Violet','Navy'];
+for(var i=0;i<Object.keys(paths).length;i++){
+    var color=colors[i];
+    var pathindex=i
+    var waypoints=[];
+    for(var j=0;j<Object.keys(paths[i]).length;j++){
+        waypoints.push("stopOver!"+paths[i][j][0]+','+paths[i][j][1]);
     }
-    def call_view(request):
-    request.GET.get('value')
-    return HttpResponse("success")
-}-->
-<form action='sportrec' method='POST'>
-    {% csrf_token %}
-<button type='submit'>Get Recommendations</button>
-</form>
+    calculateRouteFromAtoB(platform,waypoints,color,pathindex);
+}
+</script>
 </body>
+<script>
+        var pos=""
+        function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(setPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+  function setPosition(position) {
+
+      pos=[position.coords.latitude,position.coords.longitude];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+}
+}
+getLocation();</script>
 </html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters>
+<num_components min="2" max="50"></num_components>
+    <num_males min="1" max="50"></num_males>
+    <num_females min="1" max="50"></num_females>
+    <num_youngs min="1" max="50"></num_youngs>
+   <num_adults min="1" max="50"></num_adults>
+    <num_olds min="1" max="50"></num_olds>
+    <averageage min="1" max="100"></averageage>
+    <minage min="1" max="100"></minage>
+    <maxage min="1" max="100"></maxage>
+</filters>

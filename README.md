@@ -20,3 +20,44 @@ To merge branch into master:
 This may give you conflicts which need to be resolved and changes committed before moving further.  
   
 -Once merge of your branch to master on local is committed, push local master to remote master: git push origin master
+
+
+To use the server at pythonanywhere:
+link to the app on the server: http://parkdisplays.pythonanywhere.com/park_displays_app/  
+link to the server: https://www.pythonanywhere.com  
+python 3.7, django 2.2.1  
+It's always better to push on the repo, and only then update the server, otherwise there may be conflicts  
+  
+    -To use a virtual environment in the console:  
+    cd /home/parkdisplays/.virtualenvs/parkenv/bin  
+    activation: source ./activate  
+    deactivation: deactivate
+      
+    -To update the server:  
+     enter the console with the virtual environment  
+     git pull  
+     pip install -r requirements.txt if necessary  
+     reload the server in the web tab  
+       
+     -If new static files are added:
+      python3.7 manage.py collectstatic  
+      reload the server in the web tab
+
+# Dockerized Version
+The application also comes with a Dockerfile.
+To use the docker functionality you need to have Docker Community Edition (Docker CE) installed on your system.
+Docker CE can be downloaded for free: [Docker CE Install Instructions (Multi OS)](https://docs.docker.com/install)
+
+## Build a Docker image:
+To build a docker image run in project root:
+```
+$ docker build -t tum_masterpraktikum/park_display .
+```
+
+This will download the required image and install the dependencies inside the docker image.
+
+## Run Docker image:
+After the docker image is built, it can be executed as a container by running the following command:
+```
+$  docker run --rm -d -p 8000:8000 tum_masterpraktikum/park_display
+```

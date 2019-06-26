@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters>
+    <gymtooltypes>
+            <gymtooltype frontabs="10" sideabs="20" arms="20" highlegs="10" lowlegs="5" chest="30" back="5">Smith Machine</gymtooltype>
+            <gymtooltype frontabs="15" sideabs="15" arms="10" highlegs="5" lowlegs="5" chest="30" back="20">Air Walker</gymtooltype>
+            <gymtooltype frontabs="25" sideabs="5" arms="10" highlegs="10" lowlegs="10" chest="15" back="25">Rower</gymtooltype>
+        <gymtooltype frontabs="10" sideabs="5" arms="30" highlegs="10" lowlegs="10" chest="20" back="15">Weight Bench</gymtooltype>
+    </gymtooltypes>
+</filters>

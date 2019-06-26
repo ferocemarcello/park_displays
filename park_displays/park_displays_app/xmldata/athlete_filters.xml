@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters>
+<genders>
+    <gender>Male</gender>
+    <gender>Female</gender>
+    <gender>Other</gender>
+</genders>
+    <ageintervals>
+        <ageinterval>&lt;18</ageinterval>
+        <ageinterval>18-24</ageinterval>
+        <ageinterval>25-34</ageinterval>
+        <ageinterval>35-44</ageinterval>
+        <ageinterval>45-54</ageinterval>
+        <ageinterval>55-64</ageinterval>
+        <ageinterval>65-74</ageinterval>
+        <ageinterval>&gt;=75</ageinterval>
+    </ageintervals>
+    <heightintervals>
+        <heightinterval>&lt;150 cm</heightinterval>
+        <heightinterval>150-159 cm</heightinterval>
+        <heightinterval>160-169 cm</heightinterval>
+        <heightinterval>170-179 cm</heightinterval>
+        <heightinterval>180-189 cm</heightinterval>
+        <heightinterval>190-199 cm</heightinterval>
+        <heightinterval>200-209 cm</heightinterval>
+        <ageinterval>&gt;=210 cm</ageinterval>
+    </heightintervals>
+    <weightintervals>
+        <weightinterval>&lt;40 kg</weightinterval>
+        <weightinterval>40-49 kg</weightinterval>
+        <weightinterval>50-59 kg</weightinterval>
+        <weightinterval>60-69 kg</weightinterval>
+        <weightinterval>70-79 kg</weightinterval>
+        <weightinterval>80-89 kg</weightinterval>
+        <weightinterval>90-99 kg</weightinterval>
+        <weightinterval>100-109 kg</weightinterval>
+        <weightinterval>110-119 kg</weightinterval>
+        <weightinterval>&gt;=120 kg</weightinterval>
+    </weightintervals>
+    <kcalintervals>
+        <kcalinterval>&lt;100 kcal</kcalinterval>
+        <kcalinterval>100-499 kcal</kcalinterval>
+        <kcalinterval>500-899 kcal</kcalinterval>
+        <kcalinterval>900-1299 kcal</kcalinterval>
+        <kcalinterval>1300-1699 kcal</kcalinterval>
+        <kcalinterval>1700-2099 kcal</kcalinterval>
+        <kcalinterval>2100-2499 kcal</kcalinterval>
+        <kcalinterval>2500-2899 kcal</kcalinterval>
+        <kcalinterval>&gt;=2900 kcal</kcalinterval>
+    </kcalintervals>
+    <trainingtypes>
+            <trainingtype>Strenght</trainingtype>
+            <trainingtype>Flexibility</trainingtype>
+    </trainingtypes>
+    <shoetypes>
+            <shoetype>Trail</shoetype>
+            <shoetype>Track</shoetype>
+            <shoetype>Road A1</shoetype>
+        <shoetype>Road A2</shoetype>
+        <shoetype>Road A3</shoetype>
+    </shoetypes>
+    <bodyparts>
+        <part>Front Abs</part>
+        <part>Side Abs</part>
+        <part>Arms</part>
+        <part>High Legs</part>
+        <part>Low Legs</part>
+        <part>Chest</part>
+        <part>Back</part>
+    </bodyparts>
+    <strenghtexericises><!-- # http://www.fitclick.com/calories_burned -->
+        <exercise>Crunch<kcal lowerbound="120" upperbound="200">3</kcal>
+        <kcal lowerbound="70" upperbound="120">2</kcal>
+        <kcal lowerbound="0" upperbound="70">1</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">1</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">1</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">2</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">3</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">3</kcalgroup></exercise>
+        <exercise>Plank<kcal lowerbound="120" upperbound="200">3</kcal>
+        <kcal lowerbound="70" upperbound="120">2</kcal>
+        <kcal lowerbound="0" upperbound="70">1</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">1</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">2</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">2</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">2</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">3</kcalgroup></exercise>
+        <exercise>Side Plank<kcal lowerbound="120" upperbound="200">6</kcal>
+        <kcal lowerbound="90" upperbound="120">5</kcal>
+            <kcal lowerbound="70" upperbound="90">4</kcal>
+        <kcal lowerbound="0" upperbound="70">3</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">3</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">4</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">4.5</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">5</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">6</kcalgroup></exercise>
+        <exercise>Squat<kcal lowerbound="120" upperbound="200">6</kcal>
+        <kcal lowerbound="90" upperbound="120">5</kcal>
+            <kcal lowerbound="70" upperbound="90">4</kcal>
+        <kcal lowerbound="0" upperbound="70">3</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">3</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">4</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">4.5</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">5</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">6</kcalgroup></exercise>
+        <exercise>Push-up<kcal lowerbound="120" upperbound="200">5</kcal>
+            <kcal lowerbound="40" upperbound="120">2</kcal>
+        <kcal lowerbound="0" upperbound="40">1</kcal>
+        <kcalgroup lowerbound="90" upperbound="101">2</kcalgroup>
+        <kcalgroup lowerbound="80" upperbound="90">2</kcalgroup>
+        <kcalgroup lowerbound="70" upperbound="80">2</kcalgroup>
+        <kcalgroup lowerbound="60" upperbound="70">2</kcalgroup>
+        <kcalgroup lowerbound="0" upperbound="60">5</kcalgroup></exercise>
+    </strenghtexericises>
+    <flexibilityexercises>
+        <exercise>Standing Closed Legs Stretch</exercise>
+        <exercise>Standing Open Legs Stretch</exercise>
+        <exercise>Sitting Closed Legs Stretch</exercise>
+        <exercise>Standing Open Legs Stretch</exercise>
+        <exercise>Frog Stretch</exercise>
+        <exercise>Single Leg Standing Front Stretch</exercise>
+        <exercise>Single Leg Standing Back Stretch</exercise>
+        <exercise>Arm Extension Back Stretch</exercise>
+        <exercise>Cross-Body Shoulder Stretch</exercise>
+    </flexibilityexercises>
+</filters>

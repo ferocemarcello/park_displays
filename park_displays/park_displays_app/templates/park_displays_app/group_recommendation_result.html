@@ -2,12 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>weather</title>
+    <title>grouprecommendations</title>
 </head>
 <body>
-{{context}}
-
 <div id="openweathermap-widget-15"></div>
 <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,cityid: '2867714',appid: '383e70bba76730ecf8c30b9bcad1f3f2',units: 'metric',containerid: 'openweathermap-widget-15',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+
+<form action='' enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+          {{ number_of_components }}<br>
+          {{ number_of_males }}<br>
+          {{ number_not_adult }}<br>
+    {{ number_of_olds }}<br>
+    {{ average_age }}<br>
+    {{ minimum_age }}<br>
+    {{ max_age }}<br>
+    {{ typeselection }}<br>
+    <br>recommendation:
+    <br>{{ exercises }}
+</form>
+<input id="intensity" type="range" value="50" min="1" max="100" step="1"> Intensity </input><br>
+
 </body>
 </html>

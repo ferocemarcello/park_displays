@@ -5,8 +5,17 @@
     <title>Start page</title>
 </head>
 <body>
+<form action='login' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Login</button>
+</form>
+
+<div id="openweathermap-widget-15"></div>
+<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,cityid: '2867714',appid: '383e70bba76730ecf8c30b9bcad1f3f2',units: 'metric',containerid: 'openweathermap-widget-15',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+
 <form action='runwalk' method='POST'>
     {% csrf_token %}
+    <input type="text" name="location" hidden=true/>
 <button type='submit'> running walking</button>
 </form>
 <br>
@@ -14,17 +23,21 @@
     {% csrf_token %}
 <button type='submit'> freeweight exercises</button>
 </form>
+
 <form action='outdoorgym' method='POST'>
     {% csrf_token %}
-<button type='submit'> outdoor gym</button>
+    <input type="text" name="location" hidden=true/>
+<button type='submit'>Outdoor Gym</button>
 </form>
+
 <form action='groupfitness' method='POST'>
     {% csrf_token %}
-<button type='submit'>group fitness</button>
+<button type='submit'>Group Fitness</button>
 </form>
-<form action='weather' method='POST'>
+<form action='similarusers' method='POST'>
     {% csrf_token %}
-<button type='submit'>Weather forecast</button>
+    <input type="text" name="location" hidden=true/>
+<button type='submit'>Find Similar Users</button>
 </form>
 <form action='emergency' method='POST'>
     {% csrf_token %}
@@ -32,8 +45,26 @@
 </form>
 <form action='parkdetails' method='POST'>
     {% csrf_token %}
+    <input type="text" name="location" hidden=true/>
 <button type='submit'>Park details</button>
 </form>
 {{ context }}
 </body>
+<script>
+        var pos=""
+        function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(setPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+  function setPosition(position) {
+
+      pos=[position.coords.latitude,position.coords.longitude];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+}
+}
+getLocation();</script>
 </html>

@@ -23,20 +23,23 @@
     input[type="range"] {
         width:400px;}
         </style>
-    <script>
-
-    </script>
 </head>
 <body>
+<div id="openweathermap-widget-15"></div>
+<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,cityid: '2867714',appid: '383e70bba76730ecf8c30b9bcad1f3f2',units: 'metric',containerid: 'openweathermap-widget-15',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
 
 <div id="map" style="position:absolute; left:10px; top:70%; width:800px; height:960px;background-color:white">
 {{ pathcheckboxes }}
 {{ watercheckbox }}
+    <form action='path_detail' method='POST'>
+    {% csrf_token %}
+<button type='submit'>Click on the path and get path details</button>
+</form>
 </div>
 <script>
     var fountains={{ fountains|safe}};
 var paths={{paths|safe}};
-var pathtypes={{pathtypes|safe}}
+var pathtypes={{pathtypes|safe}};
 var polylines=Array(Object.keys(paths).length*Object.keys(paths[0]).length).fill(null);
 var startfinishmarkers=Array(Object.keys(paths).length).fill(null);
         function calculateRouteFromAtoB (platform,waypoints,col,pathindex) {
@@ -109,6 +112,7 @@ function addRouteShapeToMap(route,col,pathindex){
     arrows: { fillColor: 'white', frequency: 2, width: 1.2, length: 0.9 },
     visibility:true
   });
+  debugger;
   // Add the polyline to the map
   map.addObject(polyline);
   // And zoom to its bounding rectangle
@@ -143,13 +147,14 @@ var bubble
         if(show){
             try {
                 for (i = 0; i < listofpaths.length; i++) {
+                    debugger;
                     map.addObject(polylines[i]);
                     map.addObject(startfinishmarkers[i][0]);
                     map.addObject(startfinishmarkers[i][1]);
                 }
             }
               catch(err){
-                      null;
+                console.error(err.message || err);
                   }
           }
 
@@ -173,8 +178,8 @@ var mapContainer = document.getElementById('map');
 
 //Step 1: initialize communication with the platform
 var platform = new H.service.Platform({
-  app_id: 'KfjYxKFR65JNn6KGSink',
-  app_code: '--NDudeZYCPWjK333-3TxQ',
+  app_id: "{{ app_id }}",
+  app_code: "{{ app_code }}",
   useCIT: true,
   useHTTPS: true
 });
@@ -187,7 +192,9 @@ platform.configure(H.map.render.panorama.RenderEngine);
 //Step 2: initialize a map
 map = new mapsjs.Map(mapContainer, defaultLayers.normal.map, {
   });
-map.setCenter({lat:48.148673, lng:11.589373});
+lat={{ parkcoord|safe }}[0];
+lng={{ parkcoord|safe }}[1];
+map.setCenter({lat:lat, lng:lng});
 map.setZoom(15);
 
 //Step 3: make the map interactive
@@ -197,7 +204,7 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers,'en-US');
-for(var i=0; i<fountains.length;i++){//excluding depot
+for(var i=0; i<fountains.length;i++){
     var waterfountainicon=new H.map.Icon("{% static 'park_displays_app/water.png' %}", {size: {w: 32, h: 32}});
     var waterfountain=new H.map.Marker({lat:fountains[i][0], lng:fountains[i][1]},{icon:waterfountainicon});
     var watermarkertext="";
@@ -224,20 +231,20 @@ for(var i=0;i<Object.keys(paths).length;i++){
     if(terrtypsel0.value=="Pavement"){
           pathswecare=pathtypes[0];
         //true if to show
-        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths(pathswecare,true);
-        else terrtypsel0.onclick = showhidepaths(pathswecare,false);
+        if(terrtypsel0.checked) terrtypsel0.onclick = showhidepaths.bind(null,pathswecare,false);
+        else terrtypsel0.onclick = showhidepaths.bind(null, pathswecare,true);
     }
     var terrtypsel1=document.getElementById('terraintypeselection_1');
     if(terrtypsel1.value=="Gravel"){
           pathswecare=pathtypes[1];
-          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths(pathswecare,true);
-        else terrtypsel1.onclick = showhidepaths(pathswecare,false);
+          if(terrtypsel1.checked) terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,false);
+        else terrtypsel1.onclick = showhidepaths.bind(null, pathswecare,true);
     }
     var terrtypsel2=document.getElementById('terraintypeselection_2');
     if(terrtypsel2.value=="Dirt"){
           pathswecare=pathtypes[2];
-          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths(pathswecare,true);
-        else terrtypsel2.onclick = showhidepaths(pathswecare,false);
+          if(terrtypsel2.checked) terrtypsel2.onclick = showhidepaths.bind(null,pathswecare,false);
+        else terrtypsel2.onclick = showhidepaths.bind(null, pathswecare,true);
     }
 
 

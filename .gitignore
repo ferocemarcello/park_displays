@@ -105,4 +105,8 @@ venv.bak/
 
 #PyCharm # 
 /.idea
+.idea/
 *.iws /out/ 
+
+park_displays_app/migrations/
+../node_modules/

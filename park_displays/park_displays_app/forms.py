@@ -23,7 +23,8 @@ class CheckBox(forms.Form):
 class Dropdown(forms.Form):
     selection = forms.ChoiceField(label="", widget=forms.Select, choices=[])
 
-    def __init__(self,label=None, *args, **kwargs):
+    def __init__(self,label=None, choices=[], *args, **kwargs):
         super(Dropdown, self).__init__(*args, **kwargs)
-        if label:
+        if label and len(choices)>0:
             self.fields['selection'].label=label
+            self.fields['selection'].choices = choices

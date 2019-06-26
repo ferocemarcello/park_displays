@@ -4,12 +4,12 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faArrowDown,
   faArrowLeft, faArrowsAltH, faArrowUp, faCaretDown, faCaretUp,
-  faChevronRight, faCircle, faClock, faLayerGroup,
+  faChevronRight, faCircle, faClock, faHome, faLayerGroup,
   faMap,
   faMedkit,
   faPlus,
   faSun,
-  faTimes,
+  faTimes, faTrophy,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
@@ -36,7 +36,9 @@ library.add([
   faLayerGroup,
   faCaretDown,
   faCaretUp,
-  faCircle
+  faCircle,
+  faTrophy,
+  faHome
 ]);
 
 ReactDOM.render(<App />, document.getElementById('root'));

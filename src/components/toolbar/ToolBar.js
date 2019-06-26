@@ -10,7 +10,10 @@ class ToolBar extends Component {
 
     return (
       <div className="toolbar" id="appToolbar">
-        <BackToolbarItem history={this.props.history} />
+        {
+          //<BackToolbarItem history={this.props.history} />
+        }
+        <ToolBarItem text="Home" icon="home" to="/" />
         <ToolBarItem text="Emergency" icon="medkit" to="/emergency" />
         <ToolBarItem text="Park Map" icon="map" to="/map" />
         <ToolBarItem text="Weather Forecast" icon="sun" to="/weather" />

@@ -4,7 +4,7 @@
   flex-direction: column;
   background: url('/bg.jpg') no-repeat center center fixed;
   backgroundSize: cover;
-  height: 100%;
+  min-height: 100%;
 }
 
 .TextSection {
@@ -24,4 +24,39 @@
   height: 300px;
   width: 300px;
   text-align: center;
+}
+
+.Trophy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7rem;
+  font-size: 20rem;
+  color: gold;
+  flex-direction: column;
+
+  &>span {
+    font-size: 5rem;
+  }
+}
+
+.StartButton {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid #007bff;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  color: #fff;
+  background-color: #007bff;
+  text-decoration: none;
+  position: absolute;
+  bottom: 100px;
+  width: calc(100vw - 64px);
+  left: 32px;
 }

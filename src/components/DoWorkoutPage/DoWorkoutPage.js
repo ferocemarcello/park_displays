@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from './DoWorkoutPage.module.scss';
@@ -62,14 +63,6 @@ class DoWorkoutPage extends Component {
       });
   };
 
-  setBreakSecs = (value) => {
-    this.setState(prevState => ({
-      ...prevState,
-      secsBreak: value,
-      startBreak: value
-    }));
-  };
-
   render() {
     const { round, exercise, secsBreak, startBreak, finished } = this.state;
 
@@ -96,8 +89,11 @@ class DoWorkoutPage extends Component {
         return (
           <div className={styles['DoWorkoutPage']}>
             <section className={styles['TextSection']}>
-              <h2>{workout.name} {round} {exercise}</h2>
-              <h1>FINISH</h1>
+              <h2>{workout.name}</h2>
+              <div className={styles['Trophy']}>
+                <span>WORKOUT COMPLETED</span>
+                <FontAwesomeIcon icon="trophy" />
+              </div>
             </section>
           </div>
         );
@@ -108,9 +104,12 @@ class DoWorkoutPage extends Component {
       return (
         <div className={styles['DoWorkoutPage']}>
           <section className={styles['TextSection']}>
-            <h2>{workout.name} {round} {exercise}</h2>
-            <h1>{currentExercise.name}</h1>
-            <button onClick={this.nextButtonClick}>Next Exercise</button>
+            <h2>{workout.name}</h2>
+            <h1>{workout.rounds[round].exercises[exercise].reps}x {currentExercise.name}</h1>
+            <div style={{textAlign: 'center', paddingTop: '1rem'}}>
+              <img src={currentExercise.image} style={{width: '80%'}} />
+            </div>
+            <button onClick={this.nextButtonClick} className={styles['StartButton']}>Next Exercise</button>
           </section>
         </div>
       );
@@ -123,7 +122,7 @@ class DoWorkoutPage extends Component {
       if (this.state.secsBreak !== null) {
         this.decreaseBreakSecs();
       }
-    }, 100);
+    }, 1000);
   }
 }
 

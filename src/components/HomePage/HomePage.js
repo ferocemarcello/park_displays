@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import styles from './HomePage.module.scss';
 import Glide from '@glidejs/glide';
-
 import RunWalkData from '../../data/RunWalkData';
+import BodyweightData from '../../data/BodyweightData';
 
 class CircleBar extends Component {
   render() {
@@ -90,7 +90,7 @@ class HomePage extends Component {
             <div className={styles['SectionTitle']}>Running / Walking</div>
             <div className={styles['SectionDescription']}>Routes for walking</div>
             <Slider sliderId={1}>
-              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise_ ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" linkTo="/test1" />) }
+              { RunWalkData.map((track, i) => i > 12 ? null : <SliderItem key={i} title={track.name} text="" difficulty="1" duration="1" linkTo={`/runwalk/track/${track.id}`} />) }
             </Slider>
             <ShowAllLink to="/runwalk" />
           </div>
@@ -100,7 +100,7 @@ class HomePage extends Component {
             <div className={styles['SectionTitle']}>Bodyweight</div>
             <div className={styles['SectionDescription']}>Powerful Workouts</div>
             <Slider sliderId={2}>
-              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
+              { BodyweightData.exercises.map((exercise, i) => i > 12 ? null : <SliderItem key={i} title={exercise.name} text="" difficulty={exercise.difficulty} duration="1" linkTo={`/bodyweight/exercises/${exercise.id}`} />) }
             </Slider>
             <ShowAllLink to="/bodyweight" />
           </div>
@@ -110,7 +110,7 @@ class HomePage extends Component {
             <div className={styles['SectionTitle']}>Gym</div>
             <div className={styles['SectionDescription']}>Workouts with equipment</div>
             <Slider sliderId={3}>
-              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
+              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Gym Exercise ${i}`} text="This is a placeholder" difficulty="3" duration="1" />) }
             </Slider>
             <ShowAllLink to="/gym" />
           </div>
@@ -120,12 +120,14 @@ class HomePage extends Component {
             <div className={styles['SectionTitle']}>Group Fitness</div>
             <div className={styles['SectionDescription']}>Community powered Workouts</div>
             <Slider sliderId={4}>
-              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Exercise ${i}`} text="This is the body Text<br/>it can have multiple lines" difficulty="3" duration="1" />) }
+              { [...Array(13).keys()].map(i => <SliderItem key={i} title={`Group Exercise ${i}`} text="This is a placeholder" difficulty="3" duration="1" />) }
             </Slider>
             <ShowAllLink to="/groupfitness" />
           </div>
         </section>
-        <section className={styles['NutritionSection']}>
+        {
+          /*
+          <section className={styles['NutritionSection']}>
           <div>
             <div className={styles['SectionTitle']}>Nutrition</div>
             <div className={styles['SectionDescription']}>Find places to fuel up after workout</div>
@@ -135,6 +137,8 @@ class HomePage extends Component {
             <ShowAllLink to="/nutrition" />
           </div>
         </section>
+           */
+        }
       </div>
     )
   }

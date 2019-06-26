@@ -12,7 +12,12 @@ class BodyweightExerciseDetailPage extends Component {
         <section className={styles['TextSection']}>
           <h2>Bodyweight Exercise</h2>
           <h1>{exercise.name}</h1>
-
+          <div style={{display: 'flex'}}>
+            <img src={exercise.image} style={{width: 'calc(50% - 16px)'}} />
+            <div style={{width: 'calc(50% - 16px)'}}>
+              Placeholder
+            </div>
+          </div>
         </section>
       </div>
     );

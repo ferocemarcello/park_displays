@@ -12,7 +12,7 @@ class BodyweightWorkoutDetailPage extends Component {
         <section className={styles['TextSection']}>
           <h2>Bodyweight Workout</h2>
           <h1>{workout.name}</h1>
-          <Link to={`/workouts/bodyweight/${workout.id}/do`}>Start Workout</Link>
+          <Link to={`/workouts/bodyweight/${workout.id}/do`} className={styles['StartButton']}>Start Workout</Link>
           <h3>Important Information</h3>
           Exercises
           <h3>Overview</h3>

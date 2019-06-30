@@ -128,7 +128,7 @@ for(var i=0; i<gymtoolscoordinates.length;i++){
 }
  var pos=""
         function getLocation() {
-            if (navigator.geolocation.getCurrentPosition(function (x) {  })==undefined){
+            if (navigator.geolocation.getCurrentPosition(function (x) {  })!=undefined){
                 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(setPosition);
   }

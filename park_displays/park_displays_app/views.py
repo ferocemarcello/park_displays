@@ -35,13 +35,18 @@ def emergency(request):
     return HttpResponse(template.render(context, request))
 
 def runwalkrecresult(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     gender=""
     age=0
     weight=0
@@ -263,14 +268,18 @@ def gymrecresult(request):
         if len(request.FILES.getlist('file_field')) == 2:
             coordinatesfile = request.FILES.getlist('file_field')[0]'''
 
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkname = park[0]
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     gender = ""
     age = 0
     weight = 0
@@ -467,14 +476,18 @@ def login(request):
     }
     return HttpResponse(template.render(context, request))
 def similarusers(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkname = park[0]
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     datamng = ParkManager(parkname, xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
     runners=datamng.getRunners()
@@ -499,14 +512,18 @@ def similarusers(request):
     }
     return HttpResponse(template.render(context, request))
 def outdoorgym(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkname = park[0]
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     datamng = ParkManager(parkname, xmlmng,pathtypes=path_types, gymtooltypes=gymtool_types)
@@ -554,14 +571,18 @@ def outdoorgym(request):
     return HttpResponse(template.render(context, request))
 
 def parkdetails(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkname = park[0]
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     template = loader.get_template('park_displays_app/parkdetails.html')
     xmlmng=XmlManager(os.path.dirname(os.path.realpath(__file__))+os.sep+"xmldata"+os.sep+"park_data.xml")
     datamng = ParkManager(parkname, xmlmng, pathtypes=path_types, gymtooltypes=gymtool_types)
@@ -599,14 +620,18 @@ def parkdetails(request):
     return HttpResponse(template.render(context, request))
 
 def runwalk(request):
-    location=request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkname = park[0]
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     xml = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
 
     template = loader.get_template('park_displays_app/run_walk.html')
@@ -725,14 +750,18 @@ def groupfitness(request):
     }
     return HttpResponse(template.render(context, request))
 def findgroups(request):
-    location = request.POST.get('location')
-    location = location.split(',')
-    location[0] = float(location[0])
-    location[1] = float(location[1])
-    xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
-    park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
-    parkname = park[0]
-    parkcoord = list(park[1])
+    try:
+        location = request.POST.get('location')
+        location = location.split(',')
+        location[0] = float(location[0])
+        location[1] = float(location[1])
+        xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")
+        park = ParkManager.getParkFromLocation(location=location, xmlmanager=xmlmng)
+        parkname = park[0]
+        parkcoord = list(park[1])
+    except:
+        parkname = 'englischer_garten'
+        parkcoord = [48.164187, 11605617]
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "athlete_filters.xml")
     trainingtypes=[(x,x) for x in xmlmng.getTrainingTypes()]+[('Both','Both')]
     xmlmng = XmlManager(os.path.dirname(os.path.realpath(__file__)) + os.sep + "xmldata" + os.sep + "park_data.xml")

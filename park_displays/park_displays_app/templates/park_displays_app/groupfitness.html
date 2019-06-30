@@ -34,6 +34,7 @@
 </form>
 </body>
 <script>
+    try {
         var pos=""
         function getLocation() {
   if (navigator.geolocation) {
@@ -49,5 +50,13 @@
     }
 }
 }
-getLocation();</script>
+getLocation();
+    }
+catch(error) {
+        pos=[48.164187, 11605617];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+}
+</script>
 </html>

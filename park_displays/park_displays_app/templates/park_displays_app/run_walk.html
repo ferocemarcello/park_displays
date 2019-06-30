@@ -223,6 +223,7 @@ for(var i=0;i<Object.keys(paths).length;i++){
 </script>
 </body>
 <script>
+        try {
         var pos=""
         function getLocation() {
   if (navigator.geolocation) {
@@ -238,5 +239,13 @@ for(var i=0;i<Object.keys(paths).length;i++){
     }
 }
 }
-getLocation();</script>
+getLocation();
+    }
+catch(error) {
+        pos=[48.164187, 11605617];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+}
+</script>
 </html>

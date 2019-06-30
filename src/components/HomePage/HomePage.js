@@ -66,7 +66,8 @@ class Slider extends Component {
       type: 'slider',
       startAt: 0,
       perView: 5,
-      focusAt: 'center'
+      focusAt: 'center',
+      slideWidth: 300
     }).mount();
   }
 }

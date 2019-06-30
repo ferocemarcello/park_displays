@@ -7,7 +7,8 @@ class ConnectModal extends Component {
     const { closeConnectModal } = this.props;
 
     return (
-      <div className={styles['modalWrapper']} onClick={closeConnectModal}>
+      <div className={styles['modalWrapper']}>
+        <div className={styles['background']} onClick={closeConnectModal}></div>
         <div className={styles['modalInner']}>
           <div style={{display: 'flex', marginBottom: 16}}>
             <h2 className={styles['title']}>Connect</h2>
@@ -25,13 +26,14 @@ class ConnectModal extends Component {
             </div>
             <button className={styles['socialButton']} style={{marginTop: 0}}>Log In</button>
           </form>
-
+          { /*
           <div style={{marginTop: 10}}>
             <button className={styles['socialButton']}><FontAwesomeIcon icon={['fab', 'strava']} />&nbsp;&nbsp;Login with Strava</button>
             <button className={styles['socialButton']}><FontAwesomeIcon icon={['fab', 'facebook']} />&nbsp;&nbsp;Login with Facebook</button>
             <button className={styles['socialButton']}>Login with Garmin Connect</button>
             <button className={styles['socialButton']}>Login with Polar</button>
           </div>
+          */ }
         </div>
       </div>
     );

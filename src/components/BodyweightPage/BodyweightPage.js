@@ -59,6 +59,12 @@ class BodyweightPage extends Component {
     this.state = {
       filterSectionExpanded: false,
       displayType: 'EXERCISES',
+      duration: 120,
+      difficulty: {
+        easy: true,
+        medium: true,
+        hard: true
+      },
       muscleGroups: {
         abs: true,
         biceps: true,
@@ -101,8 +107,67 @@ class BodyweightPage extends Component {
     }));
   };
 
+  toggleDifficultyFilterGroup = (evt) => {
+    const { value } = evt.target;
+
+    this.setState((prevState) => ({
+      ...prevState,
+      difficulty: {
+        ...prevState.difficulty,
+        [value]: !prevState.difficulty[value]
+      }
+    }));
+  };
+
+  muscleGroupFilter = (exercise) => {
+    const muscleGroups = Object.keys(this.state.muscleGroups)
+      .filter(muscleGroup => this.state.muscleGroups[muscleGroup])
+      .map(muscleGroup => muscleGroup.toUpperCase());
+
+    for (let index in exercise.muscleGroups) {
+      if (muscleGroups.includes(exercise.muscleGroups[index])) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  difficultyFilter = (exercise) => {
+    const { easy, medium, hard } = this.state.difficulty;
+
+    return (
+      (easy && exercise.difficulty === 1) ||
+      (medium && exercise.difficulty === 2) ||
+      (hard && exercise.difficulty === 3)
+    );
+  };
+
+  formatDuration = (durationInMinutes) => {
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = durationInMinutes - hours * 60;
+
+    if (hours > 0 && minutes === 0) {
+      return `${hours}h`;
+    }
+
+    if (hours > 0) {
+      return `${hours}h ${minutes}min`;
+    }
+
+    return `${minutes}min`;
+  };
+
+  durationFilterChange = (evt) => {
+    const { value } = evt.target;
+    this.setState(prevState => ({
+      ...prevState,
+      duration: value
+    }));
+  };
+
   render() {
-    const { filterSectionExpanded, displayType, muscleGroups } = this.state;
+    const { filterSectionExpanded, displayType, muscleGroups, difficulty } = this.state;
 
     return (
       <div className={styles['BodyweightPage']} style={{background: 'url(\'/bg.jpg\') no-repeat center center fixed', backgroundSize: 'cover'}}>
@@ -115,7 +180,7 @@ class BodyweightPage extends Component {
             <FontAwesomeIcon icon={filterSectionExpanded ? 'caret-up' : 'caret-down'} />
           </div>
         </div>
-        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 200 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
+        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 240 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
           <table className={styles['FilterTable']}>
             <tbody>
             <tr>
@@ -126,12 +191,16 @@ class BodyweightPage extends Component {
               </td>
             </tr>
             <tr>
-              <td scope="row">Duration</td>
-              <td><input type="range" min="0" max="100" /></td>
+              <td scope="row">Duration ({this.formatDuration(this.state.duration)})</td>
+              <td><input type="range" min="5" max="180" value={this.state.duration} onChange={this.durationFilterChange} /></td>
             </tr>
             <tr>
               <td scope="row">Difficulty</td>
-              <td><input type="range" min="0" max="100" /></td>
+              <td>
+                <input type="checkbox" name="difficulty" value="easy" checked={difficulty.easy} onChange={this.toggleDifficultyFilterGroup} /> Easy&nbsp;&nbsp;
+                <input type="checkbox" name="difficulty" value="medium" checked={difficulty.medium} onChange={this.toggleDifficultyFilterGroup} /> Medium&nbsp;&nbsp;
+                <input type="checkbox" name="difficulty" value="hard" checked={difficulty.hard} onChange={this.toggleDifficultyFilterGroup} /> Hard&nbsp;&nbsp;
+              </td>
             </tr>
             <tr>
               <td scope="row">Muscle Groups</td>
@@ -155,7 +224,10 @@ class BodyweightPage extends Component {
         <div className={styles['ListSection']}>
           {
             displayType === 'EXERCISES' ?
-              data.exercises.map((exercise) =>
+              data.exercises
+                .filter(exercise => this.difficultyFilter(exercise))
+                .filter(exercise => this.muscleGroupFilter(exercise))
+                .map((exercise) =>
               <BodyweightExerciseListItem
                 id={exercise.id}
                 image={exercise.image}

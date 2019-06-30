@@ -7,8 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, .6);
-  z-index: 1000;
 }
 
 .modalInner {
@@ -16,6 +14,7 @@
   padding: 28px;
   color: #000;
   width: 350px;
+  z-index: 1000;
 
   & button,
   & input {
@@ -66,4 +65,14 @@
   transition: box-shadow .3s;
 
   margin-top: 16px;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .6);
+  z-index: 990;
 }

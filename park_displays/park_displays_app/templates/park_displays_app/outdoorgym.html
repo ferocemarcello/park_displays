@@ -125,7 +125,8 @@ for(var i=0; i<gymtoolscoordinates.length;i++){
       for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
         document.getElementsByName("location")[i].value=pos.toString();
     }
-        var pos=""
+}
+ var pos=""
         function getLocation() {
             if (navigator.geolocation.getCurrentPosition(function (x) {  })==undefined){
                 if (navigator.geolocation) {
@@ -138,7 +139,6 @@ for(var i=0; i<gymtoolscoordinates.length;i++){
         document.getElementsByName("location")[i].value=pos.toString();
     }
             }
-}
 }
 getLocation();
 </script>

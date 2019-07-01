@@ -1,5 +1,66 @@
 {
   "fountains": [
-
+    {
+      "name": "",
+      "location": {
+        "lat": 48.148329,
+        "lon": 11.590489
+      }
+    },
+    {
+      "name": "",
+      "location": {
+        "lat": 48.147355,
+        "lon": 11.587056
+      }
+    },
+    {
+      "name": "",
+      "location": {
+        "lat": 48.146382,
+        "lon": 11.591733
+      }
+    },
+    {
+      "name": "",
+      "location": {
+        "lat": 48.149560,
+        "lon": 11.586069
+      }
+    }
+  ],
+  "gymtools": [
+    {
+      "name": "Smith Machine",
+      "type": "SMITH",
+      "location": {
+        "lat": 48.156088,
+        "lon": 11.595853
+      }
+    },
+    {
+      "name": "Air Walker",
+      "type": "WALKER",
+      "location": {
+        "lat": 48.154714,
+        "lon": 11.594308
+      }
+    },
+    {
+      "name": "Rower",
+      "type": "ROWER",
+      "location": {
+        "lat": 48.152767,
+        "lon": 11.594695
+      }
+    },
+    {
+      "name": "Weight Bench",
+      "type": "WBENCH",
+      "location": {
+        "lat": 48.152395,
+        "lon": 11.591004
+      }
+    }
   ]
 }

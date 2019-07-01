@@ -5,7 +5,7 @@
       "name": "Burpees",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["UPPERLEG"],
-      "difficulty": 1,
+      "difficulty": 2,
       "image": "https://media.istockphoto.com/photos/burpees-picture-id491208835"
     },
     {
@@ -13,7 +13,7 @@
       "name": "Climbers",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["UPPERLEG", "ABS"],
-      "difficulty": 1,
+      "difficulty": 2,
       "image": "https://media.istockphoto.com/photos/beautiful-energetic-fitness-girl-doing-mountain-climber-exercises-she-picture-id1126709711"
     },
     {
@@ -21,7 +21,7 @@
       "name": "Handstand Push Ups",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["ARMS"],
-      "difficulty": 1,
+      "difficulty": 3,
       "image": "https://media.istockphoto.com/photos/young-man-athlete-doing-extreme-pushups-handstand-as-part-of-picture-id937407100"
     },
     {
@@ -38,14 +38,14 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["UPPERLEG"],
       "difficulty": 1,
-      "image": ""
+      "image": "https://images.ctfassets.net/zblofcfow0jp/asset-3mcfs9yyjgoy1oxh/1a9a11b96233346323440ececafcfbc7/streightleglever.jpg?fm=jpg&fl=progressive&fit=fill&q=76&w=1232&h=496"
     },
     {
       "id": 6,
       "name": "Pull Ups",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["ARMS"],
-      "difficulty": 1,
+      "difficulty": 2,
       "image": "https://media.istockphoto.com/photos/building-his-muscles-picture-id656380588"
     },
     {
@@ -77,8 +77,8 @@
       "name": "Froggers",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["ABS"],
-      "difficulty": 1,
-      "image": ""
+      "difficulty": 2,
+      "image": "https://www.meinefitness.net/wp-content/uploads/Froggers_03.jpg"
     },
     {
       "id": 11,
@@ -86,15 +86,15 @@
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": [],
       "difficulty": 1,
-      "image": ""
+      "image": "https://hiitacademy.com/wp-content/uploads/2015/02/tuck_jumps.jpg"
     },
     {
       "id": 12,
       "name": "Jack Knives",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["ABS"],
-      "difficulty": 1,
-      "image": ""
+      "difficulty": 2,
+      "image": "https://i.ytimg.com/vi/CWOZyf8kaH0/maxresdefault.jpg"
     },
     {
       "id": 13,
@@ -109,7 +109,7 @@
       "name": "One handed Push Ups",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["ARMS"],
-      "difficulty": 1,
+      "difficulty": 3,
       "image": "https://media.istockphoto.com/photos/onehanded-no-problem-picture-id1135544482"
     },
     {
@@ -117,16 +117,16 @@
       "name": "Pistols",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
       "muscleGroups": ["UPPERLEG"],
-      "difficulty": 1,
+      "difficulty": 2,
       "image": "https://www.cheatsheet.com/wp-content/uploads/2015/09/pistols.jpg"
     },
     {
       "id": 16,
-      "name": "Stand Ups",
+      "name": "Plank",
       "youtubeUrl": "https://youtu.be/INOesxF1CZk",
-      "muscleGroups": ["UPPERLEG"],
+      "muscleGroups": ["ABS"],
       "difficulty": 1,
-      "image": ""
+      "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hdm119918mh15842-1545237096.png"
     }
   ],
   "workouts": [

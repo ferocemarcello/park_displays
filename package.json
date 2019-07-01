@@ -2,7 +2,7 @@
   "name": "tum-public-display-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://thomasraith.bplaced.net/tum-master-praktikum",
+  "homepage": "/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",

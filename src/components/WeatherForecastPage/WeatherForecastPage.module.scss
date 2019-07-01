@@ -1,3 +1,32 @@
 .WeatherForecastPage {
+  font-family: 'Russo One', sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: url('/bg.jpg') no-repeat center center fixed;
+  backgroundSize: cover;
+  min-height: 100%;
+}
 
+.TextSection {
+  padding: 16px;
+
+  & > h1, & > h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  & > h2 {
+    color: rgba(0, 0, 0, .35)
+  }
+}
+
+.HourlyForecastSection {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+}
+
+.ForecastHour {
+  background: #fff;
+  padding: 16px;
 }

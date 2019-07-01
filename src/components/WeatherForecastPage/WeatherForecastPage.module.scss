@@ -29,4 +29,16 @@
 .ForecastHour {
   background: #fff;
   padding: 16px;
+  text-align: center;
+  width: 170px;
+
+  &:not(:first-child) {
+    margin-left: 10px;
+  }
+}
+
+.WeatherIcon {
+  height: 60px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }

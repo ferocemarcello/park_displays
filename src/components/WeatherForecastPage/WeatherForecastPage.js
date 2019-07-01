@@ -60,10 +60,6 @@ class WeatherForecastPage extends Component {
             date={date.getHours() + 5}
             weather="Mostly Sunny"
             temp="30" />
-          <ForecastHour
-            date={date.getHours() + 6}
-            weather="Mostly Sunny"
-            temp="29" />
         </section>
       </div>
     )

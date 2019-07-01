@@ -15,11 +15,7 @@ class BodyweightExerciseListItem extends Component {
           <div className={styles['ListItemTextSectionTitle']}>{name}</div>
           <div className={styles['ListItemTextSectionBody']}>
             <p>
-              <FontAwesomeIcon icon="arrows-alt-h" /> {null}&nbsp;&nbsp;&nbsp;
-              <FontAwesomeIcon icon="clock" /> {null}&nbsp;&nbsp;&nbsp;
-              <FontAwesomeIcon icon="arrow-up" /> {null}&nbsp;&nbsp;&nbsp;
-              <FontAwesomeIcon icon="arrow-down" /> {null}&nbsp;&nbsp;&nbsp;
-              <FontAwesomeIcon icon="layer-group" /> {null}
+              <FontAwesomeIcon icon="dumbbell" /> {difficulty}/3&nbsp;&nbsp;&nbsp;
             </p>
           </div>
         </div>

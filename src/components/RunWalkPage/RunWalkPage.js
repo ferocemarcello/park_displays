@@ -52,7 +52,7 @@ class RunWalkPage extends Component {
       },
       duration: 120,
       distance: 5000,
-      hightDifference: 1000
+      hightDifference: 50
     };
   }
 
@@ -189,8 +189,8 @@ class RunWalkPage extends Component {
               <td><input type="range" min="1" max="360" name="duration" value={this.state.duration} onChange={this.handleRangeChange} /></td>
             </tr>
             <tr>
-              <td scope="row">Height Difference  ({this.formatDistance(this.state.heightDifference)})</td>
-              <td><input type="range" min="0" max="1000" step="100" name="hightDifference" value={this.state.hightDifference} onChange={this.handleRangeChange} /></td>
+              <td scope="row">Height Difference  ({this.formatDistance(this.state.hightDifference)})</td>
+              <td><input type="range" min="0" max="500" step="10" name="hightDifference" value={this.state.hightDifference} onChange={this.handleRangeChange} /></td>
             </tr>
             <tr>
               <td scope="row">Ground Type</td>

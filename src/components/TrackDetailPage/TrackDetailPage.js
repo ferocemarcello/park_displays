@@ -4,6 +4,7 @@ import HighchartsReact from 'highcharts-react-official'
 import data from '../../data/RunWalkData.json';
 import styles from './TrackDetailPage.module.scss';
 import { Map, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
+import QRCodeGenerator from 'qrcode-generator';
 import { icon } from 'leaflet';
 
 class TrackDetailPage extends Component {
@@ -17,12 +18,17 @@ class TrackDetailPage extends Component {
 
     const track = data.filter(track => track.id == this.props.match.params.trackId)[0];
 
+    const qrCode = QRCodeGenerator(4, 'H');
+    qrCode.addData('https://www.google.com');
+    qrCode.make();
+
     return (
       <div className={styles['TrackDetailPage']}>
         <section className={styles['TextSection']}>
           <h2>Running & Walking</h2>
           <h1>{track.name}</h1>
-          <div style={{display: 'flex', height: 300}}>
+          {<div dangerouslySetInnerHTML={{ __html: qrCode.createSvgTag() }}></div>}
+          <div style={{display: 'flex', height: 200}}>
             <table className={styles['DetailTable']}>
               <tbody>
               <tr>
@@ -43,7 +49,7 @@ class TrackDetailPage extends Component {
               </tr>
               </tbody>
             </table>
-            <HighchartsReact style={{flex: '1 1 auto'}}
+            <HighchartsReact style={{flex: '1 0 50%'}}
                              highcharts={Highcharts}
                              options={{
                                chart: {

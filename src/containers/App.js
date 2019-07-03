@@ -14,6 +14,8 @@ import BodyweightPage from '../components/BodyweightPage/BodyweightPage';
 import BodyweightExerciseDetailPage from '../components/BodyweightExerciseDetailPage/BodyweightExerciseDetailPage';
 import BodyweightWorkoutDetailPage from '../components/BodyweightWorkoutDetailPage/BodyweightWorkoutDetailPage';
 import DoWorkoutPage from '../components/DoWorkoutPage/DoWorkoutPage';
+import OutdoorGymPage from '../components/OutdoorGymPage/OutdoorGymPage';
+import GroupFitnessPage from '../components/GroupFitnessPage/GroupFitnessPage';
 
 const history = createHashHistory();
 
@@ -56,6 +58,8 @@ class App extends Component {
             <Route path="/bodyweight/workouts/:workoutId" exact component={BodyweightWorkoutDetailPage} />
             <Route path="/bodyweight" exact component={BodyweightPage} />
             <Route path="/workouts/:workoutType/:workoutId/do" exact component={DoWorkoutPage} />
+            <Route path="/gym" exact component={OutdoorGymPage} />
+            <Route path="/groupfitness" exact component={GroupFitnessPage} />
             <Route path="/" exact component={HomePage} />
           </main>
           <ToolBar history={history} showConnectModal={this.showConnectModal} />

@@ -100,3 +100,35 @@
   background-color: #007bff;
   text-decoration: none;
 }
+
+.RecommendationModalWrapper {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.RecommendationModalBackground {
+  background: rgba(0, 0, 0, .5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.RecommendationModalOuter {
+  background: #fff;
+  z-index: 1200;
+}
+
+.RecommendationModalInner {
+  padding: 16px;
+}

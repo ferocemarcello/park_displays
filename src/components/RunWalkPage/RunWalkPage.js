@@ -11,7 +11,7 @@ class TrackListItem extends Component {
     const { trackId, trackName, trackDistance, trackDuration, trackUp, trackDown, trackGroundType, trackAnnotation, waypoints } = this.props;
     return (
       <Link to={`/runwalk/track/${trackId}`} className={styles['ListItem']}>
-        <Map bounds={waypoints} zoom={15} style={{height: 220, width: 440, flexShrink: 0}} zoomControl={false} doubleClickZoom={false} boxZoom={false} dragging={false} keyboard={false} scrollWheelZoom={false} touchZoom={false}>
+        <Map bounds={waypoints} zoom={15} style={{height: 220, width: 300, flexShrink: 0}} zoomControl={false} doubleClickZoom={false} boxZoom={false} dragging={false} keyboard={false} scrollWheelZoom={false} touchZoom={false}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' />
@@ -38,11 +38,74 @@ class TrackListItem extends Component {
   }
 }
 
+class RecommendationModal extends Component {
+  render() {
+    const { hideModal } = this.props;
+
+    return (
+      <div className={styles['RecommendationModalWrapper']}>
+        <div className={styles['RecommendationModalOuter']}>
+          <div className={styles['RecommendationModalInner']}>
+            <h3>Get Recommendations</h3>
+            <table className={styles['FilterTable']}>
+              <tbody>
+              <tr>
+                <td scope="row">Gender</td>
+                <td>
+                  <select name="gender">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                    <option value="D">Diverse</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">Age</td>
+                <td>
+                  <select name="age">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                    <option value="D">Diverse</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">Weight</td>
+                <td>
+                  <select name="weight">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                    <option value="D">Diverse</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">Kcal</td>
+                <td>
+                  <select name="energy">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                    <option value="D">Diverse</option>
+                  </select>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <button className={styles['PrimaryButton']} style={{margin: 16, width: 'calc(100% - 32px)'}}>Get Recommendations</button>
+          </div>
+        </div>
+        <div className={styles['RecommendationModalBackground']} onClick={hideModal}></div>
+      </div>
+    );
+  }
+}
+
 class RunWalkPage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      showRecommendationSettingsModal: false,
       filterSectionExpanded: false,
       mapView: false,
       groundTypes: {
@@ -135,7 +198,6 @@ class RunWalkPage extends Component {
     }));
   };
 
-
   handleGroundTypeFilterChange = (evt) => {
     const { value } = evt.target;
 
@@ -157,9 +219,23 @@ class RunWalkPage extends Component {
     }));
   };
 
+  showRecommendationSettingsModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showRecommendationSettingsModal: true
+    }));
+  };
+
+  hideRecommendationSettingsModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showRecommendationSettingsModal: false
+    }));
+  };
+
 
   render() {
-    const { filterSectionExpanded } = this.state;
+    const { filterSectionExpanded, showRecommendationSettingsModal } = this.state;
 
     const tracks = data.filter(track => this.durationFilter(track))
       .filter(track => this.distanceFilter(track))
@@ -203,9 +279,12 @@ class RunWalkPage extends Component {
             </tbody>
           </table>
         </div>
-        <div style={{textAlign: 'right'}}>
-          <button className={styles['PrimaryButton']} style={{margin: 16}} onClick={this.toggleMapView}>{ this.state.mapView ? <span>View as List</span> : <span>View as Map</span> }</button>
+        <div>
+          {//<button className={styles['PrimaryButton']} style={{margin: 16}} onClick={this.showRecommendationSettingsModal}>Get Recommendations</button>
+          }
+          <button className={styles['PrimaryButton']} style={{margin: 16, float: 'right'}} onClick={this.toggleMapView}>{ this.state.mapView ? <span>View as List</span> : <span>View as Map</span> }</button>
         </div>
+
         {
           this.state.mapView ?
             <Map center={[48.1642323, 11.6033635]} zoom={14} style={{height: 'calc(100vh - 96px)'}}>
@@ -243,6 +322,7 @@ class RunWalkPage extends Component {
               }
             </div>
         }
+        { showRecommendationSettingsModal ? <RecommendationModal hideModal={this.hideRecommendationSettingsModal} /> : null }
       </div>
     )
   }

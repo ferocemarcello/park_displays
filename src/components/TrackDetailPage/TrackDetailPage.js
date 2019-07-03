@@ -19,7 +19,7 @@ class TrackDetailPage extends Component {
     const track = data.filter(track => track.id == this.props.match.params.trackId)[0];
 
     const qrCode = QRCodeGenerator(4, 'H');
-    qrCode.addData('https://www.google.com');
+    qrCode.addData(`https://parkrec.herokuapp.com/#/mobileApp/runwalk/track/${this.props.match.params.trackId}`);
     qrCode.make();
 
     return (
@@ -49,7 +49,7 @@ class TrackDetailPage extends Component {
               </tr>
               </tbody>
             </table>
-            <HighchartsReact style={{flex: '1 0 50%'}}
+            <HighchartsReact style={{flex: '1 0 350px'}}
                              highcharts={Highcharts}
                              options={{
                                chart: {

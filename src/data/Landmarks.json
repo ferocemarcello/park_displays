@@ -32,7 +32,7 @@
   "gymtools": [
     {
       "name": "Smith Machine",
-      "type": "SMITH",
+      "type": "smithMachine",
       "location": {
         "lat": 48.156088,
         "lon": 11.595853
@@ -40,7 +40,7 @@
     },
     {
       "name": "Air Walker",
-      "type": "WALKER",
+      "type": "airWalker",
       "location": {
         "lat": 48.154714,
         "lon": 11.594308
@@ -48,7 +48,7 @@
     },
     {
       "name": "Rower",
-      "type": "ROWER",
+      "type": "rower",
       "location": {
         "lat": 48.152767,
         "lon": 11.594695
@@ -56,7 +56,7 @@
     },
     {
       "name": "Weight Bench",
-      "type": "WBENCH",
+      "type": "weightBench",
       "location": {
         "lat": 48.152395,
         "lon": 11.591004

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styles from './GroupFitnessPage.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import SportingAthletes from '../../data/SportingAtheles';
+import { Map, Marker, TileLayer } from 'react-leaflet';
+import FitnessGroups from '../../data/FitnessGroups';
 import { icon } from 'leaflet';
 
 class GroupFitnessPage extends Component {
@@ -19,28 +18,8 @@ class GroupFitnessPage extends Component {
     };
   }
 
-  leafletGymtoolIcon = icon({
-    iconUrl: 'gymtool.png',
-    iconSize: [32, 32]
-  });
-
-  leafletBodyweightIcon = icon({
-    iconUrl: 'freeweighticon.png',
-    iconSize: [32, 32]
-  });
-
-  leafletRunningIcon = icon({
-    iconUrl: 'runningicon.png',
-    iconSize: [32, 32]
-  });
-
-  leafletWalkingIcon = icon({
-    iconUrl: 'walkingicon.png',
-    iconSize: [32, 32]
-  });
-
-  leafletStretchingIcon = icon({
-    iconUrl: 'stretchingicon.png',
+  leafletGroupIcon = icon({
+    iconUrl: 'groupicon.png',
     iconSize: [32, 32]
   });
 
@@ -68,21 +47,6 @@ class GroupFitnessPage extends Component {
     return selectedGymTools.includes(gymTool.type);
   };
 
-  renderSportingAthlete = (athleteObject) => {
-    switch (athleteObject.type) {
-      case 'RUNNING':
-        return <Marker position={athleteObject.location} icon={this.leafletRunningIcon} />;
-      case 'WALKING':
-        return <Marker position={athleteObject.location} icon={this.leafletWalkingIcon} />;
-      case 'GYM':
-        return <Marker position={athleteObject.location} icon={this.leafletGymtoolIcon} />;
-      case 'BODYWEIGHT':
-        return <Marker position={athleteObject.location} icon={this.leafletBodyweightIcon} />;
-      case 'STRETCHING':
-        return <Marker position={athleteObject.location} icon={this.leafletStretchingIcon} />;
-    }
-  };
-
   render() {
     const { filterSectionExpanded } = this.state;
 
@@ -96,7 +60,7 @@ class GroupFitnessPage extends Component {
         <Map center={[48.1642323, 11.6033635]} zoom={14} style={{height: 'calc(100vh - 180px)', marginTop: 16}}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' />
           {
-            SportingAthletes.map(this.renderSportingAthlete)
+            FitnessGroups.map(fitnessGroup => <Marker position={fitnessGroup.location} icon={this.leafletGroupIcon} />)
           }
         </Map>
       </div>

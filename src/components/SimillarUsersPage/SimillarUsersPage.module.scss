@@ -1,0 +1,62 @@
+.SimillarUsersPage {
+  font-family: 'Russo One', sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: url('/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100%;
+}
+
+.TextSection {
+  padding: 16px;
+
+  &>h1, &>h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  &>h2 {
+    color: rgba(0, 0, 0, .35)
+  }
+}
+
+.FilterSectionHeader {
+  background: rgba(0, 0, 0, .3);
+  padding: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.FilterSectionBody {
+  background: rgba(0, 0, 0, .15);
+  overflow: hidden;
+  padding: 0 16px;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.FilterTable {
+  flex: 1 1 auto;
+  font-weight: 100;
+
+  & td {
+    padding: .75rem;
+    vertical-align: top;
+  }
+}
+
+.PrimaryButton {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid #007bff;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  color: #fff;
+  background-color: #007bff;
+  text-decoration: none;
+}

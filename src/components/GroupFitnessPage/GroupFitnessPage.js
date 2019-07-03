@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styles from './GroupFitnessPage.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
-import Landmarks from '../../data/Landmarks';
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import SportingAthletes from '../../data/SportingAtheles';
 import { icon } from 'leaflet';
 
 class GroupFitnessPage extends Component {
@@ -21,6 +21,26 @@ class GroupFitnessPage extends Component {
 
   leafletGymtoolIcon = icon({
     iconUrl: 'gymtool.png',
+    iconSize: [32, 32]
+  });
+
+  leafletBodyweightIcon = icon({
+    iconUrl: 'freeweighticon.png',
+    iconSize: [32, 32]
+  });
+
+  leafletRunningIcon = icon({
+    iconUrl: 'runningicon.png',
+    iconSize: [32, 32]
+  });
+
+  leafletWalkingIcon = icon({
+    iconUrl: 'walkingicon.png',
+    iconSize: [32, 32]
+  });
+
+  leafletStretchingIcon = icon({
+    iconUrl: 'stretchingicon.png',
     iconSize: [32, 32]
   });
 
@@ -48,10 +68,23 @@ class GroupFitnessPage extends Component {
     return selectedGymTools.includes(gymTool.type);
   };
 
+  renderSportingAthlete = (athleteObject) => {
+    switch (athleteObject.type) {
+      case 'RUNNING':
+        return <Marker position={athleteObject.location} icon={this.leafletRunningIcon} />;
+      case 'WALKING':
+        return <Marker position={athleteObject.location} icon={this.leafletWalkingIcon} />;
+      case 'GYM':
+        return <Marker position={athleteObject.location} icon={this.leafletGymtoolIcon} />;
+      case 'BODYWEIGHT':
+        return <Marker position={athleteObject.location} icon={this.leafletBodyweightIcon} />;
+      case 'STRETCHING':
+        return <Marker position={athleteObject.location} icon={this.leafletStretchingIcon} />;
+    }
+  };
+
   render() {
     const { filterSectionExpanded } = this.state;
-
-    const gymTools = Landmarks.gymtools.filter(gymTool => this.gymToolFilter(gymTool));
 
     return (
       <div className={styles['GroupFitnessPage']}>
@@ -59,38 +92,11 @@ class GroupFitnessPage extends Component {
           <h2>Group Fitness</h2>
 
         </section>
-        <div className={styles['FilterSectionHeader']} onClick={this.toggleFilterSection}>
-          <div style={{float: 'left'}}>Filter Gym Machine Types</div>
-          <div style={{float: 'right'}}>
-            <FontAwesomeIcon icon={filterSectionExpanded ? 'caret-up' : 'caret-down'} />
-          </div>
-        </div>
-        <div className={styles['FilterSectionBody']} style={{height: this.state.filterSectionExpanded ? 50 : 0, padding: this.state.filterSectionExpanded ? 16 : null}}>
-          <table className={styles['FilterTable']}>
-            <tbody>
-            <tr>
-              <td scope="row">Machine Types</td>
-              <td>
-                <input type="checkbox" name="gymTool" value="smithMachine" checked={this.state.gymTools.smithMachine} onChange={this.handleGymtoolFilterChange} /> Smith Machine&nbsp;&nbsp;
-                <input type="checkbox" name="gymTool" value="airWalker" checked={this.state.gymTools.airWalker} onChange={this.handleGymtoolFilterChange} /> Air Walker&nbsp;&nbsp;
-                <input type="checkbox" name="gymTool" value="rower" checked={this.state.gymTools.rower} onChange={this.handleGymtoolFilterChange} /> Rower&nbsp;&nbsp;
-                <input type="checkbox" name="gymTool" value="weightBench" checked={this.state.gymTools.weightBench} onChange={this.handleGymtoolFilterChange} /> Weight Bench&nbsp;&nbsp;
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
 
-        <Map center={[48.1642323, 11.6033635]} zoom={14} style={{height: 'calc(100vh - 250px)', marginTop: 16}}>
+        <Map center={[48.1642323, 11.6033635]} zoom={14} style={{height: 'calc(100vh - 180px)', marginTop: 16}}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' />
           {
-            gymTools.map((gymTool, index) => (
-              <Marker position={gymTool.location} icon={this.leafletGymtoolIcon} key={index}>
-                <Popup>
-                  {gymTool.name.replace('\\', '').replace('\\', '')}
-                </Popup>
-              </Marker>
-            ))
+            SportingAthletes.map(this.renderSportingAthlete)
           }
         </Map>
       </div>

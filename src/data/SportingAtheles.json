@@ -1,0 +1,37 @@
+[
+  {
+    "type": "RUNNING",
+    "location": {
+      "lat": 48.143573,
+      "lon": 11.588202
+    }
+  },
+  {
+    "type": "RUNNING",
+    "location": {
+      "lat": 48.144518,
+      "lon": 11.583674
+    }
+  },
+  {
+    "type": "WALKING",
+    "location": {
+      "lat": 48.147195,
+      "lon": 11.591148
+    }
+  },
+  {
+    "type": "GYM",
+    "location": {
+      "lat": 48.152395,
+      "lon": 11.591004
+    }
+  },
+  {
+    "type": "BODYWEIGHT",
+    "location": {
+      "lat": 48.145801,
+      "lon": 11.584811
+    }
+  }
+]

@@ -95,7 +95,7 @@
  * @param  {Object} error  The error message received.
  */
 function onError(error) {
-  alert('Error in showing the route!');
+  //alert('Error in showing the route!');
 }
 
 /**
@@ -223,20 +223,27 @@ for(var i=0;i<Object.keys(paths).length;i++){
 </script>
 </body>
 <script>
-        var pos=""
-        function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(setPosition);
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
-  function setPosition(position) {
+    function setPosition(position) {
 
       pos=[position.coords.latitude,position.coords.longitude];
       for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
         document.getElementsByName("location")[i].value=pos.toString();
     }
 }
+ var pos=""
+        function getLocation() {
+            if (navigator.geolocation.getCurrentPosition(function (x) {  })!=undefined){
+                if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(setPosition);
+  }
+            }
+            else{
+                pos=[48.164187, 11605617];
+      for(var i=0;i<Object.keys(document.getElementsByName("location")).length;i++){
+        document.getElementsByName("location")[i].value=pos.toString();
+    }
+            }
 }
-getLocation();</script>
+getLocation();
+</script>
 </html>
